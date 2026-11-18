@@ -629,8 +629,8 @@ Update this table at the end of each phase.
 | 4. Portfolio | Done | 2026-11-17 | c786a5a, 257343a |
 | 5. Scenarios | Done | 2026-11-17 | fda2fdf |
 | 6. Hedging | Done | 2026-11-17 | c3fc7db |
-| 7. Snapshot, API, placeholder interface | Done; awaiting go-ahead | 2026-11-17 | 294ea04 |
-| 8. AI analyst and verification | Not started | | |
+| 7. Snapshot, API, placeholder interface | Done | 2026-11-17 | 294ea04 |
+| 8. AI analyst and verification | Done; live smoke test and cap values awaiting approval | 2026-11-17 | 9255a66 |
 | 9. Evals | Not started | | |
 | 10. Strategy artifacts and About page | Not started | | |
 | 11. Implement the handed-off design | Not started | | |
