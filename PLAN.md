@@ -630,8 +630,8 @@ Update this table at the end of each phase.
 | 5. Scenarios | Done | 2026-11-17 | fda2fdf |
 | 6. Hedging | Done | 2026-11-17 | c3fc7db |
 | 7. Snapshot, API, placeholder interface | Done | 2026-11-17 | 294ea04 |
-| 8. AI analyst and verification | Done; live smoke test and cap values awaiting approval | 2026-11-17 | 9255a66 |
-| 9. Evals | Not started | | |
+| 8. AI analyst and verification | Done; live question passed, commentary fixed (D-064), rerun awaiting approval | 2026-11-18 | 9255a66, 5ea20ab |
+| 9. Evals | Built and dry-run; real-model runs awaiting cost approval | 2026-11-18 | 00b1903 |
 | 10. Strategy artifacts and About page | Not started | | |
 | 11. Implement the handed-off design | Not started | | |
 | 12. Production deploy and final documents | Not started | | |
