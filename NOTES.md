@@ -1715,3 +1715,49 @@ accounts. US supervisors' guidance on managing that risk is SR 26-2 (April
    - **Two scatter labels drawn on top of each other.**
 
    Tests check behaviour, so looking at the screens is still needed.
+
+## Phase 12. Production deploy and final documents
+
+### What was built
+
+- **[RESULTS.md](RESULTS.md):** the numbers that can go on a resume, generated
+  by [scripts/make_results.py](scripts/make_results.py).
+  - It covers QuantLib agreement per measure, eval accuracy per model, and
+    cost per question, each with its date, model ID and sample size.
+  - A test re-reads every number with the project's own verifier against the
+    source files.
+- **[MODEL_CARD.md](MODEL_CARD.md):** intended and out-of-scope use,
+  components, assumptions, limitations, validation evidence, the verification
+  tolerance and the human review procedure. Every number in it is checked the
+  same way.
+- **[scripts/smoke_live.py](scripts/smoke_live.py):** the live check.
+  - It covers health, the data date, one verified AI answer, and the app's own
+    429 once the per-IP cap is passed.
+  - It can tell that 429 apart from the firewall's.
+- **[docs/deploy.md](docs/deploy.md):** the Upstash database, the Vercel
+  environment variables, the firewall rule, the deploy and the smoke test.
+
+### Why this design, and what was rejected
+
+- **Generated, not written, results.** A hand-edited results file drifts and
+  invites rounding up. Rejected: a results section written in the README.
+- **The smoke test checks the app's 429, not just any 429.** A firewall burst
+  rule also answers 429. Counting it would pass the test without proving the
+  daily cap works.
+- **The owner creates the database and sets secrets.** No key passes through
+  the chat or a script's output.
+
+### Interview questions
+
+1. **How do you know the numbers on your resume are right?**
+   RESULTS.md is generated from the evidence files and never edited, and a
+   test re-checks every number in it with the same verifier the AI analyst is
+   held to.
+2. **How would someone bypass your per-IP limit, and why can't they?**
+   By forging the forwarded-IP header. Vercel overwrites `X-Forwarded-For` to
+   prevent exactly that, and a global daily cap bounds the total cost anyway.
+3. **What does your live smoke test prove, and what doesn't it?**
+   - **What it proves:** the deployment serves fresh data, the analyst answers
+     with every number verified, and the daily cap triggers.
+   - **What it doesn't:** that the answers are right in general. The evals
+     measure that, offline.

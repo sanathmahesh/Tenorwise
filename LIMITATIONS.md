@@ -163,6 +163,9 @@ What Tenorwise cannot tell you, and why.
   model book. It is asked to decline those, and Phase 9 tests that it does.
 - **Rate limits are per IP.** Someone with many IP addresses can use more than
   the per-IP cap. The global daily cap bounds the total cost regardless.
+  (Forging the forwarded-IP header does not work: Vercel overwrites it.) The
+  firewall's burst limit is counted per Vercel region, so traffic spread across
+  regions can exceed it; the daily caps in Redis are global.
 - **Cost figures are computed, not billed.** They come from token usage at
   the list prices in `data/llm/prices.json` (re-read from Sail's pricing page;
   the file records the date). They are an upper bound if the provider does not

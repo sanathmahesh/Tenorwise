@@ -1,10 +1,38 @@
 # Tenorwise
 
 An interest-rate risk and hedging tool for a bank-style bond portfolio, with an
-AI analyst whose every number is checked against the calculation engine.
+AI analyst whose every number is checked against the calculation engine before
+it is shown.
 
-**Status:** Phase 11 (the implemented design) done; Phase 10 waits for the owner's effort timings and review of the opportunity map. Eval results: [docs/evidence/evals/report.md](docs/evidence/evals/report.md). The build plan and progress log are in
-[PLAN.md](PLAN.md). There is no live link yet.
+**Live:** https://tenorwise.vercel.app (production deploy pending the owner's approval; see [docs/deploy.md](docs/deploy.md)).
+**Measured results:** [RESULTS.md](RESULTS.md), generated from the evidence files.
+**Build plan and progress log:** [PLAN.md](PLAN.md).
+
+## A two-minute tour
+
+1. **Overview.** A model bank bond portfolio built from public data: Treasury
+   yields from FRED, and a sector mix based on BNY's Form 10-Q. It shows the
+   market value, the unrealized loss and the DV01 (the dollars lost per 0.01%
+   rise in rates). Select a scenario to jump to the hedges.
+2. **Scenarios.** Seven rate moves, including a replay of 2022. Each splits the
+   loss into what reaches AOCI (available-for-sale bonds, which hit equity) and
+   what sits in held-to-maturity bonds and is not recognized. "Price scenario"
+   sends any custom shock to the engine.
+3. **Hedging.** Four swap hedges against seven scenarios. The scatter shows the
+   trade-off: loss avoided against the carry given up.
+4. **Analyst.** Ask a question in plain English.
+   - Every number in the answer is a link to the tool, inputs and method that
+     produced it.
+   - If a number fails the check, the answer is blocked and only the engine's
+     own figures are shown.
+5. **Evidence.** Three language models answered the same 36 questions, graded
+   against the engine, and the pricing code was compared with QuantLib.
+6. **About.** Why this use case was chosen, the risk and control table, the
+   model memo, the rollout plan and the decision log, rendered from
+   `docs/strategy/`.
+
+The mortgage pool is stylized and the IG corporates are a proxy. Nothing here is
+any bank's actual holdings or investment advice.
 
 ## Run locally
 
@@ -126,19 +154,22 @@ Provider probe (makes about 15 small paid calls to the LLM provider):
 uv run --env-file .env python scripts/probe_llm.py
 ```
 
-## Deploy (preview)
+## Deploy
 
-Every deploy needs the owner's approval first (PLAN.md ground rule 10).
+See [docs/deploy.md](docs/deploy.md): the Upstash database, the Vercel environment
+variables, the firewall rule, the deploy command and the live smoke test. Every
+deploy needs the owner's approval first (PLAN.md ground rule 10).
+
+After new evals or a new QuantLib report, regenerate the results file:
 
 ```bash
-npx vercel@65.12.1 deploy --build-env TENORWISE_GIT_SHA=$(git rev-parse --short HEAD)
+uv run python scripts/make_results.py   # RESULTS.md; a test checks every number against the source files
 ```
-
-Vercel runs `scripts/vercel_build.sh` (the Python snapshot, then the Vite
-build) and packages `api/index.py` as the Python function.
 
 ## Documents
 
+- [RESULTS.md](RESULTS.md): measured results only, generated
+- [MODEL_CARD.md](MODEL_CARD.md): intended use, components, evidence and the human review procedure
 - [NOTES.md](NOTES.md): the finance and the design, phase by phase
 - [ASSUMPTIONS.md](ASSUMPTIONS.md) and [LIMITATIONS.md](LIMITATIONS.md)
 - [docs/strategy/](docs/strategy/): opportunity map, effort sheet and timings, model memo, risks and controls, rollout plan (proposal), decision log; all rendered on the About page

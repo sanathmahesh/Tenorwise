@@ -19,88 +19,12 @@ from pathlib import Path
 
 import pytest
 
-from tenorwise.agent.ledger import Ledger
-from tenorwise.agent.numbers import extract_dates, extract_numbers
-from tenorwise.agent.verifier import check_tagged
+from tests.doc_numbers import QUANTLIB, eval_ledger, quantlib_values, untraced
 
 REPO = Path(__file__).resolve().parents[2]
 STRATEGY = REPO / "docs" / "strategy"
 EVALS = REPO / "docs" / "evidence" / "evals"
-QUANTLIB = REPO / "docs" / "evidence" / "quantlib_report.json"
 EFFORT_COLUMNS = ["task_id", "method", "date", "start_time", "end_time", "completed", "matches_engine", "notes"]
-
-MONTHS = "January|February|March|April|May|June|July|August|September|October|November|December"
-IDENTIFIERS = [
-    r"`[^`]*`",  # code spans: model IDs, file paths, test names
-    r"https?://\S+",  # links
-    rf"\b(?:\d{{1,2}} )?(?:{MONTHS}) \d{{4}}\b",  # written dates of sources, e.g. 17 April 2026
-    r"\bSR \d+-\d+\b", r"\bSR 11-7\b", r"\bNIST AI \d+-\d+\b", r"\bOCC Bulletin \d+-\d+\b", r"\bFIL-\d+-\d+\b",
-    r"\bCircular \d+-\d+\b", r"\bASC \d+\b", r"\b12 CFR [\d.()a-z]+",
-    r"\b[Ff]ootnote \d+\b", r"\b[Ss]ections? \d+(?:\.\d+)*\b", r"\b[A-Z]-\d+\b",
-    r"\b[A-F]\d\b",  # question IDs, e.g. E1
-    r"^\s*\|?\s*\d+\s*\|", r"(?m)^#+ \d+\.",  # row and heading numbers
-]
-
-
-def strip_identifiers(text: str) -> str:
-    text = re.sub(r"```.*?```", " ", text, flags=re.S)
-    for pattern in IDENTIFIERS:
-        text = re.sub(pattern, " ", text, flags=re.M)
-    return text
-
-
-def eval_ledger() -> tuple[Ledger, set[str]]:
-    """Every figure in the eval results, in the units a document would print it."""
-    summary = json.loads((EVALS / "summary.json").read_text())
-    led = Ledger()
-    dates = set()
-
-    def add(value, unit, label):
-        led.add(value, unit, label, tool="eval", args={}, method="eval")
-
-    add(len(summary["questions"]), "number", "questions")
-    add(100 * summary["upper_bound_confidence"], "pct", "confidence level of the upper bounds")
-    for m in summary["models"]:
-        for k, v in m.items():
-            if isinstance(v, bool) or v is None:
-                continue
-            if isinstance(v, (int, float)):
-                if k.endswith("_ms"):
-                    add(v / 1000, "number", f"{m['id']} {k} in seconds")
-                elif k.endswith("_usd"):
-                    add(v, "usd", f"{m['id']} {k}")
-                elif "rate" in k or k.startswith("accuracy") or k.endswith("upper_95"):
-                    add(100 * v, "pct", f"{m['id']} {k}")
-                else:
-                    add(v, "number", f"{m['id']} {k}")
-            elif isinstance(v, dict):
-                for kk, vv in v.items():
-                    if isinstance(vv, (int, float)):
-                        add(100 * vv if k.startswith("accuracy") else vv, "pct" if k.startswith("accuracy") else "number",
-                            f"{m['id']} {k} {kk}")
-        dates.update(m["prices_read_on"])
-    for path in sorted((EVALS / "raw").glob("*.jsonl")):
-        for line in path.read_text().splitlines():
-            dates.add(json.loads(line)["finished_at"][:10])
-    return led, dates
-
-
-def quantlib_values(led: Ledger) -> None:
-    report = json.loads(QUANTLIB.read_text())
-    for row in report["quantlib"]:
-        led.add(row["max_abs_diff"], "number", row["measure"], tool="quantlib", args={}, method="quantlib")
-        led.add(row["instruments"], "number", row["measure"] + " instruments", tool="quantlib", args={}, method="quantlib")
-
-
-def untraced(text: str, led: Ledger, dates: set[str]) -> list[str]:
-    clean = strip_identifiers(text)
-    bad = [d for d in extract_dates(clean) if d not in dates]
-    clean = re.sub(r"\d{4}-\d{2}-\d{2}", " ", clean)
-    for tok in extract_numbers(clean):
-        if not any(check_tagged(tok, v).passed for v in led.values.values()):
-            bad.append(tok.text)
-    return bad
-
 
 def read(name: str) -> str:
     return (STRATEGY / name).read_text(encoding="utf-8")
