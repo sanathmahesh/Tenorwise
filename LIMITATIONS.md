@@ -97,3 +97,18 @@ What Tenorwise cannot tell you, and why.
 - **No credit, tax or funding.** Spreads never move, AOCI is pre-tax, and
   carry (Phase 5) ignores funding cost.
 
+## Scenarios
+
+- **Instantaneous and static.** Each scenario is a single jump in rates with
+  nothing happening afterwards: no time passes, bonds don't mature, and
+  nothing is reinvested.
+- **Spreads never move.** Real rate shocks often come with wider credit and
+  mortgage spreads, which would add losses that Tenorwise does not show.
+- **Seven scenarios are not a distribution.** They show what *would* happen
+  under specific moves, not how likely those moves are. There is no
+  value-at-risk.
+- **Carry is not earnings.** It is interest income on today's holdings at
+  their book yields, with no funding cost and no reinvestment at new rates.
+- **The 2022 replay applies 2022's moves to today's curve.** Starting from
+  5% rather than near zero, the same basis-point moves may not be plausible.
+

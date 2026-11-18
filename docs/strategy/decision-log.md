@@ -270,3 +270,23 @@ decision, newest at the bottom. Changes to PLAN.md are recorded here too.
 - **Phase:** 4
 - **Decision:** amounts are in $ millions and DV01 is in $ millions per bp internally. Values, amortized cost, unrealized, DV01 and key-rate DV01s are sums. Duration and convexity are market-value-weighted. `weight` is the share of amortized cost, the basis of the BNY mapping. The contract's `convexity` field is *effective* convexity, so mortgage pools can show negative values. `mod_duration` is yield-based for every position; for mortgage pools it uses the base-scenario projected cash flows at the pool's own yield.
 - **Alternative rejected:** yield-based convexity in the contract. For a mortgage pool it is always positive and hides the prepayment effect.
+
+## D-042. Plan change: the Phase 5 negative-convexity test applies to the near-the-money pool
+
+- **Date:** 2026-11-17, approved by the owner (option A)
+- **Finding:** on the approved BNY-like portfolio at 16 Nov 2026 rates, the agency mortgage sleeve gains $227.6M at −100 bp and loses $206.4M at +100 bp, so it is positively convex as a whole. 89% of the sleeve is 2020–22 pools whose WACs are 3.3 to 4.8 points below today's 7.26% mortgage rate, so even a 2-point rally does not make refinancing worthwhile and they behave like plain bonds. Negative convexity appears only near the money. The 2025 pool (WAC 7.00%) gains 10.6 and loses 12.1 at ±100 bp; the 2023 pool (6.50%) turns negative at ±200 bp.
+- **Change:** PLAN.md Phase 5 now tests "the near-the-money mortgage pool (WAC within 0.5 percentage point of today's mortgage rate) gains less at −100 than it loses at +100". The whole sleeve's asymmetry is reported, not asserted. Phase 3's current-coupon pool test still covers the textbook case.
+- **Alternatives rejected:**
+  - (B) Adding current-coupon pools would contradict the approved BNY book yields (D-036).
+  - (C) Changing the prepayment parameters would not move pools 3 to 5 points out of the money, and the parameters are fixed by the plan.
+
+## D-043. Carry for mortgage pools uses the book yield on the running balance
+
+- **Phase:** 5
+- **Decision:** carry = sum over 12 months of (amortized cost at the start of the month × book yield / 12). For par-bought pools, amortized cost is the balance under the scenario's prepayments. One formula covers bonds and pools. For bullet bonds it reduces exactly to amortized cost × book yield × min(12, months left)/12 (tested).
+- **Alternative rejected:** the pool's net interest received (balance × net coupon / 12). It differs from the plan's "amortized cost times book yield" only by the monthly-to-semiannual compounding conversion, but it would need a second formula.
+
+## D-044. The 2022 replay fixture holds raw FRED responses around both dates
+
+- **Phase:** 5
+- **Decision:** `data/fixtures/fred_treasury_par_replay_2022.json` stores the 11 series' raw responses for 24 Dec 2021 to 3 Jan 2022 and 23 Dec 2022 to 3 Jan 2023. The shock uses only the exact plan dates, and all 11 series have values on both. Measured shock: +406, +436, +457, +434, +368, +325, +273, +252, +236, +220, +207 bp (1M to 30Y). H.15 data, no copyright notice.

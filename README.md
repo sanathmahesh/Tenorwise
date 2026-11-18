@@ -3,7 +3,7 @@
 An interest-rate risk and hedging tool for a bank-style bond portfolio, with an
 AI analyst whose every number is checked against the calculation engine.
 
-**Status:** Phase 4 (portfolio) done. The build plan and progress log are in
+**Status:** Phase 5 (scenarios) done. The build plan and progress log are in
 [PLAN.md](PLAN.md). There is no live link yet.
 
 ## Run locally
@@ -47,6 +47,12 @@ Model portfolio summary by sector and class (add `--positions` for all 38):
 
 ```bash
 uv run python -m tenorwise.portfolio
+```
+
+Seven-scenario table (change in value, AOCI impact, HTM change, 12-month carry):
+
+```bash
+uv run python -m tenorwise.scenarios --by-sector
 ```
 
 Tests:

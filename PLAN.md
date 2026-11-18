@@ -510,7 +510,7 @@ For each phase: write the listed tests first, implement, run the whole suite, up
   - a +/-1 bp shift matches DV01 within 1%;
   - change in value is ordered across -200, -100, +100, +200;
   - AOCI impact equals the AFS change and excludes HTM;
-  - the mortgage sleeve gains less at -100 than it loses at +100;
+  - the near-the-money mortgage pool (WAC within 0.5 percentage point of today's mortgage rate) gains less at -100 than it loses at +100; the whole sleeve's asymmetry is reported, not asserted (reworded 2026-11-17, decision log D-042);
   - the steepener loses and the flattener gains;
   - the 2022 shock equals the fixture differences tenor by tenor;
   - bullet-bond carry equals amortized cost times book yield;

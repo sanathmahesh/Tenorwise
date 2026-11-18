@@ -802,3 +802,136 @@ comparison is a 5.12% Treasury bullet of 7.5 years.
    BNY holds almost no corporate bonds. That sleeve stands in for its other
    fixed-rate credit holdings, mostly foreign covered bonds, modelled as US
    dollar bullets with a 100 bp spread.
+
+---
+
+## Phase 5. Scenarios
+
+### Finance concepts, in plain English
+
+- **Scenario analysis.** Instead of a single sensitivity number like DV01,
+  ask "what if rates did this?" and reprice everything. Tenorwise's
+  scenarios are instantaneous: the curve jumps, then holds still.
+- **Parallel shift.** Every maturity moves by the same amount (±100 or
+  ±200 bp).
+- **Steepener and flattener.** The curve's *shape* changes. In a *bear
+  steepener* rates rise (bad for bondholders, hence "bear"), long rates most:
+  +25 bp up to 2 years rising to +100 bp at 30. In a *bull flattener* rates
+  fall, long rates most. A portfolio hedged only for parallel moves can still
+  lose here.
+- **2022 replay.** During 2022 the Federal Reserve raised rates from near
+  zero, and Treasury yields rose by +406 bp at 1 month, +368 bp at 2 years,
+  +236 bp at 10 years and +207 bp at 30 years (FRED, 31 Dec 2021 to
+  30 Dec 2022). Replaying those moves on today's curve asks: what would a
+  year like 2022 do to this book now?
+- **AOCI impact.** The part of a scenario's loss that reaches reported
+  equity: the change in value of AFS securities, before tax.
+- **HTM change "not recognized".** The HTM part of the loss is just as real
+  economically, but the accounts keep HTM at amortized cost, so it doesn't
+  show in equity. Reporting it separately shows what the accounting hides.
+- **Carry.** What the book earns by simply holding its bonds: interest
+  income over the next 12 months, at the book yields. For mortgage pools the
+  balance shrinks as borrowers repay, so faster prepayment in a rally means
+  less interest. No funding cost, no reinvestment.
+
+### How the code implements it
+
+- [tenorwise/scenarios/definitions.py](tenorwise/scenarios/definitions.py): the
+  seven presets. The steepener and flattener are the key-rate tents scaled by
+  25, 50, 75 and 100 bp, so in between they move in straight lines (3y
+  +33.3, 7y +60, 20y +87.5).
+- [tenorwise/scenarios/replay.py](tenorwise/scenarios/replay.py) and
+  [data/fixtures/fred_treasury_par_replay_2022.json](data/fixtures/fred_treasury_par_replay_2022.json):
+  the 2022 change per tenor from the exact dates, with no filling.
+- [tenorwise/scenarios/revaluation.py](tenorwise/scenarios/revaluation.py):
+  `run_scenario` applies the shock through the same `apply_shock` used
+  everywhere. It reprices every position with spreads held fixed, splits each
+  change into AOCI (AFS) and not-recognized (HTM), and aggregates by sector
+  and class.
+- [tenorwise/scenarios/carry.py](tenorwise/scenarios/carry.py): monthly
+  amortized cost × book yield / 12, over 12 months. For mortgage pools it
+  uses the balance under the scenario's prepayments.
+- `uv run python -m tenorwise.scenarios [--by-sector]` prints the
+  seven-scenario table.
+
+### Results on the pinned data (2026-11-16), computed by the engine
+
+Base market value $8,648.6M; base 12-month carry $298.3M.
+
+| Scenario | Change in value | AOCI (AFS) | HTM, not recognized | Carry |
+|---|---|---|---|---|
+| +100 bp | −370.6 (−4.3%) | −230.8 | −139.8 | 298.3 |
+| −100 bp | +402.2 (+4.7%) | +248.0 | +154.2 | 297.7 |
+| +200 bp | −710.4 (−8.2%) | −443.5 | −266.9 | 298.3 |
+| −200 bp | +819.8 (+9.5%) | +494.7 | +325.1 | 295.2 |
+| Bear steepener | −233.1 (−2.7%) | −138.8 | −94.4 | 298.3 |
+| Bull flattener | +247.9 (+2.9%) | +146.2 | +101.7 | 298.0 |
+| 2022 replay | −923.1 (−10.7%) | −589.3 | −333.8 | 298.3 |
+
+($ millions, pre-tax.)
+
+- **A ±1 bp scenario matches DV01 within 0.045%** (the test allows 1%).
+- **The 2022 replay is the worst scenario:** −10.7% of market value, with
+  $589M hitting AOCI.
+- **The mortgage sleeve is positively convex today.** It gains 227.6 at
+  −100 bp but loses 206.4 at +100 bp. Most pools are 2020–22 vintages far
+  below today's 7.26% mortgage rate, so refinancing never pays. Negative
+  convexity appears only near the money: the 2025 pool (WAC 7.00%) gains
+  10.6 and loses 12.1. The plan's test was reworded to test that pool
+  (D-042).
+- **Carry barely moves.** Coupons are fixed and there's no reinvestment. In
+  rallies it falls slightly (−$3.1M at −200 bp) as the near-the-money pools
+  prepay. Rising rates don't raise carry because the book holds its old
+  bonds and reinvests nothing.
+
+### Why this design, and what was rejected
+
+- **One shock mechanism.** Every scenario goes through `apply_shock`, so
+  scenarios, durations and key-rate measures agree with each other. That is
+  why ±1 bp reproduces DV01 to 0.045%.
+- **Full repricing rather than a duration estimate.** Large moves need the
+  convexity and prepayment effects; Phase 2 showed duration alone misses by
+  up to 16% at 100 bp.
+- **The replay uses actual changes from FRED,** not a hand-built 2022 shape,
+  and fails rather than fills if a date is missing.
+- **Carry as income at the book yield,** as the plan specifies. It is the
+  number a bank's net interest income forecast starts from, and it is simple
+  to explain. Rejected: total return including price changes, which mixes in
+  the scenario's mark-to-market already shown separately.
+
+### What would break it
+
+- Scenarios that push par yields below 0%. The floor binds and the result is
+  flagged (tested with −450 bp). Scenario figures then reflect the floor,
+  not the shock.
+- A missing FRED value on 31 Dec 2021 or 30 Dec 2022: the replay fails
+  loudly.
+- Reading carry as a forecast of earnings. It ignores funding cost,
+  reinvestment and new purchases.
+
+### Interview questions
+
+1. **Why report AOCI and HTM separately?**
+   AFS losses reduce reported equity through AOCI. HTM losses don't show in
+   the accounts but are just as real: if the bank had to sell, it would
+   realize them. Showing both makes the hidden part visible.
+2. **What does the 2022 replay tell you?**
+   Applying 2022's actual rate rises to today's book would cut market value
+   by 10.7%, $923M. $589M of that would hit equity through AOCI and $334M
+   would sit unrecognized in HTM.
+3. **Why does a bear steepener matter if you already know the DV01?**
+   DV01 assumes every rate moves together. In a steepener long rates rise
+   more, so a book with long-dated holdings loses more than its 2-year
+   exposure suggests, and a hedge sized on DV01 alone can be left exposed.
+4. **Why didn't the mortgage sleeve show negative convexity?**
+   Most of the pools were made at 2.5–4.5% mortgage rates. At 7.26% today,
+   even a 2-point fall doesn't make refinancing worthwhile, so they behave
+   like plain bonds. The negatively convex part is the pool close to today's
+   rate.
+5. **Why doesn't carry rise when rates rise?**
+   The book's coupons are fixed and the model reinvests nothing, so income
+   on existing holdings is unchanged. Only in rallies does carry fall,
+   because borrowers repay mortgages faster.
+6. **Is ±1 bp consistent with DV01?**
+   Yes, within 0.045%, because scenarios and DV01 use the same shock
+   mechanism and full repricing.

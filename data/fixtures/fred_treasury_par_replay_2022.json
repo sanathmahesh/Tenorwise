@@ -1,0 +1,1363 @@
+{
+ "description": "Raw FRED series/observations responses for the 11 Treasury par-yield series around 2021-12-31 and 2022-12-30, for the 2022 replay scenario",
+ "fetched_at": "2026-11-18T03:45:30Z",
+ "replay_end": "2022-12-30",
+ "replay_start": "2021-12-31",
+ "responses_end": {
+  "DGS1": {
+   "count": 8,
+   "file_type": "json",
+   "limit": 100000,
+   "observation_end": "2023-01-03",
+   "observation_start": "2022-12-23",
+   "observations": [
+    {
+     "date": "2022-12-23",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.66"
+    },
+    {
+     "date": "2022-12-26",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2022-12-27",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.75"
+    },
+    {
+     "date": "2022-12-28",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.71"
+    },
+    {
+     "date": "2022-12-29",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.71"
+    },
+    {
+     "date": "2022-12-30",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.73"
+    },
+    {
+     "date": "2023-01-02",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2023-01-03",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.72"
+    }
+   ],
+   "offset": 0,
+   "order_by": "observation_date",
+   "output_type": 1,
+   "realtime_end": "2026-11-17",
+   "realtime_start": "2026-11-17",
+   "sort_order": "asc",
+   "units": "lin"
+  },
+  "DGS10": {
+   "count": 8,
+   "file_type": "json",
+   "limit": 100000,
+   "observation_end": "2023-01-03",
+   "observation_start": "2022-12-23",
+   "observations": [
+    {
+     "date": "2022-12-23",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "3.75"
+    },
+    {
+     "date": "2022-12-26",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2022-12-27",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "3.84"
+    },
+    {
+     "date": "2022-12-28",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "3.88"
+    },
+    {
+     "date": "2022-12-29",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "3.83"
+    },
+    {
+     "date": "2022-12-30",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "3.88"
+    },
+    {
+     "date": "2023-01-02",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2023-01-03",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "3.79"
+    }
+   ],
+   "offset": 0,
+   "order_by": "observation_date",
+   "output_type": 1,
+   "realtime_end": "2026-11-17",
+   "realtime_start": "2026-11-17",
+   "sort_order": "asc",
+   "units": "lin"
+  },
+  "DGS1MO": {
+   "count": 8,
+   "file_type": "json",
+   "limit": 100000,
+   "observation_end": "2023-01-03",
+   "observation_start": "2022-12-23",
+   "observations": [
+    {
+     "date": "2022-12-23",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "3.80"
+    },
+    {
+     "date": "2022-12-26",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2022-12-27",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "3.87"
+    },
+    {
+     "date": "2022-12-28",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "3.86"
+    },
+    {
+     "date": "2022-12-29",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.04"
+    },
+    {
+     "date": "2022-12-30",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.12"
+    },
+    {
+     "date": "2023-01-02",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2023-01-03",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.17"
+    }
+   ],
+   "offset": 0,
+   "order_by": "observation_date",
+   "output_type": 1,
+   "realtime_end": "2026-11-17",
+   "realtime_start": "2026-11-17",
+   "sort_order": "asc",
+   "units": "lin"
+  },
+  "DGS2": {
+   "count": 8,
+   "file_type": "json",
+   "limit": 100000,
+   "observation_end": "2023-01-03",
+   "observation_start": "2022-12-23",
+   "observations": [
+    {
+     "date": "2022-12-23",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.31"
+    },
+    {
+     "date": "2022-12-26",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2022-12-27",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.32"
+    },
+    {
+     "date": "2022-12-28",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.31"
+    },
+    {
+     "date": "2022-12-29",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.34"
+    },
+    {
+     "date": "2022-12-30",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.41"
+    },
+    {
+     "date": "2023-01-02",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2023-01-03",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.40"
+    }
+   ],
+   "offset": 0,
+   "order_by": "observation_date",
+   "output_type": 1,
+   "realtime_end": "2026-11-17",
+   "realtime_start": "2026-11-17",
+   "sort_order": "asc",
+   "units": "lin"
+  },
+  "DGS20": {
+   "count": 8,
+   "file_type": "json",
+   "limit": 100000,
+   "observation_end": "2023-01-03",
+   "observation_start": "2022-12-23",
+   "observations": [
+    {
+     "date": "2022-12-23",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "3.99"
+    },
+    {
+     "date": "2022-12-26",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2022-12-27",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.10"
+    },
+    {
+     "date": "2022-12-28",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.13"
+    },
+    {
+     "date": "2022-12-29",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.09"
+    },
+    {
+     "date": "2022-12-30",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.14"
+    },
+    {
+     "date": "2023-01-02",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2023-01-03",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.06"
+    }
+   ],
+   "offset": 0,
+   "order_by": "observation_date",
+   "output_type": 1,
+   "realtime_end": "2026-11-17",
+   "realtime_start": "2026-11-17",
+   "sort_order": "asc",
+   "units": "lin"
+  },
+  "DGS3": {
+   "count": 8,
+   "file_type": "json",
+   "limit": 100000,
+   "observation_end": "2023-01-03",
+   "observation_start": "2022-12-23",
+   "observations": [
+    {
+     "date": "2022-12-23",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.09"
+    },
+    {
+     "date": "2022-12-26",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2022-12-27",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.17"
+    },
+    {
+     "date": "2022-12-28",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.18"
+    },
+    {
+     "date": "2022-12-29",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.16"
+    },
+    {
+     "date": "2022-12-30",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.22"
+    },
+    {
+     "date": "2023-01-02",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2023-01-03",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.18"
+    }
+   ],
+   "offset": 0,
+   "order_by": "observation_date",
+   "output_type": 1,
+   "realtime_end": "2026-11-17",
+   "realtime_start": "2026-11-17",
+   "sort_order": "asc",
+   "units": "lin"
+  },
+  "DGS30": {
+   "count": 8,
+   "file_type": "json",
+   "limit": 100000,
+   "observation_end": "2023-01-03",
+   "observation_start": "2022-12-23",
+   "observations": [
+    {
+     "date": "2022-12-23",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "3.82"
+    },
+    {
+     "date": "2022-12-26",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2022-12-27",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "3.93"
+    },
+    {
+     "date": "2022-12-28",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "3.98"
+    },
+    {
+     "date": "2022-12-29",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "3.92"
+    },
+    {
+     "date": "2022-12-30",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "3.97"
+    },
+    {
+     "date": "2023-01-02",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2023-01-03",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "3.88"
+    }
+   ],
+   "offset": 0,
+   "order_by": "observation_date",
+   "output_type": 1,
+   "realtime_end": "2026-11-17",
+   "realtime_start": "2026-11-17",
+   "sort_order": "asc",
+   "units": "lin"
+  },
+  "DGS3MO": {
+   "count": 8,
+   "file_type": "json",
+   "limit": 100000,
+   "observation_end": "2023-01-03",
+   "observation_start": "2022-12-23",
+   "observations": [
+    {
+     "date": "2022-12-23",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.34"
+    },
+    {
+     "date": "2022-12-26",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2022-12-27",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.46"
+    },
+    {
+     "date": "2022-12-28",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.46"
+    },
+    {
+     "date": "2022-12-29",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.45"
+    },
+    {
+     "date": "2022-12-30",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.42"
+    },
+    {
+     "date": "2023-01-02",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2023-01-03",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.53"
+    }
+   ],
+   "offset": 0,
+   "order_by": "observation_date",
+   "output_type": 1,
+   "realtime_end": "2026-11-17",
+   "realtime_start": "2026-11-17",
+   "sort_order": "asc",
+   "units": "lin"
+  },
+  "DGS5": {
+   "count": 8,
+   "file_type": "json",
+   "limit": 100000,
+   "observation_end": "2023-01-03",
+   "observation_start": "2022-12-23",
+   "observations": [
+    {
+     "date": "2022-12-23",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "3.86"
+    },
+    {
+     "date": "2022-12-26",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2022-12-27",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "3.94"
+    },
+    {
+     "date": "2022-12-28",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "3.97"
+    },
+    {
+     "date": "2022-12-29",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "3.94"
+    },
+    {
+     "date": "2022-12-30",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "3.99"
+    },
+    {
+     "date": "2023-01-02",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2023-01-03",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "3.94"
+    }
+   ],
+   "offset": 0,
+   "order_by": "observation_date",
+   "output_type": 1,
+   "realtime_end": "2026-11-17",
+   "realtime_start": "2026-11-17",
+   "sort_order": "asc",
+   "units": "lin"
+  },
+  "DGS6MO": {
+   "count": 8,
+   "file_type": "json",
+   "limit": 100000,
+   "observation_end": "2023-01-03",
+   "observation_start": "2022-12-23",
+   "observations": [
+    {
+     "date": "2022-12-23",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.67"
+    },
+    {
+     "date": "2022-12-26",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2022-12-27",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.76"
+    },
+    {
+     "date": "2022-12-28",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.75"
+    },
+    {
+     "date": "2022-12-29",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.73"
+    },
+    {
+     "date": "2022-12-30",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.76"
+    },
+    {
+     "date": "2023-01-02",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2023-01-03",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.77"
+    }
+   ],
+   "offset": 0,
+   "order_by": "observation_date",
+   "output_type": 1,
+   "realtime_end": "2026-11-17",
+   "realtime_start": "2026-11-17",
+   "sort_order": "asc",
+   "units": "lin"
+  },
+  "DGS7": {
+   "count": 8,
+   "file_type": "json",
+   "limit": 100000,
+   "observation_end": "2023-01-03",
+   "observation_start": "2022-12-23",
+   "observations": [
+    {
+     "date": "2022-12-23",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "3.83"
+    },
+    {
+     "date": "2022-12-26",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2022-12-27",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "3.93"
+    },
+    {
+     "date": "2022-12-28",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "3.97"
+    },
+    {
+     "date": "2022-12-29",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "3.91"
+    },
+    {
+     "date": "2022-12-30",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "3.96"
+    },
+    {
+     "date": "2023-01-02",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2023-01-03",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "3.89"
+    }
+   ],
+   "offset": 0,
+   "order_by": "observation_date",
+   "output_type": 1,
+   "realtime_end": "2026-11-17",
+   "realtime_start": "2026-11-17",
+   "sort_order": "asc",
+   "units": "lin"
+  }
+ },
+ "responses_start": {
+  "DGS1": {
+   "count": 7,
+   "file_type": "json",
+   "limit": 100000,
+   "observation_end": "2022-01-03",
+   "observation_start": "2021-12-24",
+   "observations": [
+    {
+     "date": "2021-12-24",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2021-12-27",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "0.33"
+    },
+    {
+     "date": "2021-12-28",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "0.39"
+    },
+    {
+     "date": "2021-12-29",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "0.38"
+    },
+    {
+     "date": "2021-12-30",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "0.38"
+    },
+    {
+     "date": "2021-12-31",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "0.39"
+    },
+    {
+     "date": "2022-01-03",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "0.40"
+    }
+   ],
+   "offset": 0,
+   "order_by": "observation_date",
+   "output_type": 1,
+   "realtime_end": "2026-11-17",
+   "realtime_start": "2026-11-17",
+   "sort_order": "asc",
+   "units": "lin"
+  },
+  "DGS10": {
+   "count": 7,
+   "file_type": "json",
+   "limit": 100000,
+   "observation_end": "2022-01-03",
+   "observation_start": "2021-12-24",
+   "observations": [
+    {
+     "date": "2021-12-24",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2021-12-27",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "1.48"
+    },
+    {
+     "date": "2021-12-28",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "1.49"
+    },
+    {
+     "date": "2021-12-29",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "1.55"
+    },
+    {
+     "date": "2021-12-30",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "1.52"
+    },
+    {
+     "date": "2021-12-31",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "1.52"
+    },
+    {
+     "date": "2022-01-03",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "1.63"
+    }
+   ],
+   "offset": 0,
+   "order_by": "observation_date",
+   "output_type": 1,
+   "realtime_end": "2026-11-17",
+   "realtime_start": "2026-11-17",
+   "sort_order": "asc",
+   "units": "lin"
+  },
+  "DGS1MO": {
+   "count": 7,
+   "file_type": "json",
+   "limit": 100000,
+   "observation_end": "2022-01-03",
+   "observation_start": "2021-12-24",
+   "observations": [
+    {
+     "date": "2021-12-24",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2021-12-27",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "0.04"
+    },
+    {
+     "date": "2021-12-28",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "0.03"
+    },
+    {
+     "date": "2021-12-29",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "0.01"
+    },
+    {
+     "date": "2021-12-30",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "0.06"
+    },
+    {
+     "date": "2021-12-31",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "0.06"
+    },
+    {
+     "date": "2022-01-03",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "0.05"
+    }
+   ],
+   "offset": 0,
+   "order_by": "observation_date",
+   "output_type": 1,
+   "realtime_end": "2026-11-17",
+   "realtime_start": "2026-11-17",
+   "sort_order": "asc",
+   "units": "lin"
+  },
+  "DGS2": {
+   "count": 7,
+   "file_type": "json",
+   "limit": 100000,
+   "observation_end": "2022-01-03",
+   "observation_start": "2021-12-24",
+   "observations": [
+    {
+     "date": "2021-12-24",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2021-12-27",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "0.76"
+    },
+    {
+     "date": "2021-12-28",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "0.74"
+    },
+    {
+     "date": "2021-12-29",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "0.75"
+    },
+    {
+     "date": "2021-12-30",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "0.73"
+    },
+    {
+     "date": "2021-12-31",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "0.73"
+    },
+    {
+     "date": "2022-01-03",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "0.78"
+    }
+   ],
+   "offset": 0,
+   "order_by": "observation_date",
+   "output_type": 1,
+   "realtime_end": "2026-11-17",
+   "realtime_start": "2026-11-17",
+   "sort_order": "asc",
+   "units": "lin"
+  },
+  "DGS20": {
+   "count": 7,
+   "file_type": "json",
+   "limit": 100000,
+   "observation_end": "2022-01-03",
+   "observation_start": "2021-12-24",
+   "observations": [
+    {
+     "date": "2021-12-24",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2021-12-27",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "1.92"
+    },
+    {
+     "date": "2021-12-28",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "1.94"
+    },
+    {
+     "date": "2021-12-29",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "2.00"
+    },
+    {
+     "date": "2021-12-30",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "1.97"
+    },
+    {
+     "date": "2021-12-31",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "1.94"
+    },
+    {
+     "date": "2022-01-03",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "2.05"
+    }
+   ],
+   "offset": 0,
+   "order_by": "observation_date",
+   "output_type": 1,
+   "realtime_end": "2026-11-17",
+   "realtime_start": "2026-11-17",
+   "sort_order": "asc",
+   "units": "lin"
+  },
+  "DGS3": {
+   "count": 7,
+   "file_type": "json",
+   "limit": 100000,
+   "observation_end": "2022-01-03",
+   "observation_start": "2021-12-24",
+   "observations": [
+    {
+     "date": "2021-12-24",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2021-12-27",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "0.98"
+    },
+    {
+     "date": "2021-12-28",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "0.99"
+    },
+    {
+     "date": "2021-12-29",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "0.99"
+    },
+    {
+     "date": "2021-12-30",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "0.98"
+    },
+    {
+     "date": "2021-12-31",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "0.97"
+    },
+    {
+     "date": "2022-01-03",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "1.04"
+    }
+   ],
+   "offset": 0,
+   "order_by": "observation_date",
+   "output_type": 1,
+   "realtime_end": "2026-11-17",
+   "realtime_start": "2026-11-17",
+   "sort_order": "asc",
+   "units": "lin"
+  },
+  "DGS30": {
+   "count": 7,
+   "file_type": "json",
+   "limit": 100000,
+   "observation_end": "2022-01-03",
+   "observation_start": "2021-12-24",
+   "observations": [
+    {
+     "date": "2021-12-24",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2021-12-27",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "1.88"
+    },
+    {
+     "date": "2021-12-28",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "1.90"
+    },
+    {
+     "date": "2021-12-29",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "1.96"
+    },
+    {
+     "date": "2021-12-30",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "1.93"
+    },
+    {
+     "date": "2021-12-31",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "1.90"
+    },
+    {
+     "date": "2022-01-03",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "2.01"
+    }
+   ],
+   "offset": 0,
+   "order_by": "observation_date",
+   "output_type": 1,
+   "realtime_end": "2026-11-17",
+   "realtime_start": "2026-11-17",
+   "sort_order": "asc",
+   "units": "lin"
+  },
+  "DGS3MO": {
+   "count": 7,
+   "file_type": "json",
+   "limit": 100000,
+   "observation_end": "2022-01-03",
+   "observation_start": "2021-12-24",
+   "observations": [
+    {
+     "date": "2021-12-24",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2021-12-27",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "0.06"
+    },
+    {
+     "date": "2021-12-28",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "0.06"
+    },
+    {
+     "date": "2021-12-29",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "0.05"
+    },
+    {
+     "date": "2021-12-30",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "0.05"
+    },
+    {
+     "date": "2021-12-31",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "0.06"
+    },
+    {
+     "date": "2022-01-03",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "0.08"
+    }
+   ],
+   "offset": 0,
+   "order_by": "observation_date",
+   "output_type": 1,
+   "realtime_end": "2026-11-17",
+   "realtime_start": "2026-11-17",
+   "sort_order": "asc",
+   "units": "lin"
+  },
+  "DGS5": {
+   "count": 7,
+   "file_type": "json",
+   "limit": 100000,
+   "observation_end": "2022-01-03",
+   "observation_start": "2021-12-24",
+   "observations": [
+    {
+     "date": "2021-12-24",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2021-12-27",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "1.26"
+    },
+    {
+     "date": "2021-12-28",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "1.27"
+    },
+    {
+     "date": "2021-12-29",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "1.29"
+    },
+    {
+     "date": "2021-12-30",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "1.27"
+    },
+    {
+     "date": "2021-12-31",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "1.26"
+    },
+    {
+     "date": "2022-01-03",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "1.37"
+    }
+   ],
+   "offset": 0,
+   "order_by": "observation_date",
+   "output_type": 1,
+   "realtime_end": "2026-11-17",
+   "realtime_start": "2026-11-17",
+   "sort_order": "asc",
+   "units": "lin"
+  },
+  "DGS6MO": {
+   "count": 7,
+   "file_type": "json",
+   "limit": 100000,
+   "observation_end": "2022-01-03",
+   "observation_start": "2021-12-24",
+   "observations": [
+    {
+     "date": "2021-12-24",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2021-12-27",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "0.21"
+    },
+    {
+     "date": "2021-12-28",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "0.20"
+    },
+    {
+     "date": "2021-12-29",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "0.19"
+    },
+    {
+     "date": "2021-12-30",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "0.19"
+    },
+    {
+     "date": "2021-12-31",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "0.19"
+    },
+    {
+     "date": "2022-01-03",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "0.22"
+    }
+   ],
+   "offset": 0,
+   "order_by": "observation_date",
+   "output_type": 1,
+   "realtime_end": "2026-11-17",
+   "realtime_start": "2026-11-17",
+   "sort_order": "asc",
+   "units": "lin"
+  },
+  "DGS7": {
+   "count": 7,
+   "file_type": "json",
+   "limit": 100000,
+   "observation_end": "2022-01-03",
+   "observation_start": "2021-12-24",
+   "observations": [
+    {
+     "date": "2021-12-24",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2021-12-27",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "1.41"
+    },
+    {
+     "date": "2021-12-28",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "1.41"
+    },
+    {
+     "date": "2021-12-29",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "1.47"
+    },
+    {
+     "date": "2021-12-30",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "1.44"
+    },
+    {
+     "date": "2021-12-31",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "1.44"
+    },
+    {
+     "date": "2022-01-03",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "1.55"
+    }
+   ],
+   "offset": 0,
+   "order_by": "observation_date",
+   "output_type": 1,
+   "realtime_end": "2026-11-17",
+   "realtime_start": "2026-11-17",
+   "sort_order": "asc",
+   "units": "lin"
+  }
+ },
+ "source": "https://api.stlouisfed.org/fred/series/observations",
+ "windows": {
+  "end": [
+   "2022-12-23",
+   "2023-01-03"
+  ],
+  "start": [
+   "2021-12-24",
+   "2022-01-03"
+  ]
+ }
+}
