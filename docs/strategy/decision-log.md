@@ -401,7 +401,7 @@ decision, newest at the bottom. Changes to PLAN.md are recorded here too.
 - **Phase:** 8
 - **Decision:** the per-IP count is checked first, and a request it rejects does not consume the global cap. Keys are `tw:ai:<UTC day>:ip:<sha256(salt:ip)[:32]>` and `tw:ai:<UTC day>:global`, expiring after two days. Missing configuration or an unreachable store means 503.
 - **Local development:** `RATE_LIMIT_BACKEND=memory` uses an in-process counter. It is refused when `VERCEL` is set, so it cannot run in production.
-- **Cap values:** proposed to the owner, not yet set.
+- **Cap values (approved 2026-11-17):** `AI_LIMIT_PER_IP_PER_DAY=10`, `AI_LIMIT_GLOBAL_PER_DAY=150`. At an estimated worst case of about $0.07 per request on GLM-5.3, that bounds spend at roughly $10 a day; it will be revisited with Phase 9's measured cost per question. Set in Vercel at deploy; locally passed on the command line.
 
 ## D-061. Agent response additions
 
@@ -417,3 +417,16 @@ decision, newest at the bottom. Changes to PLAN.md are recorded here too.
 
 - **Phase:** 8
 - **Decision:** everything is tested with a scripted provider and, end to end, a local mock server. The live smoke test exists and is skipped by default. Running it waits for the owner's approval of the spend.
+
+## D-064. Live smoke test findings and the truncated-tool-call fix
+
+- **Date:** 2026-11-18 (UTC), owner-approved smoke test: one question and one commentary on `zai-org/GLM-5.3`
+- **Question:** answered, 2 model calls, 5,129 prompt + 196 completion tokens, $0.0037 at list prices (cached tokens reported, so not an upper bound), 4.9 s, `asap` tier. All 12 numeric checks passed.
+- **Commentary:** failed with HTTP 400 on the 4th model call, after 3 successful calls that ran 11 tools. Cost $0.0238 (17,262 + 5,199 tokens). The error body was not captured, because the provider error kept only the error code.
+- **Most likely cause (not confirmed):** 5,199 completion tokens over 3 calls against a per-call cap of 4,096 suggests the submission was cut off (`finish_reason = length`). The loop then echoed the truncated, invalid-JSON tool arguments back in the history, which a provider can reject.
+- **Fixes (all tested with a scripted provider):**
+  - malformed tool arguments are never echoed back (`{}` is sent instead), and the model is told its output was cut off;
+  - `finish_reason` is recorded;
+  - commentary gets `max_completion_tokens` 8,192;
+  - provider errors now carry the provider's code and the first 200 characters of its message, scrubbed of the key.
+- **Next:** one more commentary run (about $0.03) to confirm, pending the owner's approval.

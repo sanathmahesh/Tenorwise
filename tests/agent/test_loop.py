@@ -200,3 +200,27 @@ def test_commentary_with_a_wrong_number_twice_is_blocked(data):
     provider = FakeProvider([tool_response("get_portfolio_summary", {}), commentary(bad), commentary(bad)])
     r = run_agent("commentary", None, [], provider, data)
     assert r.status == "blocked" and r.sections == [] and "$1.11B" not in r.model_dump_json()
+
+
+# ------------------------------------------------------------------ malformed / truncated output
+
+
+def test_malformed_tool_arguments_are_never_echoed_back(data):
+    """A truncated tool call (invalid JSON arguments) must not be sent back in
+    the history: providers reject such requests (HTTP 400 seen live, 2026-11-18)."""
+    from tenorwise.agent.provider import ProviderResponse, ToolCall, Usage
+
+    truncated = ProviderResponse(
+        None, [ToolCall("call_trunc", "submit_answer", '{"status": "answered", "answer_md": "The book is')],
+        Usage(100, 20, 0), "asap", "fake/model", 5, finish_reason="length",
+    )
+    provider = FakeProvider([tool_response("get_portfolio_summary", {}), truncated, answer_with(MV)])
+    r = run_agent("ask", "How big is the book?", [], provider, data)
+
+    assert r.status == "answered"
+    sent = provider.calls[2]
+    for m in sent:
+        for c in m.get("tool_calls") or []:
+            json.loads(c["function"]["arguments"])  # every echoed argument string is valid JSON
+    feedback = json.loads(sent[-1]["content"])
+    assert "cut off" in feedback["error"]

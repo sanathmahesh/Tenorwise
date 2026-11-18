@@ -57,6 +57,7 @@ class ProviderResponse:
     model: str
     latency_ms: int
     attempts: int = 1
+    finish_reason: str | None = None  # "length" means the output was cut off
 
 
 class Provider(Protocol):
@@ -114,10 +115,11 @@ class OpenAICompatibleProvider:
                 latency_ms = round(1000 * (time.perf_counter() - start))
                 if r.status_code == 200:
                     return self._parse(r, latency_ms, attempt)
-                code = self._error_code(r)
+                code, message = self._error_detail(r)
                 retryable = r.status_code == 429 or (r.status_code == 503 and code in RETRYABLE_503_CODES)
                 if not retryable or attempt == self.MAX_ATTEMPTS:
-                    raise ProviderError(self._scrub(f"model call failed: HTTP {r.status_code} {code or ''}".strip())) from None
+                    detail = " ".join(x for x in (code, message) if x)
+                    raise ProviderError(self._scrub(f"model call failed: HTTP {r.status_code} {detail}".strip())) from None
                 delay = 2 ** (attempt - 1) + self._jitter()
                 retry_after = r.headers.get("retry-after")
                 if retry_after:
@@ -129,18 +131,23 @@ class OpenAICompatibleProvider:
         raise ProviderError("model call failed")  # unreachable
 
     @staticmethod
-    def _error_code(r: httpx.Response) -> str | None:
+    def _error_detail(r: httpx.Response) -> tuple[str | None, str | None]:
+        """(error code, first 200 characters of the provider's message)."""
         try:
             err = r.json().get("error") or {}
         except (ValueError, AttributeError):
-            return None
-        code = err.get("code") if isinstance(err, dict) else None
-        return str(code) if code is not None else None
+            return None, None
+        if not isinstance(err, dict):
+            return None, str(err)[:200]
+        code = err.get("code")
+        message = err.get("message")
+        return (str(code) if code is not None else None), (str(message)[:200] if message else None)
 
     def _parse(self, r: httpx.Response, latency_ms: int, attempts: int) -> ProviderResponse:
         try:
             data = r.json()
-            msg = data["choices"][0]["message"]
+            choice = data["choices"][0]
+            msg = choice["message"]
         except (ValueError, KeyError, IndexError, TypeError):
             raise ProviderError("model response was not in the expected format") from None
         calls = [
@@ -160,6 +167,7 @@ class OpenAICompatibleProvider:
             model=data.get("model") or self.model,
             latency_ms=latency_ms,
             attempts=attempts,
+            finish_reason=choice.get("finish_reason"),
         )
 
 
@@ -206,7 +214,7 @@ class FakeProvider:
             raise step
         response = step(messages) if callable(step) else step
         return ProviderResponse(response.content, response.tool_calls, response.usage, response.served_tier,
-                                self.model, response.latency_ms, response.attempts)
+                                self.model, response.latency_ms, response.attempts, response.finish_reason)
 
 
 _FAKE_USAGE = Usage(100, 20, 0)

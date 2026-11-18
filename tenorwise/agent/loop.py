@@ -42,7 +42,7 @@ from tenorwise.agent.verifier import TOLERANCE_TEXT, Check, all_passed, verify
 MAX_MODEL_CALLS = 6
 MAX_QUESTION_CHARS = 1000
 MAX_HISTORY_MESSAGES = 10
-MAX_COMPLETION_TOKENS = 4096
+MAX_COMPLETION_TOKENS = {"ask": 4096, "commentary": 8192}  # reasoning models spend tokens before the answer
 CALL_TIMEOUT_S = 60.0
 REVIEW_NOTICE = "Draft, requires human review"
 TAG_RE = re.compile(r"\[\[(v\d+)\]\]")
@@ -179,7 +179,7 @@ def run_agent(
 
     while run.calls < MAX_MODEL_CALLS:
         try:
-            resp = provider.complete(messages, tools, "required", MAX_COMPLETION_TOKENS, call_timeout_s)
+            resp = provider.complete(messages, tools, "required", MAX_COMPLETION_TOKENS[mode], call_timeout_s)
         except ProviderError as e:
             return run.finish("error", error=str(e))
         run.record(resp.usage, resp.served_tier)
@@ -188,24 +188,35 @@ def run_agent(
             messages.append({"role": "assistant", "content": resp.content or ""})
             messages.append({"role": "user", "content": NUDGE.format(submit=submit_name)})
             continue
+        # Never echo malformed arguments back: providers reject a history containing
+        # invalid JSON (a truncated tool call caused a live HTTP 400, D-064).
+        parsed_args: dict[str, dict[str, Any] | None] = {}
+        for c in resp.tool_calls:
+            try:
+                a = json.loads(c.arguments or "{}")
+                parsed_args[c.id] = a if isinstance(a, dict) else None
+            except ValueError:
+                parsed_args[c.id] = None
         messages.append({
             "role": "assistant",
             "content": resp.content,
-            "tool_calls": [{"id": c.id, "type": "function", "function": {"name": c.name, "arguments": c.arguments}}
-                           for c in resp.tool_calls],
+            "tool_calls": [{"id": c.id, "type": "function", "function": {
+                "name": c.name, "arguments": c.arguments if parsed_args[c.id] is not None else "{}"}}
+                for c in resp.tool_calls],
         })
+        bad_args_error = (
+            "your output was cut off before the tool arguments were complete; resubmit, more concisely"
+            if resp.finish_reason == "length" else "arguments were not a valid JSON object; resubmit"
+        )
 
         submit = None
         for call in resp.tool_calls:
             if call.name == submit_name and submit is None:
                 submit = call
                 continue
-            try:
-                args = json.loads(call.arguments or "{}")
-                if not isinstance(args, dict):
-                    raise ValueError
-            except ValueError:
-                result: dict[str, Any] = {"error": "arguments are not a JSON object"}
+            args = parsed_args[call.id]
+            if args is None:
+                result: dict[str, Any] = {"error": bad_args_error}
                 args = {}
             else:
                 t0 = time.perf_counter()
@@ -214,6 +225,9 @@ def run_agent(
             messages.append({"role": "tool", "tool_call_id": call.id, "content": json.dumps(result)})
 
         if submit is None:
+            continue
+        if parsed_args[submit.id] is None:  # malformed submission: send back, not a repair attempt
+            messages.append({"role": "tool", "tool_call_id": submit.id, "content": json.dumps({"error": bad_args_error})})
             continue
         outcome = _submit(mode, submit.arguments, run.ledger)
         if isinstance(outcome, str):  # invalid arguments: send back, not a repair attempt
