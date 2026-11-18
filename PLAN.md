@@ -633,5 +633,5 @@ Update this table at the end of each phase.
 | 8. AI analyst and verification | Done | 2026-11-18 | 9255a66, 5ea20ab |
 | 9. Evals | Done | 2026-11-18 | 00b1903, 456dd5c |
 | 10. Strategy artifacts and About page | Drafted; waiting for owner's timings and opportunity-map review | 2026-11-18 | 3b32ef6 |
-| 11. Implement the handed-off design | Not started | | |
+| 11. Implement the handed-off design | Done | 2026-11-18 | 08ea43e, ef67acf |
 | 12. Production deploy and final documents | Not started | | |
