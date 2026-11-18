@@ -47,6 +47,7 @@ SNAPSHOT_FILES = [
 FUNCTION_ONLY_FILES = ["inputs.json"]
 SWAP_SPREAD = 0.0  # decimal; swap curve = Treasury zero curve + this (A-32)
 QUANTLIB_REPORT = REPO_ROOT / "docs" / "evidence" / "quantlib_report.json"
+EVAL_SUMMARY = REPO_ROOT / "docs" / "evidence" / "evals" / "summary.json"  # written by python -m tenorwise.evals report
 ASSUMPTIONS_MD = REPO_ROOT / "ASSUMPTIONS.md"
 
 DGS_TITLES = {
@@ -96,10 +97,40 @@ def fred_series(inputs: MarketInputs) -> list[m.FredSeries]:
     return out
 
 
+def eval_evidence(summary_path: Path | None) -> tuple[list[m.EvidenceModel], list[m.EvidenceQuestion]]:
+    """evidence.json's models[] and questions[] from the eval summary (Phase 9); empty if there is none.
+
+    accuracy: mean over repeats (fraction); block_rate: after the repair attempt;
+    cost_per_question_usd: mean at list prices; runs: number of repeats.
+    The summary also holds the ranges and the before-repair block rate (docs/evidence/evals/report.md).
+    """
+    if summary_path is None or not Path(summary_path).exists():
+        return [], []
+    summary = json.loads(Path(summary_path).read_text(encoding="utf-8"))
+    models = [
+        m.EvidenceModel(
+            id=x["id"], accuracy=x["accuracy"], block_rate=x["block_rate"],
+            verified_but_wrong_rate=x["verified_but_wrong_rate"], latency_p50_ms=x["latency_p50_ms"],
+            latency_p95_ms=x["latency_p95_ms"], cost_per_question_usd=x["cost_per_question_usd"] or 0.0, runs=x["runs"],
+        )
+        for x in summary["models"]
+    ]
+    questions = [
+        m.EvidenceQuestion(id=q["id"], category=q["category"], text=q["text"], results=q["results"])
+        for q in summary["questions"]
+    ]
+    return models, questions
+
+
 def compute_snapshot(
-    inputs: MarketInputs, build_time: str, git_sha: str | None, llm_model: str | None
+    inputs: MarketInputs, build_time: str, git_sha: str | None, llm_model: str | None,
+    eval_summary: Path | None = None,
 ) -> dict[str, str]:
-    """Run the engine once; return {file name: JSON text}."""
+    """Run the engine once; return {file name: JSON text}.
+
+    eval_summary: the eval summary to publish in evidence.json. The pinned test
+    snapshot is built without one, so rerunning evals never changes it.
+    """
     data_date = inputs.par.data_date.isoformat()
     ctx = build_market_context(inputs.par, inputs.mortgage)
     positions = load_positions()
@@ -120,6 +151,7 @@ def compute_snapshot(
 
     cite = load_bny_source()["citation"]
     report = json.loads(QUANTLIB_REPORT.read_text(encoding="utf-8"))
+    eval_models, eval_questions = eval_evidence(eval_summary)
 
     models: dict[str, m.Contract] = {
         "meta.json": m.Meta(
@@ -182,8 +214,8 @@ def compute_snapshot(
         "methods.json": m.Methods(data_date=data_date, methods={k: m.Method(**v) for k, v in METHODS.items()}),
         "evidence.json": m.Evidence(
             data_date=data_date,
-            models=[],
-            questions=[],
+            models=eval_models,
+            questions=eval_questions,
             quantlib=[
                 m.QuantlibRow(measure=q["measure"], instruments=q["instruments"], max_abs_diff=q["max_abs_diff"], unit=q["unit"])
                 for q in report["quantlib"]
@@ -232,8 +264,9 @@ def build_snapshot(
     build_time: str,
     git_sha: str | None,
     llm_model: str | None,
+    eval_summary: Path | None = None,
 ) -> dict[str, str]:
-    files = compute_snapshot(inputs, build_time, git_sha, llm_model)
+    files = compute_snapshot(inputs, build_time, git_sha, llm_model, eval_summary)
     for d in web_dirs:
         _write(Path(d), files, SNAPSHOT_FILES)
     for d in function_dirs:

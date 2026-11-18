@@ -430,3 +430,56 @@ decision, newest at the bottom. Changes to PLAN.md are recorded here too.
   - commentary gets `max_completion_tokens` 8,192;
   - provider errors now carry the provider's code and the first 200 characters of its message, scrubbed of the key.
 - **Next:** one more commentary run (about $0.03) to confirm, pending the owner's approval.
+
+## D-065. Eval grading: engine gold, tagged values only
+
+- **Phase:** 9
+- **Decision:** each of the 36 questions has a gold function that runs the engine directly on the pinned market fixtures (`tenorwise/evals/engine.py`).
+  - An answer is correct if its status matches and every gold value appears among the values tagged in the answer text, with the same unit and within the verifier's 0.5%.
+  - Derived-value inputs that the response carries for provenance do not count.
+  - A gold is sign-insensitive only where the question leaves the order of a difference open (D1, D5).
+  - The analyst reads the pinned fixture snapshot, so runs are reproducible (PLAN.md section 8).
+- **Why:** gold from the tools would grade the tools against themselves; counting untagged provenance values would credit numbers the answer never stated.
+- **Alternatives rejected:** hand-typed expected numbers, which go stale; an LLM judge, which the plan rules out.
+- **Measured exposure:** the coincidence test lists every tool value within 0.5% of a gold value: 17 in all, 6 equal by definition and 11 by coincidence. It is pinned so a new one is noticed (LIMITATIONS.md).
+
+## D-066. Eval reporting and what goes into evidence.json
+
+- **Phase:** 9
+- **Decision:**
+  - **Raw results:** JSON Lines in `docs/evidence/evals/raw/`, one line per run. `python -m tenorwise.evals report` writes `summary.json` and `report.md` from them.
+  - **Per model:**
+    - accuracy: mean over repeats, with the lowest and highest repeat;
+    - block rate before repair: a repair was requested;
+    - block rate after repair: status `blocked`;
+    - verified-but-wrong: of the runs that passed verification (status `answered` or `cannot_answer`), the share graded wrong;
+    - latency p50 and p95 on the eval machine;
+    - mean cost per question.
+  - **Per question and model:** the majority outcome over repeats, or "fail" with no majority.
+  - **evidence.json:** carries only the contract fields (PLAN.md section 8):
+    - `accuracy` is the mean, as a fraction from 0 to 1;
+    - `block_rate` is after repair;
+    - the ranges and the before-repair rate stay in the summary and report.
+  - **Pinned test snapshot:** `--pin` builds it without eval results, so rerunning evals never changes it. Other builds publish `docs/evidence/evals/summary.json` if it exists.
+- **Why:** the contract field names are fixed, so nothing was added to `evidence.json` without asking. Repairs are detected from the messages the eval sends, so the agent's response shape is unchanged.
+
+## D-067. Running paid evals safely
+
+- **Phase:** 9
+- **Decision:** `python -m tenorwise.evals run --model … --max-cost …` refuses to start unless:
+  - `data/llm/prices.json` was re-read today (PLAN.md section 10);
+  - the model has a list price;
+  - the credentials are set.
+
+  Runs are sequential, so latency is not inflated by our own parallel requests. Each result is appended as it ends. No new question starts once the cost so far reaches `--max-cost`.
+- **Prices:** re-read from https://docs.sailresearch.com/pricing.md on 2026-11-18. They were unchanged for the three eval models, so only `read_on` was updated.
+
+## D-068. How the eval cost estimate is made
+
+- **Phase:** 9
+- **Decision:** `python -m tenorwise.evals estimate` replays the oracle (the shortest tool path per question) and counts the characters sent per model call.
+  - **Tokens:** characters are converted with the tokens-per-character ratio from the measured smoke question (5,129 prompt tokens, GLM-5.3, D-064), replayed the same way.
+  - **Assumptions:** 500 completion tokens per call (the smoke test measured 98), one extra call per question, and no cached-token discount.
+  - **Result:** $1.49 for GLM-5.3, $0.14 for DeepSeek-V4.1-Flash and $3.17 for Kimi-K3.1-Pro, $4.80 in all for 3 repeats.
+  - **Suggested budget per model:** twice the estimate.
+- **Why:** an estimate from a measured call and the actual message sizes is more defensible than a guess. The budget guard bounds the error.

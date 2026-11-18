@@ -1299,3 +1299,143 @@ text before anything is shown, and links each one to the calculation behind it.
 6. **How would you know if the model or provider changed behaviour?**
    Every request logs model, tier, tokens, latency and verification outcome.
    The eval suite in Phase 9 reruns 36 graded questions per model.
+
+## Phase 9. Evals
+
+### Finance in the questions (plain English)
+
+Most questions reuse concepts from earlier phases. Three are new:
+
+- **Carry breakeven (carry divided by DV01).** Carry is the income the book
+  earns over 12 months if rates stay put. DV01 is what it loses for each 1 bp
+  parallel rise. Their ratio is how big a rise one year of income would offset.
+  It is a quick cushion measure: 77.0 bp on the pinned data, computed by the
+  engine through `derive` (question D6).
+- **Curve slope (30-year minus 2-year par yield).** It shows whether long rates
+  sit above short rates. On the pinned data it is 0.63% (D5).
+- **DV01 ratio.** How many times more rate risk one sector carries than
+  another: the agency mortgage bonds carry 2.55 times the Treasuries' DV01 (D2).
+
+### How the code implements it
+
+- [tenorwise/evals/questions.py](tenorwise/evals/questions.py): 36 questions,
+  six per group.
+  - A: lookups. B: single scenarios. C: hedges. D: derived figures that need
+    `derive`. E: the stylized mortgage pool.
+  - F: questions to decline: a forecast, a position that does not exist, a
+    guess without the engine, advice, value-at-risk, and a 500 bp shock outside
+    the engine's range.
+  - Each question has a gold function and a reference plan of tool calls.
+- [tenorwise/evals/engine.py](tenorwise/evals/engine.py): gold values come from
+  the engine run directly on the pinned market fixtures, never from the agent's
+  tools. The units are converted with the snapshot's own constants.
+- [tenorwise/evals/grader.py](tenorwise/evals/grader.py): deterministic, with
+  no LLM judge.
+  - The status must match.
+  - Every gold value must be among the values tagged in the answer text: same
+    unit, and within the verifier's 0.5%.
+  - A sign-insensitive gold is used only where the question leaves the order
+    of a difference open.
+  - Blocked counts as not correct.
+- [tenorwise/evals/oracle.py](tenorwise/evals/oracle.py): a scripted fake that
+  follows each reference plan. It proves every question is answerable through
+  the tools.
+- [tenorwise/evals/runner.py](tenorwise/evals/runner.py): runs each question
+  in turn, appending one JSON line per run to `docs/evidence/evals/raw/`.
+  - Recorded per run: status, grade, cited values, gold, repair, latency,
+    tokens, tier, cost and the price date.
+  - A budget guard stops new runs once the cost reaches `--max-cost`.
+- [tenorwise/evals/report.py](tenorwise/evals/report.py): turns the raw files
+  into `summary.json` and `report.md`. The snapshot build copies the contract
+  fields into `evidence.json`.
+- [tenorwise/evals/estimate.py](tenorwise/evals/estimate.py): estimates the
+  cost before any money is spent (see Results).
+- Commands: `python -m tenorwise.evals dry-run | estimate | run | report`.
+
+### Results
+
+- **Dry run with the oracle fake:** 36 of 36 pass. For every answerable
+  question, the value the tools return agrees with the engine's gold value to
+  about 10 significant figures (the snapshot's rounding).
+- **Grader case table:** 15 cases pass. They cover exact match, within and
+  outside 0.5%, wrong unit, wrong sign, sign-insensitive gold, several golds,
+  blocked, error, declining when it should answer and the reverse, and a zero
+  gold.
+- **Coincidence check:**
+  - Method: every tool was called on every input a question could plausibly
+    use, 981 values in all. Each was then checked against every gold value.
+  - Result: 17 values other than the intended ones fall within 0.5% of a gold
+    value.
+  - 6 are the same quantity by definition, for example "unhedged net change"
+    equals "total change".
+  - 11 are numerical coincidences, for example two portfolio positions'
+    durations are within 0.5% of the stylized pool's duration.
+  - The list is pinned in a test, so a new coincidence is noticed.
+- **Cost estimate** for 3 repeats of 36 questions on the asap tier:
+  - $1.49 for GLM-5.3, $0.14 for DeepSeek-V4.1-Flash and $3.17 for
+    Kimi-K3.1-Pro, $4.80 in all.
+  - Method: the oracle's message sizes, converted to tokens with the ratio
+    measured in the live smoke test.
+  - Assumptions: 500 completion tokens per call, one extra call per question,
+    and no cached-token discount.
+  - It is an estimate, not a measurement.
+- **Real-model runs:** not yet made. They wait for the owner's approval of the
+  cost.
+
+### Why this design, and what was rejected
+
+- **Gold from the engine, not the tools.** Grading the tools against
+  themselves would hide a tool bug. Rejected: hand-typed expected numbers,
+  which go stale when the data changes.
+- **Values, not wording, are graded.** That is deterministic and cheap, and it
+  matches what the verifier guarantees. Rejected: an LLM judge, which the plan
+  rules out, and which would add a second model's errors to the measurement.
+- **Only values tagged in the text count.** The response also carries the
+  inputs of derived values for provenance. Counting those would credit an
+  answer for numbers it never stated.
+- **Sequential runs.** Our own parallel requests would inflate latency.
+- **Raw JSON Lines, appended as each run ends.** An interrupted paid run keeps
+  what it paid for, and every reported figure is recomputed from these files.
+- **Run guards.** `run` refuses unless the prices were re-read from Sail's page
+  today, the model has a list price and the credentials are set. It also needs
+  an explicit `--max-cost`.
+- **Majority over repeats for the per-question result.** It is simple to
+  explain. With no majority the result is "fail", the cautious choice.
+
+### What would break it
+
+- **A right number in a wrong answer.** A model that cites a coincident value
+  for the wrong reason is graded as correct. The pinned list says which
+  questions are exposed: E1 most of all.
+- **A small sample.** One question is 2.8 percentage points of accuracy. Three
+  repeats show variation but do not bound it tightly.
+- **The builder wrote both the questions and the system prompt.** The set may
+  be easier for this prompt than real users' questions would be.
+- **Declines that repeat a number from the question can be blocked.** Numbers
+  in the user's question are not context numbers. For example, "500 bp is
+  outside the range" fails verification unless the model drops the "500".
+- **Latency comes from one machine on one network,** not from the deployed
+  app.
+
+### Interview questions
+
+1. **How do you grade an AI analyst without an LLM judge?**
+   Each question has a gold function that runs the engine directly. An answer
+   is correct if its status matches and every gold value appears among the
+   values it cites, within the verifier's 0.5%.
+2. **What does "verified but wrong" measure, and why does it matter?**
+   It is the share of answers that passed verification and were still wrong:
+   every number was copied correctly, but they were the wrong numbers for the
+   question. It is the failure the verifier cannot catch, so it is the risk a
+   user actually carries.
+3. **How do you know the eval itself is right?**
+   - An oracle fake follows a reference plan for every question and scores
+     36/36, so every question is answerable and gold equals what the tools
+     return.
+   - The grader has its own case table.
+   - A test pins every value that could pass by coincidence.
+4. **How did you control the cost of running evals?**
+   - An estimate before spending, calibrated to a measured call.
+   - A refusal to run on stale prices.
+   - A hard budget per model.
+   - Every result saved as it arrives.

@@ -1,6 +1,6 @@
 {
  "source": "https://docs.sailresearch.com/pricing.md",
- "read_on": "2026-11-17",
+ "read_on": "2026-11-18",
  "note": "List prices in US dollars per million tokens, by service tier. Phase 9 re-reads the page on the day the evals run.",
  "usd_per_million_tokens": {
   "deepseek-ai/DeepSeek-V4.1-Flash-1017": {

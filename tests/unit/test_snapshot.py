@@ -124,7 +124,7 @@ def test_evidence_carries_the_measured_quantlib_report_and_no_unmeasured_figures
     evidence = load(web / "evidence.json")
     report = load(Path(__file__).resolve().parents[2] / "docs" / "evidence" / "quantlib_report.json")
     assert [q["measure"] for q in evidence["quantlib"]] == [m["measure"] for m in report["quantlib"]]
-    assert evidence["models"] == [] and evidence["questions"] == []  # evals run in Phase 9
+    assert evidence["models"] == [] and evidence["questions"] == []  # no eval summary passed: none published
 
 
 def test_meta_lists_assumptions_and_fred_series(builds):

@@ -3,7 +3,7 @@
 An interest-rate risk and hedging tool for a bank-style bond portfolio, with an
 AI analyst whose every number is checked against the calculation engine.
 
-**Status:** Phase 8 (AI analyst and verification) done. The build plan and progress log are in
+**Status:** Phase 9 (evals) built and dry-run; the real-model runs await approval. The build plan and progress log are in
 [PLAN.md](PLAN.md). There is no live link yet.
 
 ## Run locally
@@ -77,6 +77,19 @@ uv run --env-file .env python -m tenorwise.agent ask "What would a repeat of 202
 uv run --env-file .env python -m tenorwise.agent commentary
 ```
 
+Evals (PLAN.md section 10). The dry run and the estimate are free; `run` is paid
+and refuses to start unless `data/llm/prices.json` was re-read from Sail's pricing
+page today:
+
+```bash
+uv run python -m tenorwise.evals dry-run     # full pipeline with a scripted oracle, no network
+uv run python -m tenorwise.evals estimate    # cost estimate for 3 repeats x 36 questions per model
+uv run --env-file .env python -m tenorwise.evals run --model zai-org/GLM-5.3 --max-cost 3.00
+uv run --env-file .env python -m tenorwise.evals run --model deepseek-ai/DeepSeek-V4.1-Flash-1017 --max-cost 0.30
+uv run --env-file .env python -m tenorwise.evals run --model moonshotai/Kimi-K3.1-Pro --max-cost 6.40
+uv run python -m tenorwise.evals report      # docs/evidence/evals/summary.json and report.md
+```
+
 The HTTP endpoints need daily caps and a rate-limit store. For local development,
 start the API with the in-process store (never used on Vercel):
 
@@ -120,6 +133,7 @@ build) and packages `api/index.py` as the Python function.
 - [ASSUMPTIONS.md](ASSUMPTIONS.md) and [LIMITATIONS.md](LIMITATIONS.md)
 - [docs/strategy/decision-log.md](docs/strategy/decision-log.md)
 - [docs/provider-probe.md](docs/provider-probe.md)
+- [docs/evidence/evals/](docs/evidence/evals/): eval raw results, summary and report (after the real runs)
 
 ## Data
 

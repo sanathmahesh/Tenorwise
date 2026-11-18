@@ -164,6 +164,30 @@ What Tenorwise cannot tell you, and why.
 - **Rate limits are per IP.** Someone with many IP addresses can use more than
   the per-IP cap. The global daily cap bounds the total cost regardless.
 - **Cost figures are computed, not billed.** They come from token usage at
-  list prices read on 2026-11-17. They are an upper bound if the provider
-  does not report cached tokens.
+  the list prices in `data/llm/prices.json` (re-read from Sail's pricing page;
+  the file records the date). They are an upper bound if the provider does not
+  report cached tokens.
 
+
+## Evals
+
+- **The grader checks values, not meaning.** An answer passes if it cites
+  every gold value, with the same unit and within 0.5%. A model that cites a
+  coincident value for the wrong reason still passes.
+  - Across all tool outputs, 17 values lie within 0.5% of some gold value:
+    6 equal by definition and 11 by coincidence.
+  - The list is pinned in `tests/evals/test_evidence_and_cli.py`.
+  - Question E1 (the pool's duration) is the most exposed: several
+    positions' durations are within 0.5% of it.
+- **Small sample.** 36 questions, six per group, so one question moves
+  accuracy by 2.8 percentage points. Three repeats per model show run-to-run
+  variation but do not bound it tightly. Sail offers no seed.
+- **The question set and the system prompt were written by the same person**,
+  so the set may suit this prompt better than real users' questions would.
+- **Latency is measured on the eval machine:** wall-clock per question, one
+  network location, sequential runs. It is not the deployed app's latency.
+- **Cost is computed, not billed:** reported tokens at Sail's list prices,
+  re-read on the day of the run. It is an upper bound when the provider does
+  not report cached tokens.
+- **The per-question result is the majority over repeats.** It hides
+  variation; the report shows the counts.
