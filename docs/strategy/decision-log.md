@@ -600,3 +600,26 @@ decision, newest at the bottom. Changes to PLAN.md are recorded here too.
 - **Client IP:** Vercel's request-header documentation (read 2026-11-18) says Vercel overwrites `X-Forwarded-For` "to prevent IP spoofing", and that `x-real-ip` is identical. So the per-IP cap cannot be bypassed by sending those headers.
 - **Proposed firewall rule:** requests whose path starts with `/api/agent`, limited to 5 per 60 seconds per IP, with a 429 response. This stops bursts; the daily caps in Redis bound the total. The Hobby plan allows one such rule per project.
 - **Build rehearsal:** the Vercel build script was run locally on 2026-11-18 with live FRED data (market data date 2026-11-16). It published the eval results and built the site.
+
+## D-079. Production deploy and live smoke test (Phase 12)
+
+- **Phase:** 12
+- **Owner approvals (2026-11-18):** the production deploy, publishing the firewall rule, and the paid live smoke test.
+- **Upstash:** the owner created a new database for Tenorwise only (free plan, AWS US East 1, near the function's `iad1` region).
+  - Eviction is off. If the database filled, eviction would delete counters and reset a daily cap. With it off, writes fail and the analyst answers 503.
+- **Variables:** all nine were set for Production with the Vercel CLI. Values were piped from `.env` through standard input, and the keys, the salt and the Upstash values are stored as sensitive. The salt was generated and sent straight to Vercel.
+- **Firewall:** the rule proposed in D-078 is live: path starts with `/api/agent`, fixed window of 60 seconds, 5 requests per IP, 429. The CLI staged it; publishing needed the owner's confirmation.
+- **Smoke test:** all six checks passed against https://tenorwise.vercel.app.
+  - The AI answer had 4 of 4 numbers verified.
+  - The app's own 429 came after 11 AI requests.
+  - Model cost at list prices: $0.0127.
+
+## D-080. Commit history rewritten to the GitHub no-reply address
+
+- **Phase:** 12
+- **Owner decision (2026-11-18):** before the first push to the public GitHub repository, replace the personal email address in the commit metadata of all 35 commits with the owner's GitHub no-reply address.
+- **What changed:** only the author and committer address. Files, messages, names and dates are unchanged; the final file tree is identical.
+- **Consequences:**
+  - Every commit ID changed, and the progress log in PLAN.md now cites the new IDs.
+  - Deployments built before the rewrite report `cda4d65`, which is now `8b45d6b`.
+  - This repository's own git setting now uses the no-reply address, so later commits keep the personal address out.

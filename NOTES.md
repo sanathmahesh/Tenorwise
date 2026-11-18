@@ -1737,6 +1737,28 @@ accounts. US supervisors' guidance on managing that risk is SR 26-2 (April
 - **[docs/deploy.md](docs/deploy.md):** the Upstash database, the Vercel
   environment variables, the firewall rule, the deploy and the smoke test.
 
+### The production deploy (2026-11-18)
+
+- **Database:** the owner created a new Upstash Redis database (free plan,
+  AWS US East 1, next to the function's `iad1` region) with eviction off.
+- **Variables:** all nine were set with the Vercel CLI for Production. Each
+  value went from `.env` through standard input, so none appeared in output
+  or in the process list. `IP_HASH_SALT` was generated and passed straight
+  to Vercel, so it is stored nowhere else.
+- **Firewall:** the burst rule was staged with the CLI and published on the
+  owner's approval.
+- **Deploys:**
+  - The first went out before the database existed. The analyst correctly
+    refused with a 503 and made no model call.
+  - The second added the Upstash values.
+  - Both were built from the commit that is now `8b45d6b` (`cda4d65` before
+    the history rewrite in D-080).
+- **Live smoke test:** all six checks passed.
+  - The data was dated 2026-11-16, two days old.
+  - The AI answer had 4 of 4 numbers verified.
+  - The app's own 429 came after 11 AI requests, the cap of 10 plus one.
+  - Model cost at list prices: $0.0127.
+
 ### Why this design, and what was rejected
 
 - **Generated, not written, results.** A hand-edited results file drifts and
@@ -1744,8 +1766,11 @@ accounts. US supervisors' guidance on managing that risk is SR 26-2 (April
 - **The smoke test checks the app's 429, not just any 429.** A firewall burst
   rule also answers 429. Counting it would pass the test without proving the
   daily cap works.
-- **The owner creates the database and sets secrets.** No key passes through
-  the chat or a script's output.
+- **The owner creates the database and holds the keys.** Keys go from the
+  owner's `.env` to Vercel through standard input. None passes through the
+  chat or a script's output.
+- **Eviction off, and the analyst fails closed.** A full or unreachable
+  database turns the analyst off; it never lets requests through uncounted.
 
 ### Interview questions
 

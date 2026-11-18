@@ -622,16 +622,16 @@ Update this table at the end of each phase.
 
 | Phase | Status | Date | Commit |
 |---|---|---|---|
-| 0. Foundations, probe, skeleton deploy | Done | 2026-11-17 | e94ac6b, 63453bf |
-| 1. Yield curve | Done | 2026-11-17 | c3bbfc4 |
-| 2. Bond analytics | Done | 2026-11-17 | d2bc167 |
-| 3. Agency mortgage bonds | Done | 2026-11-17 | 5b9f2ec |
-| 4. Portfolio | Done | 2026-11-17 | c786a5a, 257343a |
-| 5. Scenarios | Done | 2026-11-17 | fda2fdf |
-| 6. Hedging | Done | 2026-11-17 | c3fc7db |
-| 7. Snapshot, API, placeholder interface | Done | 2026-11-17 | 294ea04 |
-| 8. AI analyst and verification | Done | 2026-11-18 | 9255a66, 5ea20ab |
-| 9. Evals | Done | 2026-11-18 | 00b1903, 456dd5c |
-| 10. Strategy artifacts and About page | Drafted; waiting for owner's timings and opportunity-map review | 2026-11-18 | 3b32ef6 |
-| 11. Implement the handed-off design | Done | 2026-11-18 | 08ea43e, ef67acf |
-| 12. Production deploy and final documents | Documents done; deploy awaiting the owner's setup and approval | 2026-11-18 | 55faf4d |
+| 0. Foundations, probe, skeleton deploy | Done | 2026-11-17 | 8722428, f6edada |
+| 1. Yield curve | Done | 2026-11-17 | b9f20ea |
+| 2. Bond analytics | Done | 2026-11-17 | 9183f89 |
+| 3. Agency mortgage bonds | Done | 2026-11-17 | bf6048c |
+| 4. Portfolio | Done | 2026-11-17 | b14baa4, b15e223 |
+| 5. Scenarios | Done | 2026-11-17 | 9564e9d |
+| 6. Hedging | Done | 2026-11-17 | 9201294 |
+| 7. Snapshot, API, placeholder interface | Done | 2026-11-17 | cb3725c |
+| 8. AI analyst and verification | Done | 2026-11-18 | 00704b5, b803d36 |
+| 9. Evals | Done | 2026-11-18 | 57eb8ca, 069601e |
+| 10. Strategy artifacts and About page | Drafted; waiting for owner's timings and opportunity-map review | 2026-11-18 | 51cd1cc |
+| 11. Implement the handed-off design | Done | 2026-11-18 | ae6a45e, 11b95ad |
+| 12. Production deploy and final documents | Documents done; deploy awaiting the owner's setup and approval | 2026-11-18 | 06509b4 |

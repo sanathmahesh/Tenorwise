@@ -4,7 +4,7 @@ An interest-rate risk and hedging tool for a bank-style bond portfolio, with an
 AI analyst whose every number is checked against the calculation engine before
 it is shown.
 
-**Live:** https://tenorwise.vercel.app (production deploy pending the owner's approval; see [docs/deploy.md](docs/deploy.md)).
+**Live:** https://tenorwise.vercel.app. Deployed and smoke-tested on 2026-11-18; see [docs/deploy.md](docs/deploy.md).
 **Measured results:** [RESULTS.md](RESULTS.md), generated from the evidence files.
 **Build plan and progress log:** [PLAN.md](PLAN.md).
 

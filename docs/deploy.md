@@ -16,6 +16,7 @@ The daily caps on the AI endpoints live in Redis. Without it, the AI endpoints r
 1. At https://console.upstash.com, create a **new** Redis database just for Tenorwise; it shares nothing with any other project.
    - Choose a region near the Vercel function. Vercel's default function region is Washington, D.C. (`iad1`); check Project Settings → Functions.
    - The free plan is enough. The site makes at most two Redis calls per AI request.
+   - Leave **Eviction off**. If the database ever filled, eviction would delete counters and reset someone's daily cap. With it off, writes fail and the analyst answers 503 instead. (It will not fill: each counter expires after two days.)
 2. From the database's REST API section, copy the REST URL and the REST token into the Vercel variables below. Never paste them into a chat.
 
 ## 2. Set the environment variables in Vercel (owner)
@@ -36,6 +37,8 @@ Set these under Project Settings → Environment Variables, for Production. Add 
 
 Do not set `RATE_LIMIT_BACKEND` on Vercel. It is for local development, and the function refuses it.
 
+The CLI can set them too: `npx vercel@65.12.1 env add NAME --environment production --sensitive --yes`, with the value piped through standard input. Never pass a key with `--value`, which puts it in the process list. Store keys, the salt and the Upstash values as sensitive. Variables are read when a deployment is created, so redeploy after changing one.
+
 ## 3. Add the firewall rate-limit rule (owner)
 
 This rule stops bursts. The daily caps in Redis bound the total. The Hobby plan allows one rule per project, keyed by IP, with a fixed window of 10 seconds to 10 minutes.
@@ -49,6 +52,18 @@ This rule stops bursts. The daily caps in Redis bound the total. The Hobby plan 
 4. Save the rule, select Review Changes, then Publish.
 
 To watch the rule's effect before it blocks anything, set the action to Log first.
+
+The CLI can stage the same rule:
+
+```bash
+npx vercel@65.12.1 firewall rules add "AI analyst burst limit" \
+  --condition '{"type":"path","op":"pre","value":"/api/agent"}' \
+  --action rate_limit --rate-limit-algo fixed_window --rate-limit-window 60 \
+  --rate-limit-requests 5 --rate-limit-keys ip --rate-limit-action rate_limit --yes
+npx vercel@65.12.1 firewall publish
+```
+
+`publish` will not go live on `--yes`. It prints a confirmation command that the owner must approve.
 
 ## 4. Deploy (after approval)
 
