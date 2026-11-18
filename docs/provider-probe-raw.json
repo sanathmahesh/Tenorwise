@@ -1,0 +1,1517 @@
+{
+  "all_cached_reported": true,
+  "base_url": "https://api.sailresearch.com/v1",
+  "max_completion_tokens": 1024,
+  "models": [
+    "zai-org/GLM-5.3",
+    "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+    "moonshotai/Kimi-K3.1-Pro"
+  ],
+  "models_listed": {
+    "body": {
+      "data": [
+        {
+          "created": 1700000000,
+          "id": "moonshotai/Kimi-K3.1-Pro",
+          "input_modalities": [
+            "text",
+            "image"
+          ],
+          "object": "model",
+          "owned_by": "moonshotai",
+          "pricing_usd_per_million_tokens": {
+            "asap": {
+              "cached_input": 0.2,
+              "input": 1.5,
+              "output": 10
+            },
+            "balanced": {
+              "cached_input": 0.15,
+              "input": 1.2,
+              "output": 8
+            },
+            "flex": {
+              "cached_input": 0.1,
+              "input": 0.7,
+              "output": 6
+            }
+          }
+        },
+        {
+          "created": 1700000000,
+          "id": "zai-org/GLM-5.3",
+          "input_modalities": [
+            "text"
+          ],
+          "object": "model",
+          "owned_by": "zai-org",
+          "pricing_usd_per_million_tokens": {
+            "asap": {
+              "cached_input": 0.18,
+              "input": 0.98,
+              "output": 3.08
+            },
+            "balanced": {
+              "cached_input": 0.12,
+              "input": 0.5,
+              "output": 2.5
+            },
+            "flex": {
+              "cached_input": 0.08,
+              "input": 0.4,
+              "output": 1.8
+            }
+          }
+        },
+        {
+          "created": 1700000000,
+          "id": "zai-org/GLM-5.3-Flash",
+          "input_modalities": [
+            "text",
+            "image"
+          ],
+          "object": "model",
+          "owned_by": "zai-org",
+          "pricing_usd_per_million_tokens": {
+            "asap": {
+              "cached_input": 0.02,
+              "input": 0.11,
+              "output": 0.35
+            },
+            "balanced": {
+              "cached_input": 0.02,
+              "input": 0.08,
+              "output": 0.28
+            },
+            "flex": {
+              "cached_input": 0.01,
+              "input": 0.05,
+              "output": 0.18
+            }
+          }
+        },
+        {
+          "created": 1700000000,
+          "id": "deepseek-ai/DeepSeek-V4-Flash-0731",
+          "input_modalities": [
+            "text"
+          ],
+          "object": "model",
+          "owned_by": "deepseek-ai",
+          "pricing_usd_per_million_tokens": {
+            "asap": {
+              "cached_input": 0.02,
+              "input": 0.09,
+              "output": 0.18
+            },
+            "balanced": {
+              "cached_input": 0.02,
+              "input": 0.07,
+              "output": 0.14
+            },
+            "flex": {
+              "cached_input": 0.01,
+              "input": 0.05,
+              "output": 0.09
+            }
+          }
+        },
+        {
+          "created": 1700000000,
+          "id": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+          "input_modalities": [
+            "text",
+            "image"
+          ],
+          "object": "model",
+          "owned_by": "deepseek-ai",
+          "pricing_usd_per_million_tokens": {
+            "asap": {
+              "cached_input": 0.006,
+              "input": 0.09,
+              "output": 0.3
+            },
+            "balanced": {
+              "cached_input": 0.005,
+              "input": 0.07,
+              "output": 0.22
+            },
+            "flex": {
+              "cached_input": 0.004,
+              "input": 0.05,
+              "output": 0.15
+            }
+          }
+        },
+        {
+          "created": 1700000000,
+          "id": "deepseek-ai/DeepSeek-V4-Pro-0813",
+          "input_modalities": [
+            "text"
+          ],
+          "object": "model",
+          "owned_by": "deepseek-ai",
+          "pricing_usd_per_million_tokens": {
+            "asap": {
+              "cached_input": 0.04,
+              "input": 0.92,
+              "output": 2.77
+            },
+            "balanced": {
+              "cached_input": 0.03,
+              "input": 0.74,
+              "output": 2.22
+            },
+            "flex": {
+              "cached_input": 0.02,
+              "input": 0.46,
+              "output": 1.39
+            }
+          }
+        },
+        {
+          "created": 1700000000,
+          "id": "google/gemma-4-31B-it",
+          "input_modalities": [
+            "text",
+            "image"
+          ],
+          "object": "model",
+          "owned_by": "google",
+          "pricing_usd_per_million_tokens": {
+            "asap": {
+              "cached_input": 0.2,
+              "input": 0.4,
+              "output": 0.6
+            },
+            "balanced": {
+              "cached_input": 0.08,
+              "input": 0.12,
+              "output": 0.6
+            },
+            "flex": {
+              "cached_input": 0.02,
+              "input": 0.06,
+              "output": 0.3
+            }
+          }
+        },
+        {
+          "created": 1700000000,
+          "id": "google/gemma-4-12B-it",
+          "input_modalities": [
+            "text"
+          ],
+          "object": "model",
+          "owned_by": "google",
+          "pricing_usd_per_million_tokens": {
+            "asap": {
+              "cached_input": 0.15,
+              "input": 0.3,
+              "output": 2
+            },
+            "balanced": {
+              "cached_input": 0.07,
+              "input": 0.1,
+              "output": 2
+            },
+            "flex": {
+              "cached_input": 0.02,
+              "input": 0.05,
+              "output": 1
+            }
+          }
+        },
+        {
+          "created": 1700000000,
+          "id": "nvidia/Gemma-4-31B-IT-NVFP4",
+          "input_modalities": [
+            "text",
+            "image"
+          ],
+          "object": "model",
+          "owned_by": "nvidia",
+          "pricing_usd_per_million_tokens": {
+            "asap": {
+              "cached_input": 0.07,
+              "input": 0.14,
+              "output": 0.4
+            },
+            "balanced": {
+              "cached_input": 0.06,
+              "input": 0.11,
+              "output": 0.32
+            },
+            "flex": {
+              "cached_input": 0.04,
+              "input": 0.07,
+              "output": 0.2
+            }
+          }
+        },
+        {
+          "created": 1700000000,
+          "id": "Qwen/Qwen3.6-35B-A3B",
+          "input_modalities": [
+            "text",
+            "image"
+          ],
+          "object": "model",
+          "owned_by": "Qwen",
+          "pricing_usd_per_million_tokens": {
+            "flex": {
+              "cached_input": 0.02,
+              "input": 0.05,
+              "output": 0.4
+            }
+          }
+        }
+      ],
+      "object": "list"
+    },
+    "http_status": 200,
+    "latency_ms": 280
+  },
+  "results": {
+    "deepseek-ai/DeepSeek-V4.1-Flash-1017": {
+      "served_tiers": [
+        "asap"
+      ],
+      "tests": [
+        {
+          "detail": "content contains 'pong'",
+          "passed": true,
+          "request_body": {
+            "max_completion_tokens": 1024,
+            "messages": [
+              {
+                "content": "Reply with exactly one word: pong",
+                "role": "user"
+              }
+            ],
+            "model": "deepseek-ai/DeepSeek-V4.1-Flash-1017"
+          },
+          "responses": [
+            {
+              "attempts": [
+                {
+                  "attempt": 1,
+                  "http_status": 200,
+                  "latency_ms": 1123,
+                  "request_id": null,
+                  "retry_after": null
+                }
+              ],
+              "body": {
+                "choices": [
+                  {
+                    "finish_reason": "stop",
+                    "index": 0,
+                    "logprobs": null,
+                    "message": {
+                      "content": "pong",
+                      "reasoning_content": "The user wants exactly one word: \"pong\".",
+                      "refusal": null,
+                      "role": "assistant"
+                    }
+                  }
+                ],
+                "created": 1794964891,
+                "id": "resp_01a1ec3e-a856-7e75-ac60-07c8fc426dec",
+                "model": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+                "object": "chat.completion",
+                "service_tier": "asap",
+                "status": "completed",
+                "usage": {
+                  "completion_tokens": 15,
+                  "completion_tokens_details": {
+                    "reasoning_tokens": 12
+                  },
+                  "prompt_tokens": 38,
+                  "prompt_tokens_details": {
+                    "cached_tokens": 0
+                  },
+                  "total_tokens": 53
+                }
+              },
+              "http_status": 200,
+              "latency_ms": 1123,
+              "request_id": null
+            }
+          ],
+          "test": "plain"
+        },
+        {
+          "detail": "called get_rate({'tenor_years': 10}); final answer quotes 1.2345",
+          "passed": true,
+          "request_body": {
+            "max_completion_tokens": 1024,
+            "messages": [
+              {
+                "content": "You answer by calling the provided tools.",
+                "role": "system"
+              },
+              {
+                "content": "Look up the rate for a 10-year tenor with get_rate, then tell me the rate.",
+                "role": "user"
+              }
+            ],
+            "model": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+            "tool_choice": "auto",
+            "tools": [
+              {
+                "function": {
+                  "description": "Return the synthetic test rate, in percent, for a tenor in years. Probe only; not market data.",
+                  "name": "get_rate",
+                  "parameters": {
+                    "additionalProperties": false,
+                    "properties": {
+                      "tenor_years": {
+                        "description": "Tenor in years, e.g. 10",
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "tenor_years"
+                    ],
+                    "type": "object"
+                  }
+                },
+                "type": "function"
+              }
+            ]
+          },
+          "responses": [
+            {
+              "attempts": [
+                {
+                  "attempt": 1,
+                  "http_status": 200,
+                  "latency_ms": 3111,
+                  "request_id": null,
+                  "retry_after": null
+                }
+              ],
+              "body": {
+                "choices": [
+                  {
+                    "finish_reason": "tool_calls",
+                    "index": 0,
+                    "logprobs": null,
+                    "message": {
+                      "content": "I'll look that up for you.",
+                      "refusal": null,
+                      "role": "assistant",
+                      "tool_calls": [
+                        {
+                          "function": {
+                            "arguments": "{\"tenor_years\":10}",
+                            "name": "get_rate"
+                          },
+                          "id": "call_resp_01a1ec3e-acb1-72db-9823-85890b54ae24_0",
+                          "type": "function"
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "created": 1794964892,
+                "id": "resp_01a1ec3e-acb1-72db-9823-85890b54ae24",
+                "model": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+                "object": "chat.completion",
+                "service_tier": "asap",
+                "status": "completed",
+                "usage": {
+                  "completion_tokens": 49,
+                  "completion_tokens_details": {
+                    "reasoning_tokens": 1
+                  },
+                  "prompt_tokens": 362,
+                  "prompt_tokens_details": {
+                    "cached_tokens": 0
+                  },
+                  "total_tokens": 411
+                }
+              },
+              "http_status": 200,
+              "latency_ms": 3111,
+              "request_id": null
+            },
+            {
+              "attempts": [
+                {
+                  "attempt": 1,
+                  "http_status": 200,
+                  "latency_ms": 3100,
+                  "request_id": null,
+                  "retry_after": null
+                }
+              ],
+              "body": {
+                "choices": [
+                  {
+                    "finish_reason": "stop",
+                    "index": 0,
+                    "logprobs": null,
+                    "message": {
+                      "content": "The 10-year tenor rate is **1.2345%**.\n\nNote that the tool describes this as a synthetic probe value rather than live market data, so it shouldn't be used for actual pricing or trading decisions.",
+                      "refusal": null,
+                      "role": "assistant"
+                    }
+                  }
+                ],
+                "created": 1794964895,
+                "id": "resp_01a1ec3e-b8d3-78a4-a9db-7009a610e829",
+                "model": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+                "object": "chat.completion",
+                "service_tier": "asap",
+                "status": "completed",
+                "usage": {
+                  "completion_tokens": 46,
+                  "completion_tokens_details": {
+                    "reasoning_tokens": 1
+                  },
+                  "prompt_tokens": 451,
+                  "prompt_tokens_details": {
+                    "cached_tokens": 256
+                  },
+                  "total_tokens": 497
+                }
+              },
+              "http_status": 200,
+              "latency_ms": 3100,
+              "request_id": null
+            }
+          ],
+          "test": "tool_trip"
+        },
+        {
+          "detail": "tool call returned on served tier 'asap'",
+          "passed": true,
+          "request_body": {
+            "max_completion_tokens": 1024,
+            "messages": [
+              {
+                "content": "Hello there.",
+                "role": "user"
+              }
+            ],
+            "model": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+            "service_tier": "asap",
+            "tool_choice": "required",
+            "tools": [
+              {
+                "function": {
+                  "description": "Return the synthetic test rate, in percent, for a tenor in years. Probe only; not market data.",
+                  "name": "get_rate",
+                  "parameters": {
+                    "additionalProperties": false,
+                    "properties": {
+                      "tenor_years": {
+                        "description": "Tenor in years, e.g. 10",
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "tenor_years"
+                    ],
+                    "type": "object"
+                  }
+                },
+                "type": "function"
+              }
+            ]
+          },
+          "responses": [
+            {
+              "attempts": [
+                {
+                  "attempt": 1,
+                  "http_status": 200,
+                  "latency_ms": 3104,
+                  "request_id": null,
+                  "retry_after": null
+                }
+              ],
+              "body": {
+                "choices": [
+                  {
+                    "finish_reason": "tool_calls",
+                    "index": 0,
+                    "logprobs": null,
+                    "message": {
+                      "content": null,
+                      "reasoning_content": "The user just said \"Hello there.\" No task. I have a tool available (get_rate) but no reason to call it. Just respond conversationally and offer help.",
+                      "refusal": null,
+                      "role": "assistant",
+                      "tool_calls": [
+                        {
+                          "function": {
+                            "arguments": "{\"tenor_years\":10}",
+                            "name": "get_rate"
+                          },
+                          "id": "call_resp_01a1ec3e-c4f1-7dbe-b92b-da07c11c3b3c_0",
+                          "type": "function"
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "created": 1794964899,
+                "id": "resp_01a1ec3e-c4f1-7dbe-b92b-da07c11c3b3c",
+                "model": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+                "object": "chat.completion",
+                "service_tier": "asap",
+                "status": "completed",
+                "usage": {
+                  "completion_tokens": 77,
+                  "completion_tokens_details": {
+                    "reasoning_tokens": 36
+                  },
+                  "prompt_tokens": 337,
+                  "prompt_tokens_details": {
+                    "cached_tokens": 0
+                  },
+                  "total_tokens": 414
+                }
+              },
+              "http_status": 200,
+              "latency_ms": 3104,
+              "request_id": null
+            }
+          ],
+          "test": "required"
+        },
+        {
+          "detail": "parsed {'country': 'France', 'capital': 'Paris'}",
+          "passed": true,
+          "request_body": {
+            "max_completion_tokens": 1024,
+            "messages": [
+              {
+                "content": "Give the country France and its capital city as JSON.",
+                "role": "user"
+              }
+            ],
+            "model": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+            "response_format": {
+              "json_schema": {
+                "name": "capital_city",
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "capital": {
+                      "type": "string"
+                    },
+                    "country": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "country",
+                    "capital"
+                  ],
+                  "type": "object"
+                },
+                "strict": true
+              },
+              "type": "json_schema"
+            }
+          },
+          "responses": [
+            {
+              "attempts": [
+                {
+                  "attempt": 1,
+                  "http_status": 200,
+                  "latency_ms": 1101,
+                  "request_id": null,
+                  "retry_after": null
+                }
+              ],
+              "body": {
+                "choices": [
+                  {
+                    "finish_reason": "stop",
+                    "index": 0,
+                    "logprobs": null,
+                    "message": {
+                      "content": "{\"country\":\"France\",\"capital\":\"Paris\"}",
+                      "reasoning_content": "We need answer JSON schema. Need country France capital Paris. Strict JSON only.",
+                      "refusal": null,
+                      "role": "assistant"
+                    }
+                  }
+                ],
+                "created": 1794964902,
+                "id": "resp_01a1ec3e-d112-7689-8956-1b95f878b354",
+                "model": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+                "object": "chat.completion",
+                "service_tier": "asap",
+                "status": "completed",
+                "usage": {
+                  "completion_tokens": 27,
+                  "completion_tokens_details": {
+                    "reasoning_tokens": 17
+                  },
+                  "prompt_tokens": 115,
+                  "prompt_tokens_details": {
+                    "cached_tokens": 0
+                  },
+                  "total_tokens": 142
+                }
+              },
+              "http_status": 200,
+              "latency_ms": 1101,
+              "request_id": null
+            }
+          ],
+          "test": "json_schema"
+        }
+      ],
+      "usage_ok": true
+    },
+    "moonshotai/Kimi-K3.1-Pro": {
+      "served_tiers": [
+        "asap"
+      ],
+      "tests": [
+        {
+          "detail": "content contains 'pong'",
+          "passed": true,
+          "request_body": {
+            "max_completion_tokens": 1024,
+            "messages": [
+              {
+                "content": "Reply with exactly one word: pong",
+                "role": "user"
+              }
+            ],
+            "model": "moonshotai/Kimi-K3.1-Pro"
+          },
+          "responses": [
+            {
+              "attempts": [
+                {
+                  "attempt": 1,
+                  "http_status": 200,
+                  "latency_ms": 1105,
+                  "request_id": null,
+                  "retry_after": null
+                }
+              ],
+              "body": {
+                "choices": [
+                  {
+                    "finish_reason": "stop",
+                    "index": 0,
+                    "logprobs": null,
+                    "message": {
+                      "content": "pong",
+                      "reasoning_content": "I need respond exactly one word pong. Should obey no punctuation likely just pong. I have weird instructions long identity not relevant. Respond \"pong\".",
+                      "refusal": null,
+                      "role": "assistant"
+                    }
+                  }
+                ],
+                "created": 1794964903,
+                "id": "resp_01a1ec3e-d55d-78bb-bf18-7eeab2072faa",
+                "model": "moonshotai/Kimi-K3.1-Pro",
+                "object": "chat.completion",
+                "service_tier": "asap",
+                "status": "completed",
+                "usage": {
+                  "completion_tokens": 45,
+                  "completion_tokens_details": {
+                    "reasoning_tokens": 33
+                  },
+                  "prompt_tokens": 92,
+                  "prompt_tokens_details": {
+                    "cached_tokens": 0
+                  },
+                  "total_tokens": 137
+                }
+              },
+              "http_status": 200,
+              "latency_ms": 1105,
+              "request_id": null
+            }
+          ],
+          "test": "plain"
+        },
+        {
+          "detail": "called get_rate({'tenor_years': 10}); final answer quotes 1.2345",
+          "passed": true,
+          "request_body": {
+            "max_completion_tokens": 1024,
+            "messages": [
+              {
+                "content": "You answer by calling the provided tools.",
+                "role": "system"
+              },
+              {
+                "content": "Look up the rate for a 10-year tenor with get_rate, then tell me the rate.",
+                "role": "user"
+              }
+            ],
+            "model": "moonshotai/Kimi-K3.1-Pro",
+            "tool_choice": "auto",
+            "tools": [
+              {
+                "function": {
+                  "description": "Return the synthetic test rate, in percent, for a tenor in years. Probe only; not market data.",
+                  "name": "get_rate",
+                  "parameters": {
+                    "additionalProperties": false,
+                    "properties": {
+                      "tenor_years": {
+                        "description": "Tenor in years, e.g. 10",
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "tenor_years"
+                    ],
+                    "type": "object"
+                  }
+                },
+                "type": "function"
+              }
+            ]
+          },
+          "responses": [
+            {
+              "attempts": [
+                {
+                  "attempt": 1,
+                  "http_status": 200,
+                  "latency_ms": 3112,
+                  "request_id": null,
+                  "retry_after": null
+                }
+              ],
+              "body": {
+                "choices": [
+                  {
+                    "finish_reason": "tool_calls",
+                    "index": 0,
+                    "logprobs": null,
+                    "message": {
+                      "content": null,
+                      "reasoning_content": "I need respond by tool. Should call get_rate tenor 10. Then tell rate. I need ensure tool result.",
+                      "refusal": null,
+                      "role": "assistant",
+                      "tool_calls": [
+                        {
+                          "function": {
+                            "arguments": "{\"tenor_years\": 10}",
+                            "name": "get_rate"
+                          },
+                          "id": "call_resp_01a1ec3e-d9af-7055-987d-600944e464f9_0",
+                          "type": "function"
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "created": 1794964904,
+                "id": "resp_01a1ec3e-d9af-7055-987d-600944e464f9",
+                "model": "moonshotai/Kimi-K3.1-Pro",
+                "object": "chat.completion",
+                "service_tier": "asap",
+                "status": "completed",
+                "usage": {
+                  "completion_tokens": 72,
+                  "completion_tokens_details": {
+                    "reasoning_tokens": 27
+                  },
+                  "prompt_tokens": 241,
+                  "prompt_tokens_details": {
+                    "cached_tokens": 0
+                  },
+                  "total_tokens": 313
+                }
+              },
+              "http_status": 200,
+              "latency_ms": 3112,
+              "request_id": null
+            },
+            {
+              "attempts": [
+                {
+                  "attempt": 1,
+                  "http_status": 200,
+                  "latency_ms": 3103,
+                  "request_id": null,
+                  "retry_after": null
+                }
+              ],
+              "body": {
+                "choices": [
+                  {
+                    "finish_reason": "stop",
+                    "index": 0,
+                    "logprobs": null,
+                    "message": {
+                      "content": "The synthetic test rate for a **10-year tenor is 1.2345%**.",
+                      "reasoning_content": "I should respond rate 1.2345% 10-year synthetic probe. Should simply say. User requested look up then tell. I have called. Respond concise. \"The 10-year tenor rate is **1.2345%** (synthetic probe value).\" Should I clarify not market data? Tool says synthetic test rate. Could include. That's it.",
+                      "refusal": null,
+                      "role": "assistant"
+                    }
+                  }
+                ],
+                "created": 1794964907,
+                "id": "resp_01a1ec3e-e5d8-7690-a63a-7eee2e391d25",
+                "model": "moonshotai/Kimi-K3.1-Pro",
+                "object": "chat.completion",
+                "service_tier": "asap",
+                "status": "completed",
+                "usage": {
+                  "completion_tokens": 105,
+                  "completion_tokens_details": {
+                    "reasoning_tokens": 77
+                  },
+                  "prompt_tokens": 351,
+                  "prompt_tokens_details": {
+                    "cached_tokens": 256
+                  },
+                  "total_tokens": 456
+                }
+              },
+              "http_status": 200,
+              "latency_ms": 3103,
+              "request_id": null
+            }
+          ],
+          "test": "tool_trip"
+        },
+        {
+          "detail": "tool call returned on served tier 'asap'",
+          "passed": true,
+          "request_body": {
+            "max_completion_tokens": 1024,
+            "messages": [
+              {
+                "content": "Hello there.",
+                "role": "user"
+              }
+            ],
+            "model": "moonshotai/Kimi-K3.1-Pro",
+            "service_tier": "asap",
+            "tool_choice": "required",
+            "tools": [
+              {
+                "function": {
+                  "description": "Return the synthetic test rate, in percent, for a tenor in years. Probe only; not market data.",
+                  "name": "get_rate",
+                  "parameters": {
+                    "additionalProperties": false,
+                    "properties": {
+                      "tenor_years": {
+                        "description": "Tenor in years, e.g. 10",
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "tenor_years"
+                    ],
+                    "type": "object"
+                  }
+                },
+                "type": "function"
+              }
+            ]
+          },
+          "responses": [
+            {
+              "attempts": [
+                {
+                  "attempt": 1,
+                  "http_status": 200,
+                  "latency_ms": 5120,
+                  "request_id": null,
+                  "retry_after": null
+                }
+              ],
+              "body": {
+                "choices": [
+                  {
+                    "finish_reason": "tool_calls",
+                    "index": 0,
+                    "logprobs": null,
+                    "message": {
+                      "content": null,
+                      "reasoning_content": "I need respond to user Hello there. Should obey tool_choice required must call tools in next message. I have only get_rate probe synthetic rate tenor. Perhaps call arbitrary? Should think carefully. User simple greeting, but must call tool. Could call get_rate tenor perhaps 1? Then respond greeting and perhaps mention? Should not force irrelevant info? The instruction says MUST call tools in next message. Should call get_rate. I can choose tenor_years 1 as innocuous probe, but then final response to greeting should be natural perhaps \"Hello! How can I help you today?\" Should I mention rate? Probably not, tool was unnecessary but required. Could say hello and ask if they'd like help with rates or anything else. Should avoid presenting synthetic probe as market data. Could ignore tool output? It might be odd but okay. Now call functions.get_rate. Choose tenor_years 1. Then respond. I'll do.",
+                      "refusal": null,
+                      "role": "assistant",
+                      "tool_calls": [
+                        {
+                          "function": {
+                            "arguments": "{\"tenor_years\": 1}",
+                            "name": "get_rate"
+                          },
+                          "id": "call_resp_01a1ec3e-f1fc-738c-bcad-9205fd0906e3_0",
+                          "type": "function"
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "created": 1794964910,
+                "id": "resp_01a1ec3e-f1fc-738c-bcad-9205fd0906e3",
+                "model": "moonshotai/Kimi-K3.1-Pro",
+                "object": "chat.completion",
+                "service_tier": "asap",
+                "status": "completed",
+                "usage": {
+                  "completion_tokens": 234,
+                  "completion_tokens_details": {
+                    "reasoning_tokens": 189
+                  },
+                  "prompt_tokens": 241,
+                  "prompt_tokens_details": {
+                    "cached_tokens": 0
+                  },
+                  "total_tokens": 475
+                }
+              },
+              "http_status": 200,
+              "latency_ms": 5120,
+              "request_id": null
+            }
+          ],
+          "test": "required"
+        },
+        {
+          "detail": "parsed {'country': 'France', 'capital': 'Paris'}",
+          "passed": true,
+          "request_body": {
+            "max_completion_tokens": 1024,
+            "messages": [
+              {
+                "content": "Give the country France and its capital city as JSON.",
+                "role": "user"
+              }
+            ],
+            "model": "moonshotai/Kimi-K3.1-Pro",
+            "response_format": {
+              "json_schema": {
+                "name": "capital_city",
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "capital": {
+                      "type": "string"
+                    },
+                    "country": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "country",
+                    "capital"
+                  ],
+                  "type": "object"
+                },
+                "strict": true
+              },
+              "type": "json_schema"
+            }
+          },
+          "responses": [
+            {
+              "attempts": [
+                {
+                  "attempt": 1,
+                  "http_status": 200,
+                  "latency_ms": 3111,
+                  "request_id": null,
+                  "retry_after": null
+                }
+              ],
+              "body": {
+                "choices": [
+                  {
+                    "finish_reason": "stop",
+                    "index": 0,
+                    "logprobs": null,
+                    "message": {
+                      "content": "{\"country\":\"France\",\"capital\":\"Paris\"}",
+                      "reasoning_content": "Kimi should respond with raw JSON that matches the schema: country France capital Paris. Should just have {\"country\":\"France\",\"capital\":\"Paris\"}. No markdown. Ensure no extras.",
+                      "refusal": null,
+                      "role": "assistant"
+                    }
+                  }
+                ],
+                "created": 1794964915,
+                "id": "resp_01a1ec3f-05f9-733c-9f74-0e32ce4b67fa",
+                "model": "moonshotai/Kimi-K3.1-Pro",
+                "object": "chat.completion",
+                "service_tier": "asap",
+                "status": "completed",
+                "usage": {
+                  "completion_tokens": 50,
+                  "completion_tokens_details": {
+                    "reasoning_tokens": 40
+                  },
+                  "prompt_tokens": 187,
+                  "prompt_tokens_details": {
+                    "cached_tokens": 0
+                  },
+                  "total_tokens": 237
+                }
+              },
+              "http_status": 200,
+              "latency_ms": 3111,
+              "request_id": null
+            }
+          ],
+          "test": "json_schema"
+        }
+      ],
+      "usage_ok": true
+    },
+    "zai-org/GLM-5.3": {
+      "served_tiers": [
+        "asap"
+      ],
+      "tests": [
+        {
+          "detail": "content contains 'pong'",
+          "passed": true,
+          "request_body": {
+            "max_completion_tokens": 1024,
+            "messages": [
+              {
+                "content": "Reply with exactly one word: pong",
+                "role": "user"
+              }
+            ],
+            "model": "zai-org/GLM-5.3"
+          },
+          "responses": [
+            {
+              "attempts": [
+                {
+                  "attempt": 1,
+                  "http_status": 200,
+                  "latency_ms": 1121,
+                  "request_id": null,
+                  "retry_after": null
+                }
+              ],
+              "body": {
+                "choices": [
+                  {
+                    "finish_reason": "stop",
+                    "index": 0,
+                    "logprobs": null,
+                    "message": {
+                      "content": "pong",
+                      "reasoning_content": "The user wants me to reply with exactly one word: \"pong\". This is a simple request - they're likely testing a ping-pong style interaction or testing if I follow instructions.\n\nI should just reply with \"pong\" - exactly one word, nothing else.",
+                      "refusal": null,
+                      "role": "assistant"
+                    }
+                  }
+                ],
+                "created": 1794964880,
+                "id": "resp_01a1ec3e-7abc-7db0-978e-e582d26e911d",
+                "model": "zai-org/GLM-5.3",
+                "object": "chat.completion",
+                "service_tier": "asap",
+                "status": "completed",
+                "usage": {
+                  "completion_tokens": 56,
+                  "completion_tokens_details": {
+                    "reasoning_tokens": 54
+                  },
+                  "prompt_tokens": 19,
+                  "prompt_tokens_details": {
+                    "cached_tokens": 0
+                  },
+                  "total_tokens": 75
+                }
+              },
+              "http_status": 200,
+              "latency_ms": 1121,
+              "request_id": null
+            }
+          ],
+          "test": "plain"
+        },
+        {
+          "detail": "called get_rate({'tenor_years': 10}); final answer quotes 1.2345",
+          "passed": true,
+          "request_body": {
+            "max_completion_tokens": 1024,
+            "messages": [
+              {
+                "content": "You answer by calling the provided tools.",
+                "role": "system"
+              },
+              {
+                "content": "Look up the rate for a 10-year tenor with get_rate, then tell me the rate.",
+                "role": "user"
+              }
+            ],
+            "model": "zai-org/GLM-5.3",
+            "tool_choice": "auto",
+            "tools": [
+              {
+                "function": {
+                  "description": "Return the synthetic test rate, in percent, for a tenor in years. Probe only; not market data.",
+                  "name": "get_rate",
+                  "parameters": {
+                    "additionalProperties": false,
+                    "properties": {
+                      "tenor_years": {
+                        "description": "Tenor in years, e.g. 10",
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "tenor_years"
+                    ],
+                    "type": "object"
+                  }
+                },
+                "type": "function"
+              }
+            ]
+          },
+          "responses": [
+            {
+              "attempts": [
+                {
+                  "attempt": 1,
+                  "http_status": 200,
+                  "latency_ms": 3110,
+                  "request_id": null,
+                  "retry_after": null
+                }
+              ],
+              "body": {
+                "choices": [
+                  {
+                    "finish_reason": "tool_calls",
+                    "index": 0,
+                    "logprobs": null,
+                    "message": {
+                      "content": null,
+                      "reasoning_content": "The user wants me to look up the rate for a 10-year tenor using the get_rate tool. I'll call it with tenor_years = 10.",
+                      "refusal": null,
+                      "role": "assistant",
+                      "tool_calls": [
+                        {
+                          "function": {
+                            "arguments": "{\"tenor_years\": 10}",
+                            "name": "get_rate"
+                          },
+                          "id": "call_resp_01a1ec3e-7f11-7f81-a2e8-0ed96a14ab72_0",
+                          "type": "function"
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "created": 1794964881,
+                "id": "resp_01a1ec3e-7f11-7f81-a2e8-0ed96a14ab72",
+                "model": "zai-org/GLM-5.3",
+                "object": "chat.completion",
+                "service_tier": "asap",
+                "status": "completed",
+                "usage": {
+                  "completion_tokens": 48,
+                  "completion_tokens_details": {
+                    "reasoning_tokens": 35
+                  },
+                  "prompt_tokens": 225,
+                  "prompt_tokens_details": {
+                    "cached_tokens": 0
+                  },
+                  "total_tokens": 273
+                }
+              },
+              "http_status": 200,
+              "latency_ms": 3110,
+              "request_id": null
+            },
+            {
+              "attempts": [
+                {
+                  "attempt": 1,
+                  "http_status": 200,
+                  "latency_ms": 1114,
+                  "request_id": null,
+                  "retry_after": null
+                }
+              ],
+              "body": {
+                "choices": [
+                  {
+                    "finish_reason": "stop",
+                    "index": 0,
+                    "logprobs": null,
+                    "message": {
+                      "content": "The rate for a 10-year tenor is **1.2345%**.\n\nNote that this is a synthetic probe value from the test tool, not actual market data.",
+                      "reasoning_content": "The tool returned a rate of 1.2345% for the 10-year tenor. Let me tell the user.",
+                      "refusal": null,
+                      "role": "assistant"
+                    }
+                  }
+                ],
+                "created": 1794964884,
+                "id": "resp_01a1ec3e-8b3c-7a31-b8c5-1be8a361abee",
+                "model": "zai-org/GLM-5.3",
+                "object": "chat.completion",
+                "service_tier": "asap",
+                "status": "completed",
+                "usage": {
+                  "completion_tokens": 66,
+                  "completion_tokens_details": {
+                    "reasoning_tokens": 28
+                  },
+                  "prompt_tokens": 271,
+                  "prompt_tokens_details": {
+                    "cached_tokens": 192
+                  },
+                  "total_tokens": 337
+                }
+              },
+              "http_status": 200,
+              "latency_ms": 1114,
+              "request_id": null
+            }
+          ],
+          "test": "tool_trip"
+        },
+        {
+          "detail": "tool call returned on served tier 'asap'",
+          "passed": true,
+          "request_body": {
+            "max_completion_tokens": 1024,
+            "messages": [
+              {
+                "content": "Hello there.",
+                "role": "user"
+              }
+            ],
+            "model": "zai-org/GLM-5.3",
+            "service_tier": "asap",
+            "tool_choice": "required",
+            "tools": [
+              {
+                "function": {
+                  "description": "Return the synthetic test rate, in percent, for a tenor in years. Probe only; not market data.",
+                  "name": "get_rate",
+                  "parameters": {
+                    "additionalProperties": false,
+                    "properties": {
+                      "tenor_years": {
+                        "description": "Tenor in years, e.g. 10",
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "tenor_years"
+                    ],
+                    "type": "object"
+                  }
+                },
+                "type": "function"
+              }
+            ]
+          },
+          "responses": [
+            {
+              "attempts": [
+                {
+                  "attempt": 1,
+                  "http_status": 200,
+                  "latency_ms": 3118,
+                  "request_id": null,
+                  "retry_after": null
+                }
+              ],
+              "body": {
+                "choices": [
+                  {
+                    "finish_reason": "tool_calls",
+                    "index": 0,
+                    "logprobs": null,
+                    "message": {
+                      "content": null,
+                      "reasoning_content": "The user just said \"Hello there.\" There's no question about rates or anything requiring the tool. I should greet them and maybe offer help. No need to call the tool yet.",
+                      "refusal": null,
+                      "role": "assistant",
+                      "tool_calls": [
+                        {
+                          "function": {
+                            "arguments": "{}",
+                            "name": "get_rate"
+                          },
+                          "id": "call_resp_01a1ec3e-8f95-787f-a2e5-2e9dba4f82e2_0",
+                          "type": "function"
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "created": 1794964885,
+                "id": "resp_01a1ec3e-8f95-787f-a2e5-2e9dba4f82e2",
+                "model": "zai-org/GLM-5.3",
+                "object": "chat.completion",
+                "service_tier": "asap",
+                "status": "completed",
+                "usage": {
+                  "completion_tokens": 49,
+                  "completion_tokens_details": {
+                    "reasoning_tokens": 38
+                  },
+                  "prompt_tokens": 198,
+                  "prompt_tokens_details": {
+                    "cached_tokens": 128
+                  },
+                  "total_tokens": 247
+                }
+              },
+              "http_status": 200,
+              "latency_ms": 3118,
+              "request_id": null
+            }
+          ],
+          "test": "required"
+        },
+        {
+          "detail": "parsed {'country': 'France', 'capital': 'Paris'}",
+          "passed": true,
+          "request_body": {
+            "max_completion_tokens": 1024,
+            "messages": [
+              {
+                "content": "Give the country France and its capital city as JSON.",
+                "role": "user"
+              }
+            ],
+            "model": "zai-org/GLM-5.3",
+            "response_format": {
+              "json_schema": {
+                "name": "capital_city",
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "capital": {
+                      "type": "string"
+                    },
+                    "country": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "country",
+                    "capital"
+                  ],
+                  "type": "object"
+                },
+                "strict": true
+              },
+              "type": "json_schema"
+            }
+          },
+          "responses": [
+            {
+              "attempts": [
+                {
+                  "attempt": 1,
+                  "http_status": 200,
+                  "latency_ms": 3119,
+                  "request_id": null,
+                  "retry_after": null
+                }
+              ],
+              "body": {
+                "choices": [
+                  {
+                    "finish_reason": "stop",
+                    "index": 0,
+                    "logprobs": null,
+                    "message": {
+                      "content": "{\"country\": \"France\", \"capital\": \"Paris\"}",
+                      "reasoning_content": "The user wants France and its capital city in JSON format. Simple request. The capital of France is Paris.\n\nI should provide valid JSON. Let me think about what structure makes sense:\n\nOption 1: Simple flat object\n```json\n{\n  \"country\": \"France\",\n  \"capital\": \"Paris\"\n}\n```\n\nOption 2: Nested structure\n```json\n{\n  \"France\": {\n    \"capital\": \"Paris\"\n  }\n}\n```\n\nOption 3: More detailed\n```json\n{\n  \"country\": \"France\",\n  \"capital\": {\n    \"name\": \"Paris\"\n  }\n}\n```\n\nThe simplest and most direct interpretation is probably option 1 \u2014 a flat object with \"country\" and \"capital\" keys. That's clean and directly answers the question.\n\nThe user asked for JSON, so I should provide it in a code block for clarity. I could add a brief note but the response should be concise. Actually, for a simple request like this, just providing the JSON in a code block is ideal. Maybe a very brief intro line or just the JSON itself.\n\nFormat: JSON code block, minimal or no additional text. This is a simple factual request.",
+                      "refusal": null,
+                      "role": "assistant"
+                    }
+                  }
+                ],
+                "created": 1794964888,
+                "id": "resp_01a1ec3e-9bcc-7198-99ac-108eb9ea97b2",
+                "model": "zai-org/GLM-5.3",
+                "object": "chat.completion",
+                "service_tier": "asap",
+                "status": "completed",
+                "usage": {
+                  "completion_tokens": 260,
+                  "completion_tokens_details": {
+                    "reasoning_tokens": 246
+                  },
+                  "prompt_tokens": 23,
+                  "prompt_tokens_details": {
+                    "cached_tokens": 0
+                  },
+                  "total_tokens": 283
+                }
+              },
+              "http_status": 200,
+              "latency_ms": 3119,
+              "request_id": null
+            }
+          ],
+          "test": "json_schema"
+        },
+        {
+          "detail": "HTTP 400 (docs say 400)",
+          "passed": true,
+          "request_body": {
+            "max_completion_tokens": 1024,
+            "messages": [
+              {
+                "content": "Reply with exactly one word: pong",
+                "role": "user"
+              }
+            ],
+            "model": "zai-org/GLM-5.3",
+            "reasoning_effort": "none"
+          },
+          "responses": [
+            {
+              "attempts": [
+                {
+                  "attempt": 1,
+                  "http_status": 400,
+                  "latency_ms": 89,
+                  "request_id": null,
+                  "retry_after": null
+                }
+              ],
+              "body": {
+                "error": {
+                  "code": "unsupported_reasoning_effort",
+                  "message": "reasoning effort \"none\" is not supported by model 'zai-org/GLM-5.3': the model cannot disable reasoning; use \"low\" for the lowest native reasoning tier",
+                  "param": "reasoning_effort",
+                  "type": "invalid_request_error"
+                }
+              },
+              "http_status": 400,
+              "latency_ms": 89,
+              "request_id": null
+            }
+          ],
+          "test": "glm_none_400"
+        }
+      ],
+      "usage_ok": true
+    }
+  },
+  "run_at": "2026-11-18T01:21:19Z",
+  "total_cost_usd": 0.008495766
+}

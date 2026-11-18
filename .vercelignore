@@ -1,0 +1,17 @@
+# Never upload secrets.
+.env
+.env.*
+!.env.example
+
+# Local environments and build output.
+.venv/
+node_modules/
+web/node_modules/
+web/dist/
+.pytest_cache/
+**/__pycache__/
+.git/
+
+# Generated locally; Vercel regenerates these in its own build step.
+data/snapshot/
+web/public/data/

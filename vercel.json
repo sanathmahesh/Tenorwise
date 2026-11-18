@@ -1,0 +1,13 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "vite",
+  "installCommand": "npm ci --prefix web",
+  "buildCommand": "bash scripts/vercel_build.sh",
+  "outputDirectory": "web/dist",
+  "rewrites": [{ "source": "/api/(.*)", "destination": "/api/index" }],
+  "functions": {
+    "api/index.py": {
+      "excludeFiles": "{web/**,tests/**,docs/**,scripts/**,.venv/**}"
+    }
+  }
+}
