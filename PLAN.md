@@ -622,7 +622,7 @@ Update this table at the end of each phase.
 
 | Phase | Status | Date | Commit |
 |---|---|---|---|
-| 0. Foundations, probe, skeleton deploy | Not started | | |
+| 0. Foundations, probe, skeleton deploy | Done; awaiting go-ahead | 2026-11-17 | e94ac6b, 63453bf |
 | 1. Yield curve | Not started | | |
 | 2. Bond analytics | Not started | | |
 | 3. Agency mortgage bonds | Not started | | |
