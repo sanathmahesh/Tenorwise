@@ -3,7 +3,7 @@
 An interest-rate risk and hedging tool for a bank-style bond portfolio, with an
 AI analyst whose every number is checked against the calculation engine.
 
-**Status:** Phase 9 (evals) built and dry-run; the real-model runs await approval. The build plan and progress log are in
+**Status:** Phase 9 (evals) done; results in [docs/evidence/evals/report.md](docs/evidence/evals/report.md). The build plan and progress log are in
 [PLAN.md](PLAN.md). There is no live link yet.
 
 ## Run locally
@@ -133,7 +133,7 @@ build) and packages `api/index.py` as the Python function.
 - [ASSUMPTIONS.md](ASSUMPTIONS.md) and [LIMITATIONS.md](LIMITATIONS.md)
 - [docs/strategy/decision-log.md](docs/strategy/decision-log.md)
 - [docs/provider-probe.md](docs/provider-probe.md)
-- [docs/evidence/evals/](docs/evidence/evals/): eval raw results, summary and report (after the real runs)
+- [docs/evidence/evals/](docs/evidence/evals/): eval raw results, summary and report
 
 ## Data
 

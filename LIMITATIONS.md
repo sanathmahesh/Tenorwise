@@ -191,3 +191,10 @@ What Tenorwise cannot tell you, and why.
   not report cached tokens.
 - **The per-question result is the majority over repeats.** It hides
   variation; the report shows the counts.
+- **No verified-but-wrong answer was observed (2026-11-18 runs). That does not
+  mean the rate is zero.** With about 106 verified answers per model, the 95%
+  upper bound is roughly 2.8% to 2.9% per model (rule of three), and only for
+  this question set.
+- **First-attempt failure reasons are not recorded.** The raw results keep
+  only the final checks. For a run that was repaired and then passed, the
+  reason the first attempt failed is not saved.

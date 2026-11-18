@@ -430,6 +430,11 @@ decision, newest at the bottom. Changes to PLAN.md are recorded here too.
   - commentary gets `max_completion_tokens` 8,192;
   - provider errors now carry the provider's code and the first 200 characters of its message, scrubbed of the key.
 - **Next:** one more commentary run (about $0.03) to confirm, pending the owner's approval.
+- **Rerun (owner-approved, 2026-11-18):**
+  - The commentary succeeded on `zai-org/GLM-5.3`: 5 model calls running 13 tools, and all 67 numbers passed verification.
+  - Usage: 34,435 prompt + 4,812 completion tokens, $0.0269 at list prices, 25.1 s.
+  - The CLI output does not show `finish_reason` per call, so whether a cut-off happened and was handled is not known.
+  - The HTTP 400 did not recur.
 
 ## D-065. Eval grading: engine gold, tagged values only
 
@@ -483,3 +488,15 @@ decision, newest at the bottom. Changes to PLAN.md are recorded here too.
   - **Result:** $1.49 for GLM-5.3, $0.14 for DeepSeek-V4.1-Flash and $3.17 for Kimi-K3.1-Pro, $4.80 in all for 3 repeats.
   - **Suggested budget per model:** twice the estimate.
 - **Why:** an estimate from a measured call and the actual message sizes is more defensible than a guess. The budget guard bounds the error.
+
+## D-069. Eval results, 2026-11-18
+
+- **Phase:** 9
+- **Runs:** owner-approved, with caps of $3.00 (GLM-5.3), $0.30 (DeepSeek-V4.1-Flash) and $6.40 (Kimi-K3.1-Pro).
+  - 3 repeats of 36 questions each, run one model at a time, cheapest first. A systematic fault would have shown before the larger spend.
+  - The raw files are in `docs/evidence/evals/raw/`; the summary and report are generated from them.
+- **Results:** taken from `report.md`.
+  - **Accuracy (mean):** Kimi-K3.1-Pro 100.0%, DeepSeek-V4.1-Flash 98.1%, GLM-5.3 97.2%.
+  - **Failures:** all 5 were blocks of an untagged number that is not a context number. There were no errors and no verified-but-wrong answers.
+- **Spend:** $1.04 measured, against the $4.80 estimate (D-068). The estimate's no-cache and 500-tokens-per-call assumptions were conservative.
+- **Rate-limit caps (D-060):** the measured mean cost per question on GLM-5.3 is $0.0025, far below the $0.07 per-request worst case the caps were sized on. The caps are unchanged; changing them is the owner's call.

@@ -1244,8 +1244,12 @@ text before anything is shown, and links each one to the calculation behind it.
   the dev proxy, the rate limiter and the verifier, a question was answered
   with both cited numbers verified and linked. The 4th request from one IP got
   a 429, and the log line held metadata only.
-- **Not yet run:** any call to a real model. That waits for the owner's
-  approval.
+- **Live smoke test (owner-approved, GLM-5.3):**
+  - A question was answered in 2 calls, with 12/12 numbers verified, for
+    $0.0037.
+  - The first commentary attempt failed with HTTP 400. The likely cause was a
+    cut-off tool call being sent back; it was fixed (D-064).
+  - The rerun produced a verified commentary: 67/67 numbers, 5 calls, $0.0269.
 
 ### Why this design, and what was rejected
 
@@ -1379,8 +1383,37 @@ Most questions reuse concepts from earlier phases. Three are new:
   - Assumptions: 500 completion tokens per call, one extra call per question,
     and no cached-token discount.
   - It is an estimate, not a measurement.
-- **Real-model runs:** not yet made. They wait for the owner's approval of the
-  cost.
+- **Real-model runs (owner-approved, 2026-11-18):** 3 repeats of 36
+  questions per model, asap tier. All figures come from
+  [docs/evidence/evals/report.md](docs/evidence/evals/report.md), which
+  `report` generates from the raw files.
+
+  | Model | Accuracy, mean (range) | Blocked before / after repair | Verified but wrong | Latency p50 / p95 | Cost per question |
+  |---|---|---|---|---|---|
+  | Kimi-K3.1-Pro | 100.0% (100.0% to 100.0%) | 5.6% / 0.0% | 0.0% | 10.0 s / 18.1 s | $0.0069 |
+  | DeepSeek-V4.1-Flash | 98.1% (97.2% to 100.0%) | 24.1% / 1.9% | 0.0% | 12.6 s / 25.3 s | $0.0002 |
+  | GLM-5.3 | 97.2% (94.4% to 100.0%) | 17.6% / 2.8% | 0.0% | 4.7 s / 9.0 s | $0.0025 |
+
+  - **Every failure was a block, not a wrong answer.** There were 5 blocks:
+    2 for DeepSeek and 3 for GLM-5.3.
+    - Each block stated a number that was neither tagged nor a context number.
+    - No answer that passed verification was wrong, and no run ended in an
+      error.
+  - **Zero observed is not zero.** No model gave a verified-but-wrong answer
+    in about 106 verified answers. The "rule of three" puts the 95% upper
+    bound for this question set at roughly 2.8% to 2.9% per model (3 divided
+    by the number of verified answers).
+  - **The repair step matters.** It turned DeepSeek's 24.1% first-attempt
+    failures into 1.9% blocked. Most repairs were on derived figures and
+    declines.
+  - **Audit of the passes:** none relied on a coincidental value, and every
+    derived-figure pass used the intended `derive` operation.
+  - **Spend:**
+    - Measured: $1.04 for the evals, against the $4.80 estimate. Sail
+      reported cached tokens, so the measured costs are not upper bounds.
+    - Why the estimate was high: it assumed no cache discount and 500 output
+      tokens per call.
+    - With the commentary rerun, the total is $1.06.
 
 ### Why this design, and what was rejected
 
