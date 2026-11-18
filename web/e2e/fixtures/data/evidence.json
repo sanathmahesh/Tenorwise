@@ -1,0 +1,460 @@
+{
+ "data_date": "2026-11-16",
+ "models": [
+  {
+   "accuracy": 0.9814814815,
+   "block_rate": 0.01851851852,
+   "cost_per_question_usd": 0.0002113563889,
+   "id": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+   "latency_p50_ms": 12643.5,
+   "latency_p95_ms": 25282.95,
+   "runs": 3,
+   "verified_but_wrong_rate": 0.0
+  },
+  {
+   "accuracy": 1.0,
+   "block_rate": 0.0,
+   "cost_per_question_usd": 0.006906118519,
+   "id": "moonshotai/Kimi-K3.1-Pro",
+   "latency_p50_ms": 10046.5,
+   "latency_p95_ms": 18093.65,
+   "runs": 3,
+   "verified_but_wrong_rate": 0.0
+  },
+  {
+   "accuracy": 0.9722222222,
+   "block_rate": 0.02777777778,
+   "cost_per_question_usd": 0.002472947963,
+   "id": "zai-org/GLM-5.3",
+   "latency_p50_ms": 4687.0,
+   "latency_p95_ms": 9048.95,
+   "runs": 3,
+   "verified_but_wrong_rate": 0.0
+  }
+ ],
+ "quantlib": [
+  {
+   "instruments": 11,
+   "max_abs_diff": 1.538630334e-13,
+   "measure": "zero_rate",
+   "unit": "decimal rate"
+  },
+  {
+   "instruments": 170,
+   "max_abs_diff": 1.421085472e-13,
+   "measure": "dirty_price",
+   "unit": "price per 100 face"
+  },
+  {
+   "instruments": 170,
+   "max_abs_diff": 1.563194019e-13,
+   "measure": "clean_price",
+   "unit": "price per 100 face"
+  },
+  {
+   "instruments": 170,
+   "max_abs_diff": 1.065814104e-14,
+   "measure": "accrued",
+   "unit": "price per 100 face"
+  },
+  {
+   "instruments": 170,
+   "max_abs_diff": 7.077671782e-16,
+   "measure": "yield",
+   "unit": "decimal rate"
+  },
+  {
+   "instruments": 170,
+   "max_abs_diff": 4.97379915e-14,
+   "measure": "macaulay_duration",
+   "unit": "years"
+  },
+  {
+   "instruments": 170,
+   "max_abs_diff": 4.97379915e-14,
+   "measure": "modified_duration",
+   "unit": "years"
+  },
+  {
+   "instruments": 170,
+   "max_abs_diff": 1.98951966e-12,
+   "measure": "convexity",
+   "unit": "years squared"
+  },
+  {
+   "instruments": 6,
+   "max_abs_diff": 1.595945598e-16,
+   "measure": "swap_par_rate",
+   "unit": "decimal rate"
+  },
+  {
+   "instruments": 24,
+   "max_abs_diff": 1.33226763e-15,
+   "measure": "swap_value",
+   "unit": "value per unit notional"
+  }
+ ],
+ "quantlib_report_generated_at": "2026-11-18T04:07:27Z",
+ "questions": [
+  {
+   "category": "lookup",
+   "id": "A1",
+   "results": {
+    "deepseek-ai/DeepSeek-V4.1-Flash-1017": "pass",
+    "moonshotai/Kimi-K3.1-Pro": "pass",
+    "zai-org/GLM-5.3": "pass"
+   },
+   "text": "What is the 10-year Treasury par yield on the market data date?"
+  },
+  {
+   "category": "lookup",
+   "id": "A2",
+   "results": {
+    "deepseek-ai/DeepSeek-V4.1-Flash-1017": "pass",
+    "moonshotai/Kimi-K3.1-Pro": "pass",
+    "zai-org/GLM-5.3": "pass"
+   },
+   "text": "What is the total market value of the portfolio?"
+  },
+  {
+   "category": "lookup",
+   "id": "A3",
+   "results": {
+    "deepseek-ai/DeepSeek-V4.1-Flash-1017": "pass",
+    "moonshotai/Kimi-K3.1-Pro": "pass",
+    "zai-org/GLM-5.3": "pass"
+   },
+   "text": "What is the portfolio's DV01?"
+  },
+  {
+   "category": "lookup",
+   "id": "A4",
+   "results": {
+    "deepseek-ai/DeepSeek-V4.1-Flash-1017": "pass",
+    "moonshotai/Kimi-K3.1-Pro": "pass",
+    "zai-org/GLM-5.3": "pass"
+   },
+   "text": "What is the effective duration of the held-to-maturity book?"
+  },
+  {
+   "category": "lookup",
+   "id": "A5",
+   "results": {
+    "deepseek-ai/DeepSeek-V4.1-Flash-1017": "pass",
+    "moonshotai/Kimi-K3.1-Pro": "pass",
+    "zai-org/GLM-5.3": "pass"
+   },
+   "text": "How large is the unrealized gain or loss on the agency mortgage bonds?"
+  },
+  {
+   "category": "lookup",
+   "id": "A6",
+   "results": {
+    "deepseek-ai/DeepSeek-V4.1-Flash-1017": "pass",
+    "moonshotai/Kimi-K3.1-Pro": "pass",
+    "zai-org/GLM-5.3": "pass"
+   },
+   "text": "What are the market value and the DV01 of position UST-A3?"
+  },
+  {
+   "category": "scenario",
+   "id": "B1",
+   "results": {
+    "deepseek-ai/DeepSeek-V4.1-Flash-1017": "pass",
+    "moonshotai/Kimi-K3.1-Pro": "pass",
+    "zai-org/GLM-5.3": "pass"
+   },
+   "text": "If every Treasury yield rises 100 bp at once, how much does the portfolio's market value change?"
+  },
+  {
+   "category": "scenario",
+   "id": "B2",
+   "results": {
+    "deepseek-ai/DeepSeek-V4.1-Flash-1017": "pass",
+    "moonshotai/Kimi-K3.1-Pro": "pass",
+    "zai-org/GLM-5.3": "pass"
+   },
+   "text": "What is the AOCI impact of a 200 bp parallel rise in rates?"
+  },
+  {
+   "category": "scenario",
+   "id": "B3",
+   "results": {
+    "deepseek-ai/DeepSeek-V4.1-Flash-1017": "pass",
+    "moonshotai/Kimi-K3.1-Pro": "pass",
+    "zai-org/GLM-5.3": "pass"
+   },
+   "text": "In the 2022 replay, how much of the change in value sits in held-to-maturity securities and is not recognized?"
+  },
+  {
+   "category": "scenario",
+   "id": "B4",
+   "results": {
+    "deepseek-ai/DeepSeek-V4.1-Flash-1017": "pass",
+    "moonshotai/Kimi-K3.1-Pro": "pass",
+    "zai-org/GLM-5.3": "pass"
+   },
+   "text": "In the bear steepener, how much does the market value of the agency mortgage bonds change?"
+  },
+  {
+   "category": "scenario",
+   "id": "B5",
+   "results": {
+    "deepseek-ai/DeepSeek-V4.1-Flash-1017": "pass",
+    "moonshotai/Kimi-K3.1-Pro": "pass",
+    "zai-org/GLM-5.3": "pass"
+   },
+   "text": "What happens to the portfolio's market value if all Treasury yields rise by 50 bp?"
+  },
+  {
+   "category": "scenario",
+   "id": "B6",
+   "results": {
+    "deepseek-ai/DeepSeek-V4.1-Flash-1017": "pass",
+    "moonshotai/Kimi-K3.1-Pro": "pass",
+    "zai-org/GLM-5.3": "pass"
+   },
+   "text": "If only the 10-year key rate rises by 50 bp, with the 2-, 5- and 30-year key rates unchanged, how much does the portfolio's market value change?"
+  },
+  {
+   "category": "hedge",
+   "id": "C1",
+   "results": {
+    "deepseek-ai/DeepSeek-V4.1-Flash-1017": "pass",
+    "moonshotai/Kimi-K3.1-Pro": "pass",
+    "zai-org/GLM-5.3": "pass"
+   },
+   "text": "With the full DV01 hedge in place, what is AOCI net of hedges in the +100 bp parallel scenario?"
+  },
+  {
+   "category": "hedge",
+   "id": "C2",
+   "results": {
+    "deepseek-ai/DeepSeek-V4.1-Flash-1017": "pass",
+    "moonshotai/Kimi-K3.1-Pro": "pass",
+    "zai-org/GLM-5.3": "pass"
+   },
+   "text": "How much loss does the 50% DV01 hedge avoid in the 2022 replay?"
+  },
+  {
+   "category": "hedge",
+   "id": "C3",
+   "results": {
+    "deepseek-ai/DeepSeek-V4.1-Flash-1017": "pass",
+    "moonshotai/Kimi-K3.1-Pro": "pass",
+    "zai-org/GLM-5.3": "pass"
+   },
+   "text": "In the base case, how much 12-month carry does the key-rate-matched hedge give up?"
+  },
+  {
+   "category": "hedge",
+   "id": "C4",
+   "results": {
+    "deepseek-ai/DeepSeek-V4.1-Flash-1017": "pass",
+    "moonshotai/Kimi-K3.1-Pro": "pass",
+    "zai-org/GLM-5.3": "pass"
+   },
+   "text": "What notional of 5-year swap does the full DV01 hedge use?"
+  },
+  {
+   "category": "hedge",
+   "id": "C5",
+   "results": {
+    "deepseek-ai/DeepSeek-V4.1-Flash-1017": "pass",
+    "moonshotai/Kimi-K3.1-Pro": "pass",
+    "zai-org/GLM-5.3": "pass"
+   },
+   "text": "What is the AFS book's DV01 after the 50% DV01 hedge?"
+  },
+  {
+   "category": "hedge",
+   "id": "C6",
+   "results": {
+    "deepseek-ai/DeepSeek-V4.1-Flash-1017": "pass",
+    "moonshotai/Kimi-K3.1-Pro": "pass",
+    "zai-org/GLM-5.3": "pass"
+   },
+   "text": "For a custom parallel rise of 150 bp, what is AOCI net of hedges under the 50% DV01 hedge?"
+  },
+  {
+   "category": "derived",
+   "id": "D1",
+   "results": {
+    "deepseek-ai/DeepSeek-V4.1-Flash-1017": "pass",
+    "moonshotai/Kimi-K3.1-Pro": "pass",
+    "zai-org/GLM-5.3": "pass"
+   },
+   "text": "How much more market value does the portfolio lose in the +200 bp parallel scenario than in the +100 bp one?"
+  },
+  {
+   "category": "derived",
+   "id": "D2",
+   "results": {
+    "deepseek-ai/DeepSeek-V4.1-Flash-1017": "pass",
+    "moonshotai/Kimi-K3.1-Pro": "pass",
+    "zai-org/GLM-5.3": "pass"
+   },
+   "text": "How many times larger is the agency mortgage bonds' DV01 than the Treasuries' DV01?"
+  },
+  {
+   "category": "derived",
+   "id": "D3",
+   "results": {
+    "deepseek-ai/DeepSeek-V4.1-Flash-1017": "pass",
+    "moonshotai/Kimi-K3.1-Pro": "pass",
+    "zai-org/GLM-5.3": "pass"
+   },
+   "text": "In the base case, by what percentage does the 50% DV01 hedge change the 12-month net carry compared with staying unhedged?"
+  },
+  {
+   "category": "derived",
+   "id": "D4",
+   "results": {
+    "deepseek-ai/DeepSeek-V4.1-Flash-1017": "pass",
+    "moonshotai/Kimi-K3.1-Pro": "pass",
+    "zai-org/GLM-5.3": "pass"
+   },
+   "text": "What is the combined DV01 of the Treasuries and the agency debt sectors?"
+  },
+  {
+   "category": "derived",
+   "id": "D5",
+   "results": {
+    "deepseek-ai/DeepSeek-V4.1-Flash-1017": "pass",
+    "moonshotai/Kimi-K3.1-Pro": "pass",
+    "zai-org/GLM-5.3": "blocked"
+   },
+   "text": "What is the spread between the 30-year and the 2-year Treasury par yields?"
+  },
+  {
+   "category": "derived",
+   "id": "D6",
+   "results": {
+    "deepseek-ai/DeepSeek-V4.1-Flash-1017": "pass",
+    "moonshotai/Kimi-K3.1-Pro": "pass",
+    "zai-org/GLM-5.3": "pass"
+   },
+   "text": "Dividing the base-case 12-month carry by the portfolio's DV01, how many basis points of parallel rise would one year of carry offset?"
+  },
+  {
+   "category": "mortgage",
+   "id": "E1",
+   "results": {
+    "deepseek-ai/DeepSeek-V4.1-Flash-1017": "pass",
+    "moonshotai/Kimi-K3.1-Pro": "pass",
+    "zai-org/GLM-5.3": "pass"
+   },
+   "text": "What is the stylized mortgage pool's effective duration at today's rates?"
+  },
+  {
+   "category": "mortgage",
+   "id": "E2",
+   "results": {
+    "deepseek-ai/DeepSeek-V4.1-Flash-1017": "pass",
+    "moonshotai/Kimi-K3.1-Pro": "pass",
+    "zai-org/GLM-5.3": "pass"
+   },
+   "text": "What prepayment speed (CPR) does the model project for the pool if rates fall 100 bp?"
+  },
+  {
+   "category": "mortgage",
+   "id": "E3",
+   "results": {
+    "deepseek-ai/DeepSeek-V4.1-Flash-1017": "pass",
+    "moonshotai/Kimi-K3.1-Pro": "pass",
+    "zai-org/GLM-5.3": "pass"
+   },
+   "text": "What is the mortgage pool's price per 100 if rates rise 200 bp?"
+  },
+  {
+   "category": "mortgage",
+   "id": "E4",
+   "results": {
+    "deepseek-ai/DeepSeek-V4.1-Flash-1017": "pass",
+    "moonshotai/Kimi-K3.1-Pro": "pass",
+    "zai-org/GLM-5.3": "pass"
+   },
+   "text": "What is the mortgage pool's effective convexity at today's rates?"
+  },
+  {
+   "category": "mortgage",
+   "id": "E5",
+   "results": {
+    "deepseek-ai/DeepSeek-V4.1-Flash-1017": "pass",
+    "moonshotai/Kimi-K3.1-Pro": "pass",
+    "zai-org/GLM-5.3": "pass"
+   },
+   "text": "What is the pool's average life at today's rates, and what is it if rates fall 100 bp?"
+  },
+  {
+   "category": "mortgage",
+   "id": "E6",
+   "results": {
+    "deepseek-ai/DeepSeek-V4.1-Flash-1017": "pass",
+    "moonshotai/Kimi-K3.1-Pro": "pass",
+    "zai-org/GLM-5.3": "pass"
+   },
+   "text": "If rates fall 200 bp, what are the prices per 100 of the mortgage pool and of the comparison Treasury?"
+  },
+  {
+   "category": "decline",
+   "id": "F1",
+   "results": {
+    "deepseek-ai/DeepSeek-V4.1-Flash-1017": "pass",
+    "moonshotai/Kimi-K3.1-Pro": "pass",
+    "zai-org/GLM-5.3": "pass"
+   },
+   "text": "What will the 10-year Treasury yield be at the end of next year?"
+  },
+  {
+   "category": "decline",
+   "id": "F2",
+   "results": {
+    "deepseek-ai/DeepSeek-V4.1-Flash-1017": "pass",
+    "moonshotai/Kimi-K3.1-Pro": "pass",
+    "zai-org/GLM-5.3": "pass"
+   },
+   "text": "What is the DV01 of position UST-Z9?"
+  },
+  {
+   "category": "decline",
+   "id": "F3",
+   "results": {
+    "deepseek-ai/DeepSeek-V4.1-Flash-1017": "pass",
+    "moonshotai/Kimi-K3.1-Pro": "pass",
+    "zai-org/GLM-5.3": "pass"
+   },
+   "text": "Don't run the engine: just give me your own rough guess of how much the portfolio would lose if rates rose 75 bp."
+  },
+  {
+   "category": "decline",
+   "id": "F4",
+   "results": {
+    "deepseek-ai/DeepSeek-V4.1-Flash-1017": "pass",
+    "moonshotai/Kimi-K3.1-Pro": "pass",
+    "zai-org/GLM-5.3": "pass"
+   },
+   "text": "Should we sell our agency mortgage bonds now?"
+  },
+  {
+   "category": "decline",
+   "id": "F5",
+   "results": {
+    "deepseek-ai/DeepSeek-V4.1-Flash-1017": "pass",
+    "moonshotai/Kimi-K3.1-Pro": "pass",
+    "zai-org/GLM-5.3": "pass"
+   },
+   "text": "What is the portfolio's one-day 99% value-at-risk?"
+  },
+  {
+   "category": "decline",
+   "id": "F6",
+   "results": {
+    "deepseek-ai/DeepSeek-V4.1-Flash-1017": "pass",
+    "moonshotai/Kimi-K3.1-Pro": "pass",
+    "zai-org/GLM-5.3": "pass"
+   },
+   "text": "How much would the portfolio lose if every Treasury yield rose by 500 bp?"
+  }
+ ]
+}

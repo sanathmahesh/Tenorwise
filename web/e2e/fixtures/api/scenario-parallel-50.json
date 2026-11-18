@@ -1,0 +1,235 @@
+{
+ "data_date": "2026-11-16",
+ "grid": [
+  {
+   "aoci_net": -117880598.5,
+   "carry_given_up": 0.0,
+   "loss_avoided": 0.0,
+   "net_carry": 298325164.4,
+   "net_delta_mv": -189449091.9,
+   "scenario_id": "custom",
+   "securities_delta_mv": -189449091.9,
+   "strategy_id": "unhedged",
+   "swap_pnl": 0.0
+  },
+  {
+   "aoci_net": -58423842.45,
+   "carry_given_up": 2468913.925,
+   "loss_avoided": 59456756.0,
+   "net_carry": 295856250.5,
+   "net_delta_mv": -129992335.9,
+   "scenario_id": "custom",
+   "securities_delta_mv": -189449091.9,
+   "strategy_id": "dv01_50",
+   "swap_pnl": 59456756.0
+  },
+  {
+   "aoci_net": 1032913.55,
+   "carry_given_up": 4937827.85,
+   "loss_avoided": 118913512.0,
+   "net_carry": 293387336.5,
+   "net_delta_mv": -70535579.93,
+   "scenario_id": "custom",
+   "securities_delta_mv": -189449091.9,
+   "strategy_id": "dv01_full",
+   "swap_pnl": 118913512.0
+  },
+  {
+   "aoci_net": 624200.225,
+   "carry_given_up": 5396038.889,
+   "loss_avoided": 118504798.7,
+   "net_carry": 292929125.5,
+   "net_delta_mv": -70944293.25,
+   "scenario_id": "custom",
+   "securities_delta_mv": -189449091.9,
+   "strategy_id": "key_rate",
+   "swap_pnl": 118504798.7
+  }
+ ],
+ "scenario": {
+  "by_class": [
+   {
+    "aoci_impact": -117880598.5,
+    "carry_12m": 214416029.8,
+    "delta_mv": -117880598.5,
+    "delta_mv_pct": -2.039800314,
+    "htm_unrecognized": 0.0,
+    "id": "AFS",
+    "name": "Available-for-sale"
+   },
+   {
+    "aoci_impact": 0.0,
+    "carry_12m": 83909134.6,
+    "delta_mv": -71568493.48,
+    "delta_mv_pct": -2.494017459,
+    "htm_unrecognized": -71568493.48,
+    "id": "HTM",
+    "name": "Held-to-maturity"
+   }
+  ],
+  "by_sector": [
+   {
+    "aoci_impact": -37581781.22,
+    "carry_12m": 90448628.37,
+    "delta_mv": -42107397.35,
+    "delta_mv_pct": -1.398510983,
+    "htm_unrecognized": -4525616.134,
+    "id": "treasuries",
+    "name": "Treasuries"
+   },
+   {
+    "aoci_impact": -48333272.85,
+    "carry_12m": 142605975.2,
+    "delta_mv": -106126385.9,
+    "delta_mv_pct": -2.929865346,
+    "htm_unrecognized": -57793113.01,
+    "id": "agency_mbs",
+    "name": "Agency mortgage bonds"
+   },
+   {
+    "aoci_impact": -16737219.1,
+    "carry_12m": 31861296.15,
+    "delta_mv": -25455306.13,
+    "delta_mv_pct": -2.53238452,
+    "htm_unrecognized": -8718087.026,
+    "id": "agency_debt",
+    "name": "Agency debt"
+   },
+   {
+    "aoci_impact": -15228325.28,
+    "carry_12m": 33409264.7,
+    "delta_mv": -15760002.59,
+    "delta_mv_pct": -1.559869675,
+    "htm_unrecognized": -531677.3052,
+    "id": "ig_corporates",
+    "name": "IG corporates (proxy)"
+   }
+  ],
+  "description": "Custom parallel shift of +50 bp.",
+  "floor_bound": false,
+  "floored_tenor_years": [],
+  "id": "custom",
+  "name": "Custom: +50 bp parallel",
+  "shock_bp_by_tenor": [
+   {
+    "shock_bp": 50.0,
+    "tenor_years": 0.08333333333
+   },
+   {
+    "shock_bp": 50.0,
+    "tenor_years": 0.25
+   },
+   {
+    "shock_bp": 50.0,
+    "tenor_years": 0.5
+   },
+   {
+    "shock_bp": 50.0,
+    "tenor_years": 1.0
+   },
+   {
+    "shock_bp": 50.0,
+    "tenor_years": 2.0
+   },
+   {
+    "shock_bp": 50.0,
+    "tenor_years": 3.0
+   },
+   {
+    "shock_bp": 50.0,
+    "tenor_years": 5.0
+   },
+   {
+    "shock_bp": 50.0,
+    "tenor_years": 7.0
+   },
+   {
+    "shock_bp": 50.0,
+    "tenor_years": 10.0
+   },
+   {
+    "shock_bp": 50.0,
+    "tenor_years": 20.0
+   },
+   {
+    "shock_bp": 50.0,
+    "tenor_years": 30.0
+   }
+  ],
+  "shocked_curve": [
+   {
+    "discount_factor": 0.996181305,
+    "par_yield": 4.6,
+    "tenor_years": 0.08333333333,
+    "zero_rate": 4.5912058
+   },
+   {
+    "discount_factor": 0.9880446596,
+    "par_yield": 4.84,
+    "tenor_years": 0.25,
+    "zero_rate": 4.810952085
+   },
+   {
+    "discount_factor": 0.9759906305,
+    "par_yield": 4.92,
+    "tenor_years": 0.5,
+    "zero_rate": 4.860458505
+   },
+   {
+    "discount_factor": 0.950677301,
+    "par_yield": 5.12,
+    "tenor_years": 1.0,
+    "zero_rate": 5.058060004
+   },
+   {
+    "discount_factor": 0.900005139,
+    "par_yield": 5.33,
+    "tenor_years": 2.0,
+    "zero_rate": 5.267740281
+   },
+   {
+    "discount_factor": 0.8528306316,
+    "par_yield": 5.37,
+    "tenor_years": 3.0,
+    "zero_rate": 5.306476912
+   },
+   {
+    "discount_factor": 0.7646210638,
+    "par_yield": 5.43,
+    "tenor_years": 5.0,
+    "zero_rate": 5.367498185
+   },
+   {
+    "discount_factor": 0.682599566,
+    "par_yield": 5.51,
+    "tenor_years": 7.0,
+    "zero_rate": 5.454955404
+   },
+   {
+    "discount_factor": 0.5722319845,
+    "par_yield": 5.62,
+    "tenor_years": 10.0,
+    "zero_rate": 5.582108025
+   },
+   {
+    "discount_factor": 0.2935248318,
+    "par_yield": 6.01,
+    "tenor_years": 20.0,
+    "zero_rate": 6.128965187
+   },
+   {
+    "discount_factor": 0.1676962674,
+    "par_yield": 5.96,
+    "tenor_years": 30.0,
+    "zero_rate": 5.952002894
+   }
+  ],
+  "total": {
+   "aoci_impact": -117880598.5,
+   "carry_12m": 298325164.4,
+   "delta_mv": -189449091.9,
+   "delta_mv_pct": -2.190509052,
+   "htm_unrecognized": -71568493.48
+  }
+ }
+}

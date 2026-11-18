@@ -566,3 +566,21 @@ decision, newest at the bottom. Changes to PLAN.md are recorded here too.
   - the handoff lives in `design/handoff/`, which is gitignored, because its figures are invented placeholders;
   - fonts (Source Serif 4) and icons (Phosphor) are self-hosted from npm, so visitors' browsers make no third-party requests;
   - Playwright 1.64.1 runs the browser smoke tests. It is the newest release at least two weeks old; 1.65.1 was five days old.
+
+## D-077. Implementing the design (Phase 11)
+
+- **Phase:** 11
+- **Decisions:**
+  - Hash routing between the eight screens, so no server configuration is needed on a static host.
+  - Hand-written SVG and CSS charts instead of a chart library.
+  - Screens load the snapshot files they need, cached for the page view, with loading, error and retry states.
+  - The analyst's request state lives in the app shell, so an answer survives moving between screens.
+  - Browser tests use Playwright, with route interception serving fixtures that `scripts/make_web_fixtures.py` generates from the engine and the real agent loop. A test fails if the fixtures are stale.
+- **Departures from the handoff, all small:**
+  - names from the data get a typographic minus ("−100 bp parallel");
+  - the load-error state keeps the screen's title as its heading;
+  - colliding scatter labels move down a line, a case the spec does not cover;
+  - the Portfolio "Total" row leaves weight blank rather than showing a figure the API does not provide;
+  - the suggested questions were rewritten to match what the engine can answer, with one decline example;
+  - container units became viewport units, because a CSS container captured the fixed side panel.
+- **Not shipped (prototype-only, as the handoff says):** the Tweaks panel, the source annotations, the spec link and the "shows:" labels.

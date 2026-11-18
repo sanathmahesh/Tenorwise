@@ -1,12 +1,13 @@
-// About page (PLAN.md section 11, Phase 10). Rendered to static HTML; no browser needed.
+// About page (PLAN.md section 11, Phase 10; restyled in Phase 11). Rendered to static HTML; no browser needed.
 import { renderToStaticMarkup } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
 import committedCsv from '../../../docs/strategy/effort-timings.csv?raw'
 import { STRATEGY_DOCS } from '../strategy/docs'
 import { parseTimings } from '../strategy/effort'
-import { AboutPage, EffortTimings } from './AboutPage'
+import { About, EffortTimings } from './About'
 
 const HEADER = 'task_id,method,date,start_time,end_time,completed,matches_engine,notes\n'
+const escape = (s: string) => s.replace(/&/g, '&amp;').replace(/'/g, '&#x27;')
 
 describe('effort timings', () => {
   it('says the timings are not yet recorded while the CSV has no rows', () => {
@@ -46,18 +47,24 @@ describe('effort timings', () => {
 
 describe('About page', () => {
   it('renders every strategy document from docs/strategy', () => {
-    const html = renderToStaticMarkup(<AboutPage />)
+    expect(STRATEGY_DOCS.map((d) => d.id)).toEqual(['opportunity-map', 'effort', 'model-memo', 'risk-controls', 'rollout-plan', 'decision-log'])
     for (const doc of STRATEGY_DOCS) {
+      const html = renderToStaticMarkup(<About docId={doc.id} />)
       const firstHeading = doc.markdown.match(/^# (.+)$/m)?.[1]
       expect(firstHeading, doc.id).toBeTruthy()
-      expect(html).toContain(firstHeading!.replace(/&/g, '&amp;').replace(/'/g, '&#x27;'))
+      expect(html).toContain(escape(firstHeading!))
     }
-    expect(STRATEGY_DOCS.map((d) => d.id)).toEqual(['opportunity-map', 'effort', 'model-memo', 'risk-controls', 'rollout-plan', 'decision-log'])
+  })
+
+  it('lists six strategy pages and four reference pages', () => {
+    const html = renderToStaticMarkup(<About docId={null} />)
+    expect(html.match(/href="#\/about\//g)).toHaveLength(10)
   })
 
   it('shows the required statements', () => {
-    const html = renderToStaticMarkup(<AboutPage />)
-    expect(html).toContain('reasoned judgments from public sources, not measurements or practitioner interviews')
-    expect(html).toContain('has not been executed')
+    expect(renderToStaticMarkup(<About docId="opportunity-map" />))
+      .toContain('reasoned judgments from public sources, not measurements or practitioner interviews')
+    expect(renderToStaticMarkup(<About docId="rollout-plan" />)).toContain('has not been executed')
+    expect(renderToStaticMarkup(<About docId="effort" />)).toContain('Timings not yet recorded')
   })
 })

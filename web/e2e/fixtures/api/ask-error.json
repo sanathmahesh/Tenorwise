@@ -1,0 +1,24 @@
+{
+ "answer_md": "",
+ "checks": [],
+ "data_date": "2026-11-16",
+ "error": "model call timed out",
+ "fallback": null,
+ "notice": null,
+ "request_id": null,
+ "sections": [],
+ "status": "error",
+ "trace": [],
+ "usage": {
+  "completion_tokens": 0,
+  "cost_is_upper_bound": false,
+  "cost_usd": null,
+  "latency_ms": 0,
+  "llm_calls": 0,
+  "model": "fixture/scripted-fake",
+  "prompt_tokens": 0,
+  "served_tier": null
+ },
+ "values": {},
+ "verification_rule": "Every number in an answer is checked against the engine before it is shown. A tagged number must equal the cited value's display string, or be that value correctly rounded to the printed precision and within 0.5% of it; an explicit sign must match. An untagged number must be a context number (a tool argument, tenor, shock size, hedge ratio, horizon or date). One failure blocks the answer."
+}

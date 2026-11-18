@@ -1,0 +1,394 @@
+{
+ "assumptions": [
+  {
+   "effect": "Cash-flow timing differs from real market conventions by days. This gives small price differences against market quotes (not measured).",
+   "id": "A-01",
+   "phase": 1,
+   "text": "Time is counted in whole months: a cash flow n months away is n/12 years away. There are no day-count conventions, holidays or settlement delays.",
+   "where": "Everywhere (`tenorwise/curve/bootstrap.py`; later all instruments)"
+  },
+  {
+   "effect": "The H.15 yields come from the Treasury's own fitted curve, not from individual traded bonds. Differences between particular issues (on/off-the-run, liquidity) are ignored.",
+   "id": "A-02",
+   "phase": 1,
+   "text": "FRED's constant-maturity Treasury yields (DGS1MO to DGS30) are treated as par yields on a semiannual bond-equivalent basis.",
+   "where": "`tenorwise/curve/fred.py`, `bootstrap.py`"
+  },
+  {
+   "effect": "The short end follows a different compounding convention from the rest. On a flat 4% curve, the 1M and 3M zero rates are 3.3 bp and 2.0 bp above the level from 6 months on (calculated from the formulas). Kept by owner decision, because it follows how Treasury quotes bills (D-021).",
+   "id": "A-03",
+   "phase": 1,
+   "text": "Tenors of 6 months and under are one payment with simple interest: DF = 1/(1 + y·T).",
+   "where": "`bootstrap.py`"
+  },
+  {
+   "effect": "Implied forward rates jump at each curve point. Cash flows beyond 30 years are discounted at the 30-year zero rate.",
+   "id": "A-04",
+   "phase": 1,
+   "text": "Zero rates are continuously compounded, linear in time between the 11 curve points, and flat before 1 month and beyond 30 years.",
+   "where": "`bootstrap.py` (`ZeroCurve.zero_rate`)"
+  },
+  {
+   "effect": "If one series is missing on the latest day, every tenor uses the earlier complete date.",
+   "id": "A-05",
+   "phase": 1,
+   "text": "The market data date is the latest date on which all 11 series have a value. Nothing is filled forward, and data more than 7 days older than the build fails the build.",
+   "where": "`fred.py` (`select_par_curve`)"
+  },
+  {
+   "effect": "A shock to one region's par yields also moves zero rates elsewhere through the bootstrap. On the 16 Nov 2026 curve, +25 bp on the 10-year tent lowers the 30-year zero rate by 13.6 bp (computed by the engine).",
+   "id": "A-06",
+   "phase": 1,
+   "text": "A rate shock is added to the 11 par yields, and the zero curve is rebuilt from scratch.",
+   "where": "`tenorwise/curve/shocks.py`"
+  },
+  {
+   "effect": "Large downward shocks on a low-rate curve are cut off at zero. Negative-rate scenarios cannot be represented.",
+   "id": "A-07",
+   "phase": 1,
+   "text": "Shocked par yields are floored at 0%, and the output flags when the floor binds.",
+   "where": "`shocks.py` (`apply_shock`)"
+  },
+  {
+   "effect": "Risk at maturities between the nodes is split between the two neighbouring buckets in straight-line proportion.",
+   "id": "A-08",
+   "phase": 1,
+   "text": "Key-rate shocks use straight-line tents at 2, 5, 10 and 30 years that sum to 1 at every tenor.",
+   "where": "`shocks.py` (`tent_weight`)"
+  },
+  {
+   "effect": "Bonds that can be called early, or that might default, would be worth less than shown and have different risk.",
+   "id": "A-09",
+   "phase": 2,
+   "text": "Fixed-rate bonds pay half the annual coupon every six months and the face value at maturity, with payments at T, T−6 months, ... while positive. There are no call features, floating rates or default.",
+   "where": "`tenorwise/instruments/bond.py`"
+  },
+  {
+   "effect": "Credit-spread risk is not modelled. Rate scenarios move Treasury rates only. With a spread s, the yield-based DV01 and the curve DV01 differ by about exp(s/2), roughly 0.5% at s = 1% (measured on a flat curve).",
+   "id": "A-10",
+   "phase": 2,
+   "text": "Each sector has one constant spread, added to the continuously compounded Treasury zero rate: DF = exp(−(z + s)·t). Spreads do not move when rates move.",
+   "where": "`bond.py` (`dirty_price`)"
+  },
+  {
+   "effect": "Accrued differs from day-count-based market accrued by up to a few days' interest (not measured). Dirty price is unaffected.",
+   "id": "A-11",
+   "phase": 2,
+   "text": "Accrued interest grows in whole months: the semiannual coupon × (months elapsed in the current half-year) / 6.",
+   "where": "`bond.py` (`accrued_interest`)"
+  },
+  {
+   "effect": "Matches QuantLib's convention under 30/360 (measured agreement 7e-16). It may differ slightly from street yield conventions for off-cycle bonds (not measured).",
+   "id": "A-12",
+   "phase": 2,
+   "text": "The yield is compounded semiannually, including fractional periods: a cash flow at t years is discounted by (1 + y/2)^(−2t).",
+   "where": "`tenorwise/analytics/yield_measures.py`"
+  },
+  {
+   "effect": "On an upward-sloping curve, a 1 bp par move shifts long zero rates by more than 1 bp. Curve DV01 then exceeds yield-based DV01, by up to 4.45% for a 20-year zero bond on 16 Nov 2026 (measured).",
+   "id": "A-13",
+   "phase": 2,
+   "text": "Curve risk is measured by moving par yields and rebuilding the curve. Effective duration and convexity use ±25 bp parallel moves, DV01 uses ±1 bp, and key-rate DV01s use ±1 bp on each tent. The plan sets the first two sizes; the key-rate size is a design choice (D-025).",
+   "where": "`tenorwise/analytics/risk.py`"
+  },
+  {
+   "effect": "Real pools mix many loans with different rates, terms and borrowers. One average loan smooths their behaviour. STYLIZED.",
+   "id": "A-14",
+   "phase": 3,
+   "text": "A mortgage pool is one level-payment fixed-rate loan with a gross coupon (WAC), a remaining term and an age. The investor's net coupon is WAC minus a 0.50 percentage point servicing and guarantee fee.",
+   "where": "`tenorwise/instruments/mbs.py`"
+  },
+  {
+   "effect": "Every mortgage figure depends on these choices. Real speeds also depend on burnout, seasonality, house prices and loan size. STYLIZED.",
+   "id": "A-15",
+   "phase": 3,
+   "text": "Prepayment speed follows a logistic S-curve in the refinancing incentive: CPR_min 6%, CPR_max 40%, k = 3, x0 = 1.0 percentage point, scaled by a ramp of min(1, age/30 months). The parameters are illustrative, not calibrated.",
+   "where": "`mbs.py` (`PrepaymentModel`)"
+  },
+  {
+   "effect": "In real markets the spread widens and narrows with volatility and supply. Holding it fixed makes mortgage rates move one-for-one with the 10-year.",
+   "id": "A-16",
+   "phase": 3,
+   "text": "A scenario's mortgage rate is its 10-year par yield plus a fixed mortgage spread: OBMMIC30YF minus DGS10 on the latest date both exist, 2.14 pp on 16 Nov 2026.",
+   "where": "`tenorwise/curve/mortgage_spread.py`, `mbs.py`"
+  },
+  {
+   "effect": "Understates the cost of the borrower's prepayment option compared with an OAS model. Can give negative durations for pools priced well above par.",
+   "id": "A-17",
+   "phase": 3,
+   "text": "Static valuation: cash flows are projected once under each scenario's curve and discounted. There is no rate volatility, no option-adjusted spread, no burnout and no seasonality.",
+   "where": "`mbs.py` (`price`)"
+  },
+  {
+   "effect": "Ignores the payment delay of real pass-throughs. Prices differ slightly from market conventions (not measured).",
+   "id": "A-18",
+   "phase": 3,
+   "text": "Pools are valued on a payment date (no accrued interest), with monthly cash flows at month/12 years, discounted at the Treasury zero rate plus a constant spread.",
+   "where": "`mbs.py` (`price`)"
+  },
+  {
+   "effect": "The discount spread is a calibration choice, not a market OAS. The pool is an example, not a holding.",
+   "id": "A-19",
+   "phase": 3,
+   "text": "The demonstration \"current-coupon\" pool has WAC equal to today's mortgage rate, is 36 months old with 324 months left, and is discounted at the spread that prices it at par (162.1 bp on 16 Nov 2026).",
+   "where": "`tenorwise/analytics/mbs_profile.py`, tests"
+  },
+  {
+   "effect": "The model omits 27.2% of BNY's securities, including its floating-rate CLOs (which have little rate risk) and foreign government bonds.",
+   "id": "A-20",
+   "phase": 4,
+   "text": "The portfolio's mix copies BNY's investment securities (10-Q, 30 Sept 2026) mapped into four sectors. Non-US government and CLOs are excluded.",
+   "where": "`tenorwise/portfolio/sources.py`"
+  },
+  {
+   "effect": "Sector weights by amortized cost differ slightly from what BNY's amortized-cost-only weights would be (AFS fair value is 2.4% below its amortized cost).",
+   "id": "A-21",
+   "phase": 4,
+   "text": "BNY's weights combine AFS at fair value with HTM at amortized cost, and are applied as the model's amortized cost (D-038).",
+   "where": "`sources.py`, `positions.py`"
+  },
+  {
+   "effect": "No premium or discount purchase history. Real securities within a bucket have a spread of yields and maturities.",
+   "id": "A-22",
+   "phase": 4,
+   "text": "Every position was bought at par (coupon = book yield). Bonds have whole half-years to maturity. Book yields are BNY's disclosed yield for the line and maturity bucket. Mortgage pool shares are solved to match BNY's line yields (D-036).",
+   "where": "`data/portfolio/positions.json`, `positions.py`"
+  },
+  {
+   "effect": "Ignores currency, amortization, prepayment and structure in those holdings. Labelled \"proxy\" throughout.",
+   "id": "A-23",
+   "phase": 4,
+   "text": "The IG corporates sleeve is a proxy. Foreign covered bonds, non-agency MBS, other ABS and other debt are modelled as US-dollar fixed-rate bullets with a 100 bp spread.",
+   "where": "`positions.json`, `valuation.py`"
+  },
+  {
+   "effect": "Reasonable for loans with prepayment penalties. It overstates their duration if prepayments occur (not measured).",
+   "id": "A-24",
+   "phase": 4,
+   "text": "Agency commercial MBS are modelled as fixed-rate bullets in the agency debt sector, with no prepayment.",
+   "where": "`positions.json`"
+  },
+  {
+   "effect": "No credit or spread risk. The single mortgage spread over-discounts low-coupon pools.",
+   "id": "A-25",
+   "phase": 4,
+   "text": "Sector spreads: Treasuries 0, agency mortgage calibrated per build (162.1 bp on 16 Nov 2026), agency debt 25 bp and IG proxy 100 bp (illustrative). All are held constant in every scenario (D-037).",
+   "where": "`tenorwise/portfolio/valuation.py`"
+  },
+  {
+   "effect": "Unrealized losses are not comparable to BNY's reported figures (D-039).",
+   "id": "A-26",
+   "phase": 4,
+   "text": "Amortized cost is the remaining cash flows discounted at the book yield. There are no hedge-accounting basis adjustments, no credit allowance and no taxes; AOCI effects are pre-tax.",
+   "where": "`positions.py`"
+  },
+  {
+   "effect": "No path, no time passing, no spread widening. Real stress usually widens credit and mortgage spreads too, which would add losses (not modelled).",
+   "id": "A-27",
+   "phase": 5,
+   "text": "Scenarios are instantaneous shocks to the 11 par yields; the curve then holds still. Sector spreads and the mortgage spread do not move.",
+   "where": "`tenorwise/scenarios/revaluation.py`"
+  },
+  {
+   "effect": "One illustrative shape for each.",
+   "id": "A-28",
+   "phase": 5,
+   "text": "The steepener and flattener are the key-rate tents scaled by 25, 50, 75 and 100 bp, giving straight lines between 2, 5, 10 and 30 years.",
+   "where": "`tenorwise/scenarios/definitions.py`"
+  },
+  {
+   "effect": "It assumes the same moves in basis points regardless of today's starting level.",
+   "id": "A-29",
+   "phase": 5,
+   "text": "The 2022 replay applies each par yield's change from 31 Dec 2021 to 30 Dec 2022 (FRED) to today's curve.",
+   "where": "`tenorwise/scenarios/replay.py`"
+  },
+  {
+   "effect": "Carry is not net interest income: it ignores deposit and funding costs, and the income from reinvesting maturing bonds and prepayments at new rates.",
+   "id": "A-30",
+   "phase": 5,
+   "text": "12-month carry is gross interest income: amortized cost × book yield over 12 months (prorated if a bond matures sooner). Mortgage balances run down with the scenario's prepayments. There is no funding cost and no reinvestment of cash received.",
+   "where": "`tenorwise/scenarios/carry.py`"
+  },
+  {
+   "effect": "No tax effect, and no hedge accounting until Phase 6.",
+   "id": "A-31",
+   "phase": 5,
+   "text": "AOCI impact is the change in AFS value, pre-tax. The HTM change is reported separately as not recognized.",
+   "where": "`revaluation.py`"
+  },
+  {
+   "effect": "Real swap rates differ from Treasury yields by a moving spread. Measured sensitivity: carry given up on the full hedge is $32.0M, $32.4M and $32.7M a year at −25, 0 and +25 bp.",
+   "id": "A-32",
+   "phase": 6,
+   "text": "Swap curve = Treasury zero curve + a flat spread, default 0 bp, because no free SOFR swap curve is available. The spread does not move in scenarios.",
+   "where": "`tenorwise/instruments/swap.py`"
+  },
+  {
+   "effect": "Ignores separate discounting and projection curves, and day-count details (not measured).",
+   "id": "A-33",
+   "phase": 6,
+   "text": "Single-curve swap valuation: the floating leg is worth 1 − DF(T); the fixed leg is semiannual with no day counts.",
+   "where": "`swap.py`"
+  },
+  {
+   "effect": "Real hedge accounting has ineffectiveness, documentation and designation rules. Some of the swap gain would not offset in the accounts.",
+   "id": "A-34",
+   "phase": 6,
+   "text": "Swaps are perfectly effective fair-value hedges of the AFS book: AOCI net of hedges = AFS change + swap gain or loss. HTM is not hedged (ASC 815-20-25-43).",
+   "where": "`tenorwise/hedging/grid.py`"
+  },
+  {
+   "effect": "Shows how static hedges go stale. Mortgage prepayments make the full hedge too large at −200 bp (residual −$13.1M).",
+   "id": "A-35",
+   "phase": 6,
+   "text": "Hedges are sized once on today's curve and never rebalanced.",
+   "where": "`tenorwise/hedging/strategies.py`"
+  },
+  {
+   "effect": "Real floating rates reset every quarter along a path, not at one rate.",
+   "id": "A-36",
+   "phase": 6,
+   "text": "12-month swap carry = notional × (3-month floating rate − fixed rate), with the floating rate taken from the scenario's swap curve and held for 12 months.",
+   "where": "`swap.py`"
+  },
+  {
+   "effect": "Leaves offsetting exposure of −$301k and +$301k per bp at 10 and 30 years, so a 10s-30s twist is unhedged.",
+   "id": "A-37",
+   "phase": 6,
+   "text": "The key-rate hedge uses 2-, 5- and 10-year swaps, hedging the 30-year bucket by proxy with the 10-year.",
+   "where": "`strategies.py`"
+  },
+  {
+   "effect": "Understates the cost of hedging.",
+   "id": "A-38",
+   "phase": 6,
+   "text": "No collateral, margin, counterparty credit risk, funding or transaction costs on swaps.",
+   "where": "`swap.py`, `grid.py`"
+  }
+ ],
+ "build_time": "2026-11-18T02:07:30Z",
+ "data_date": "2026-11-16",
+ "fred_series": [
+  {
+   "id": "DGS1MO",
+   "observation_dates": [
+    "2026-11-16",
+    "2021-12-31",
+    "2022-12-30"
+   ],
+   "title": "Market Yield on U.S. Treasury Securities at 1-Month Constant Maturity",
+   "use": "Treasury par yield (curve), and the 2022 replay"
+  },
+  {
+   "id": "DGS3MO",
+   "observation_dates": [
+    "2026-11-16",
+    "2021-12-31",
+    "2022-12-30"
+   ],
+   "title": "Market Yield on U.S. Treasury Securities at 3-Month Constant Maturity",
+   "use": "Treasury par yield (curve), and the 2022 replay"
+  },
+  {
+   "id": "DGS6MO",
+   "observation_dates": [
+    "2026-11-16",
+    "2021-12-31",
+    "2022-12-30"
+   ],
+   "title": "Market Yield on U.S. Treasury Securities at 6-Month Constant Maturity",
+   "use": "Treasury par yield (curve), and the 2022 replay"
+  },
+  {
+   "id": "DGS1",
+   "observation_dates": [
+    "2026-11-16",
+    "2021-12-31",
+    "2022-12-30"
+   ],
+   "title": "Market Yield on U.S. Treasury Securities at 1-Year Constant Maturity",
+   "use": "Treasury par yield (curve), and the 2022 replay"
+  },
+  {
+   "id": "DGS2",
+   "observation_dates": [
+    "2026-11-16",
+    "2021-12-31",
+    "2022-12-30"
+   ],
+   "title": "Market Yield on U.S. Treasury Securities at 2-Year Constant Maturity",
+   "use": "Treasury par yield (curve), and the 2022 replay"
+  },
+  {
+   "id": "DGS3",
+   "observation_dates": [
+    "2026-11-16",
+    "2021-12-31",
+    "2022-12-30"
+   ],
+   "title": "Market Yield on U.S. Treasury Securities at 3-Year Constant Maturity",
+   "use": "Treasury par yield (curve), and the 2022 replay"
+  },
+  {
+   "id": "DGS5",
+   "observation_dates": [
+    "2026-11-16",
+    "2021-12-31",
+    "2022-12-30"
+   ],
+   "title": "Market Yield on U.S. Treasury Securities at 5-Year Constant Maturity",
+   "use": "Treasury par yield (curve), and the 2022 replay"
+  },
+  {
+   "id": "DGS7",
+   "observation_dates": [
+    "2026-11-16",
+    "2021-12-31",
+    "2022-12-30"
+   ],
+   "title": "Market Yield on U.S. Treasury Securities at 7-Year Constant Maturity",
+   "use": "Treasury par yield (curve), and the 2022 replay"
+  },
+  {
+   "id": "DGS10",
+   "observation_dates": [
+    "2026-11-16",
+    "2021-12-31",
+    "2022-12-30"
+   ],
+   "title": "Market Yield on U.S. Treasury Securities at 10-Year Constant Maturity",
+   "use": "Treasury par yield (curve), and the 2022 replay"
+  },
+  {
+   "id": "DGS20",
+   "observation_dates": [
+    "2026-11-16",
+    "2021-12-31",
+    "2022-12-30"
+   ],
+   "title": "Market Yield on U.S. Treasury Securities at 20-Year Constant Maturity",
+   "use": "Treasury par yield (curve), and the 2022 replay"
+  },
+  {
+   "id": "DGS30",
+   "observation_dates": [
+    "2026-11-16",
+    "2021-12-31",
+    "2022-12-30"
+   ],
+   "title": "Market Yield on U.S. Treasury Securities at 30-Year Constant Maturity",
+   "use": "Treasury par yield (curve), and the 2022 replay"
+  },
+  {
+   "id": "OBMMIC30YF",
+   "observation_dates": [
+    "2026-11-16"
+   ],
+   "title": "30-Year Fixed Rate Conforming Mortgage Index (Optimal Blue)",
+   "use": "Mortgage rate, for the mortgage spread over DGS10"
+  }
+ ],
+ "git_sha": "fixture",
+ "llm_model": "zai-org/GLM-5.3"
+}

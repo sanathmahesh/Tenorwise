@@ -3,6 +3,8 @@
 import decisionLog from '../../../docs/strategy/decision-log.md?raw'
 import effort from '../../../docs/strategy/effort.md?raw'
 import effortTimings from '../../../docs/strategy/effort-timings.csv?raw'
+import limitations from '../../../LIMITATIONS.md?raw'
+import modelCard from '../../../MODEL_CARD.md?raw'
 import modelMemo from '../../../docs/strategy/model-memo.md?raw'
 import opportunityMap from '../../../docs/strategy/opportunity-map.md?raw'
 import riskControls from '../../../docs/strategy/risk-controls.md?raw'
@@ -24,3 +26,7 @@ export const STRATEGY_DOCS: StrategyDoc[] = [
 ]
 
 export const EFFORT_TIMINGS_CSV = effortTimings
+
+// Reference pages rendered from the repository's own files (D-076), so there is no hand-copied text.
+export const LIMITATIONS_MD = limitations
+export const MODEL_CARD_MD = modelCard

@@ -1,0 +1,175 @@
+{
+ "answer_md": "",
+ "checks": [
+  {
+   "passed": true,
+   "reason": "matches the cited display",
+   "tag": "v1",
+   "token": "$8.65B"
+  },
+  {
+   "passed": true,
+   "reason": "matches the cited display",
+   "tag": "v4",
+   "token": "4.48 years"
+  },
+  {
+   "passed": true,
+   "reason": "matches the cited display",
+   "tag": "v6",
+   "token": "$3.9M per bp"
+  },
+  {
+   "passed": true,
+   "reason": "context number",
+   "tag": null,
+   "token": "100 bp"
+  },
+  {
+   "passed": true,
+   "reason": "matches the cited display",
+   "tag": "v11",
+   "token": "-$370.6M"
+  },
+  {
+   "passed": true,
+   "reason": "matches the cited display",
+   "tag": "v13",
+   "token": "-$230.8M"
+  },
+  {
+   "passed": true,
+   "reason": "matches the cited display",
+   "tag": "v32",
+   "token": "$4.0M"
+  }
+ ],
+ "data_date": "2026-11-16",
+ "error": null,
+ "fallback": null,
+ "notice": "Draft, requires human review",
+ "request_id": null,
+ "sections": [
+  {
+   "body_md": "The model book is worth $8.65B[[v1]] with an effective duration of 4.48 years[[v4]].",
+   "heading": "Positioning"
+  },
+  {
+   "body_md": "It loses $3.9M per bp[[v6]] for each basis point that rates rise.",
+   "heading": "Rate sensitivity"
+  },
+  {
+   "body_md": "A 100 bp parallel rise changes its value by -$370.6M[[v11]], of which -$230.8M[[v13]] would reach AOCI.",
+   "heading": "Scenario results"
+  },
+  {
+   "body_md": "The full DV01 hedge leaves AOCI net of hedges at $4.0M[[v32]] in that scenario.",
+   "heading": "Hedging trade-off"
+  },
+  {
+   "body_md": "Agency mortgage bonds are stylized and IG corporates are a proxy. This is not investment advice.",
+   "heading": "Caveats"
+  }
+ ],
+ "status": "answered",
+ "trace": [
+  {
+   "args": {},
+   "ms": 0,
+   "tool": "get_portfolio_summary"
+  },
+  {
+   "args": {
+    "scenario_id": "parallel_up_100"
+   },
+   "ms": 0,
+   "tool": "run_scenario"
+  },
+  {
+   "args": {
+    "scenario_id": "parallel_up_100"
+   },
+   "ms": 0,
+   "tool": "compare_hedges"
+  }
+ ],
+ "usage": {
+  "completion_tokens": 80,
+  "cost_is_upper_bound": false,
+  "cost_usd": null,
+  "latency_ms": 0,
+  "llm_calls": 4,
+  "model": "fixture/scripted-fake",
+  "prompt_tokens": 400,
+  "served_tier": "asap"
+ },
+ "values": {
+  "v1": {
+   "args": {},
+   "display": "$8.65B",
+   "inputs": [],
+   "label": "Portfolio market value",
+   "method": "portfolio_aggregate",
+   "tool": "get_portfolio_summary",
+   "unit": "usd",
+   "value": 8648633146.0
+  },
+  "v11": {
+   "args": {
+    "scenario_id": "parallel_up_100"
+   },
+   "display": "-$370.6M",
+   "inputs": [],
+   "label": "Change in market value, total",
+   "method": "scenario_change",
+   "tool": "run_scenario",
+   "unit": "usd",
+   "value": -370601853.6
+  },
+  "v13": {
+   "args": {
+    "scenario_id": "parallel_up_100"
+   },
+   "display": "-$230.8M",
+   "inputs": [],
+   "label": "AOCI impact (AFS change, pre-tax)",
+   "method": "aoci_impact",
+   "tool": "run_scenario",
+   "unit": "usd",
+   "value": -230829661.9
+  },
+  "v32": {
+   "args": {
+    "scenario_id": "parallel_up_100"
+   },
+   "display": "$4.0M",
+   "inputs": [],
+   "label": "Full DV01 hedge: AOCI net of hedges",
+   "method": "aoci_net",
+   "tool": "compare_hedges",
+   "unit": "usd",
+   "value": 3966479.36
+  },
+  "v4": {
+   "args": {},
+   "display": "4.48 years",
+   "inputs": [],
+   "label": "Portfolio effective duration",
+   "method": "eff_duration",
+   "tool": "get_portfolio_summary",
+   "unit": "years",
+   "value": 4.481091174
+  },
+  "v6": {
+   "args": {},
+   "display": "$3.9M per bp",
+   "inputs": [],
+   "label": "Portfolio DV01",
+   "method": "dv01",
+   "tool": "get_portfolio_summary",
+   "unit": "usd_per_bp",
+   "value": 3875730.615
+  }
+ },
+ "verification_rule": "Every number in an answer is checked against the engine before it is shown. A tagged number must equal the cited value's display string, or be that value correctly rounded to the printed precision and within 0.5% of it; an explicit sign must match. An untagged number must be a context number (a tool argument, tenor, shock size, hedge ratio, horizon or date). One failure blocks the answer."
+}

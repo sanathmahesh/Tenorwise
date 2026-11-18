@@ -1,0 +1,322 @@
+{
+ "comparison_treasury": [
+  {
+   "price": 121.4850912,
+   "shift_bp": -300.0
+  },
+  {
+   "price": 117.6656281,
+   "shift_bp": -250.0
+  },
+  {
+   "price": 113.9865715,
+   "shift_bp": -200.0
+  },
+  {
+   "price": 110.4423074,
+   "shift_bp": -150.0
+  },
+  {
+   "price": 107.0274615,
+   "shift_bp": -100.0
+  },
+  {
+   "price": 103.7368881,
+   "shift_bp": -50.0
+  },
+  {
+   "price": 100.5656603,
+   "shift_bp": 0.0
+  },
+  {
+   "price": 97.50905954,
+   "shift_bp": 50.0
+  },
+  {
+   "price": 94.56256685,
+   "shift_bp": 100.0
+  },
+  {
+   "price": 91.72185355,
+   "shift_bp": 150.0
+  },
+  {
+   "price": 88.98277289,
+   "shift_bp": 200.0
+  },
+  {
+   "price": 86.34135191,
+   "shift_bp": 250.0
+  },
+  {
+   "price": 83.79378374,
+   "shift_bp": 300.0
+  }
+ ],
+ "comparison_treasury_bond": {
+  "coupon": 5.12,
+  "maturity_years": 7.5
+ },
+ "data_date": "2026-11-16",
+ "mortgage_rate": {
+  "attribution": "Mortgage rate: Optimal Blue Mortgage Market Indices (OBMMI™), 30-Year Fixed Rate Conforming Mortgage Index (OBMMIC30YF), via FRED.",
+  "date": "2026-11-16",
+  "mortgage_rate": 7.263,
+  "series": "OBMMIC30YF",
+  "spread": 2.143,
+  "ten_year_yield": 5.12
+ },
+ "pool": {
+  "age_months": 36,
+  "discount_spread_bp": 162.0578986,
+  "net_coupon": 6.763,
+  "remaining_months": 324,
+  "wac": 7.263
+ },
+ "prepayment_model": {
+  "cpr_max": 40.0,
+  "cpr_min": 6.0,
+  "k": 3.0,
+  "ramp_months": 30,
+  "x0": 1.0
+ },
+ "profile": [
+  {
+   "avg_life_years": 1.951332402,
+   "cpr": 39.91593081,
+   "eff_convexity": 16.41687118,
+   "eff_duration": 1.772493108,
+   "incentive_pct": 3.0,
+   "price": 106.0473061,
+   "shift_bp": -300.0
+  },
+  {
+   "avg_life_years": 1.968914132,
+   "cpr": 39.62644395,
+   "eff_convexity": 38.88889441,
+   "eff_duration": 1.657273659,
+   "incentive_pct": 2.5,
+   "price": 105.1344582,
+   "shift_bp": -250.0
+  },
+  {
+   "avg_life_years": 2.046911742,
+   "cpr": 38.38752031,
+   "eff_convexity": 102.9058426,
+   "eff_duration": 1.332298357,
+   "incentive_pct": 2.0,
+   "price": 104.3305941,
+   "shift_bp": -200.0
+  },
+  {
+   "avg_life_years": 2.381310376,
+   "cpr": 33.79753219,
+   "eff_convexity": 175.9127834,
+   "eff_duration": 0.609111874,
+   "incentive_pct": 1.5,
+   "price": 103.8015167,
+   "shift_bp": -150.0
+  },
+  {
+   "avg_life_years": 3.627598538,
+   "cpr": 23.0,
+   "eff_convexity": -280.2585104,
+   "eff_duration": 0.5610724905,
+   "incentive_pct": 1.0,
+   "price": 103.6459042,
+   "shift_bp": -100.0
+  },
+  {
+   "avg_life_years": 6.471032864,
+   "cpr": 12.20246781,
+   "eff_convexity": -788.6934335,
+   "eff_duration": 3.710841647,
+   "incentive_pct": 0.5,
+   "price": 102.7100424,
+   "shift_bp": -50.0
+  },
+  {
+   "avg_life_years": 8.950204359,
+   "cpr": 7.612479688,
+   "eff_convexity": -137.2308416,
+   "eff_duration": 6.187716914,
+   "incentive_pct": 0.0,
+   "price": 100.0,
+   "shift_bp": 0.0
+  },
+  {
+   "avg_life_years": 9.871134466,
+   "cpr": 6.373556049,
+   "eff_convexity": 90.41194131,
+   "eff_duration": 6.364348357,
+   "incentive_pct": -0.5,
+   "price": 96.84198435,
+   "shift_bp": 50.0
+  },
+  {
+   "avg_life_years": 10.10656983,
+   "cpr": 6.084069187,
+   "eff_convexity": 88.50725884,
+   "eff_duration": 6.09372246,
+   "incentive_pct": -1.0,
+   "price": 93.87245999,
+   "shift_bp": 100.0
+  },
+  {
+   "avg_life_years": 10.16079917,
+   "cpr": 6.018794474,
+   "eff_convexity": 72.33165992,
+   "eff_duration": 5.87253524,
+   "incentive_pct": -1.5,
+   "price": 91.11012911,
+   "shift_bp": 150.0
+  },
+  {
+   "avg_life_years": 10.17298642,
+   "cpr": 6.004195416,
+   "eff_convexity": 63.81467963,
+   "eff_duration": 5.701225756,
+   "incentive_pct": -2.0,
+   "price": 88.51385946,
+   "shift_bp": 200.0
+  },
+  {
+   "avg_life_years": 10.17571012,
+   "cpr": 6.000936213,
+   "eff_convexity": 59.30743613,
+   "eff_duration": 5.552313494,
+   "incentive_pct": -2.5,
+   "price": 86.05939549,
+   "shift_bp": 250.0
+  },
+  {
+   "avg_life_years": 10.17631808,
+   "cpr": 6.000208902,
+   "eff_convexity": 56.25054461,
+   "eff_duration": 5.413909519,
+   "incentive_pct": -3.0,
+   "price": 83.73275088,
+   "shift_bp": 300.0
+  }
+ ],
+ "s_curve": [
+  {
+   "cpr": 6.000208902,
+   "incentive_pct": -3.0
+  },
+  {
+   "cpr": 6.000442242,
+   "incentive_pct": -2.75
+  },
+  {
+   "cpr": 6.000936213,
+   "incentive_pct": -2.5
+  },
+  {
+   "cpr": 6.001981903,
+   "incentive_pct": -2.25
+  },
+  {
+   "cpr": 6.004195416,
+   "incentive_pct": -2.0
+  },
+  {
+   "cpr": 6.008880471,
+   "incentive_pct": -1.75
+  },
+  {
+   "cpr": 6.018794474,
+   "incentive_pct": -1.5
+  },
+  {
+   "cpr": 6.039763349,
+   "incentive_pct": -1.25
+  },
+  {
+   "cpr": 6.084069187,
+   "incentive_pct": -1.0
+  },
+  {
+   "cpr": 6.177484274,
+   "incentive_pct": -0.75
+  },
+  {
+   "cpr": 6.373556049,
+   "incentive_pct": -0.5
+  },
+  {
+   "cpr": 6.781230577,
+   "incentive_pct": -0.25
+  },
+  {
+   "cpr": 7.612479688,
+   "incentive_pct": 0.0
+  },
+  {
+   "cpr": 9.241881807,
+   "incentive_pct": 0.25
+  },
+  {
+   "cpr": 12.20246781,
+   "incentive_pct": 0.5
+  },
+  {
+   "cpr": 16.90792423,
+   "incentive_pct": 0.75
+  },
+  {
+   "cpr": 23.0,
+   "incentive_pct": 1.0
+  },
+  {
+   "cpr": 29.09207577,
+   "incentive_pct": 1.25
+  },
+  {
+   "cpr": 33.79753219,
+   "incentive_pct": 1.5
+  },
+  {
+   "cpr": 36.75811819,
+   "incentive_pct": 1.75
+  },
+  {
+   "cpr": 38.38752031,
+   "incentive_pct": 2.0
+  },
+  {
+   "cpr": 39.21876942,
+   "incentive_pct": 2.25
+  },
+  {
+   "cpr": 39.62644395,
+   "incentive_pct": 2.5
+  },
+  {
+   "cpr": 39.82251573,
+   "incentive_pct": 2.75
+  },
+  {
+   "cpr": 39.91593081,
+   "incentive_pct": 3.0
+  },
+  {
+   "cpr": 39.96023665,
+   "incentive_pct": 3.25
+  },
+  {
+   "cpr": 39.98120553,
+   "incentive_pct": 3.5
+  },
+  {
+   "cpr": 39.99111953,
+   "incentive_pct": 3.75
+  },
+  {
+   "cpr": 39.99580458,
+   "incentive_pct": 4.0
+  }
+ ],
+ "stylized": true,
+ "stylized_note": "Stylized agency pass-through: illustrative prepayment parameters, not calibrated; static cash flows with no rate volatility, option-adjusted spread, burnout or seasonality."
+}

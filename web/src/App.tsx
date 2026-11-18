@@ -1,52 +1,92 @@
-import { useState } from 'react'
-import type { Meta } from './api/types'
-import { useJson } from './api/useJson'
-import { AboutPage } from './pages/AboutPage'
-import { AnalystPage } from './pages/AnalystPage'
-import { CurvePage } from './pages/CurvePage'
-import { HedgingPage } from './pages/HedgingPage'
-import { MbsPage } from './pages/MbsPage'
-import { PortfolioPage } from './pages/PortfolioPage'
-import { ScenariosPage } from './pages/ScenariosPage'
+// Tenorwise: the implemented design (Phase 11). Eight screens, switched without a page load.
+// Every figure on screen comes from the snapshot files or the API; the front end only formats.
+import { CalendarBlank } from '@phosphor-icons/react'
+import { useCallback, useEffect, useState } from 'react'
+import { useData } from './api/useData'
+import { SCREENS, type Screen, type Shared } from './nav'
+import { fmtDate } from './lib/format'
+import { About } from './screens/About'
+import { Analyst } from './screens/Analyst'
+import { useAnalyst } from './screens/analystState'
+import { Curve } from './screens/Curve'
+import { Evidence } from './screens/Evidence'
+import { Hedging } from './screens/Hedging'
+import { Overview } from './screens/Overview'
+import { Portfolio } from './screens/Portfolio'
+import { Scenarios } from './screens/Scenarios'
 
-// Placeholder interface (Phase 7): plain pages and tables. The real design arrives in Phase 11.
-const PAGES = {
-  Curve: CurvePage,
-  Portfolio: PortfolioPage,
-  'Mortgage bonds (stylized)': MbsPage,
-  Scenarios: ScenariosPage,
-  Hedging: HedgingPage,
-  Analyst: AnalystPage,
-  About: AboutPage,
-} as const
-type PageName = keyof typeof PAGES
+
+function readHash(): { screen: Screen; sub: string | null } {
+  const [first, sub] = window.location.hash.replace(/^#\/?/, '').split('/')
+  const screen = SCREENS.find((s) => s.toLowerCase() === (first || '').toLowerCase()) ?? 'Overview'
+  return { screen, sub: sub ?? null }
+}
 
 export default function App() {
-  const [page, setPage] = useState<PageName>('Curve')
-  const meta = useJson<Meta>('meta.json')
-  const Page = PAGES[page]
+  const [route, setRoute] = useState(readHash)
+  const [scenarioId, setScenarioId] = useState('parallel_up_100')
+  const [strategyId, setStrategyId] = useState('dv01_full')
+  const analyst = useAnalyst()
+
+  useEffect(() => {
+    const onHash = () => setRoute(readHash())
+    window.addEventListener('hashchange', onHash)
+    return () => window.removeEventListener('hashchange', onHash)
+  }, [])
+  useEffect(() => { window.scrollTo?.(0, 0) }, [route.screen])
+
+  const go = useCallback((screen: Screen) => { window.location.hash = `#/${screen.toLowerCase()}` }, [])
+  const shared: Shared = { go, scenarioId, setScenarioId, strategyId, setStrategyId }
+  const chrome = useData(['meta', 'mbs', 'portfolio'])
+  const date = chrome.state === 'ok' ? fmtDate(chrome.data.meta.data_date) : null
+
   return (
-    <>
-      <header>
-        <h1>Tenorwise</h1>
-        <p>
-          Market data date: {meta.state === 'ok' ? meta.data.data_date : '…'}
-          {meta.state === 'ok' && ` · built ${meta.data.build_time} · ${meta.data.git_sha ?? ''}`}
-        </p>
-        <nav>
-          {(Object.keys(PAGES) as PageName[]).map((name) => (
-            <button key={name} onClick={() => setPage(name)} disabled={name === page}>{name}</button>
-          ))}
+    <div className="frame">
+      <header className="site-header pad">
+        <div className="brand-row">
+          <p className="brand">Tenorwise</p>
+          <span className="strap">Interest-rate risk and hedging</span>
+          {date && (
+            <span className="tag tag-neutral date-chip"><CalendarBlank weight="duotone" size={14} /> Market data as of {date}</span>
+          )}
+        </div>
+        <nav aria-label="Screens">
+          <div className="screens">
+            {SCREENS.map((s) => (
+              <a key={s} href={`#/${s.toLowerCase()}`} aria-current={s === route.screen ? 'page' : undefined}>{s}</a>
+            ))}
+          </div>
         </nav>
       </header>
-      <main><Page /></main>
-      <footer>
+
+      <main className="main pad">
+        {route.screen === 'Overview' && <Overview shared={shared} onAsk={(q) => { analyst.ask(q); go('Analyst') }} />}
+        {route.screen === 'Curve' && <Curve shared={shared} />}
+        {route.screen === 'Portfolio' && <Portfolio />}
+        {route.screen === 'Scenarios' && <Scenarios shared={shared} />}
+        {route.screen === 'Hedging' && <Hedging shared={shared} />}
+        {route.screen === 'Analyst' && <Analyst analyst={analyst} />}
+        {route.screen === 'Evidence' && <Evidence />}
+        {route.screen === 'About' && <About docId={route.sub} />}
+      </main>
+
+      <footer className="site-footer pad">
+        <p>
+          Stylized mortgage pool. IG corporates are a proxy. Not any bank's actual holdings. Not investment advice.
+          {date && ` Market data as of ${date}.`}
+        </p>
         <p>
           This product uses the FRED® API but is not endorsed or certified by the Federal Reserve Bank of St. Louis.
-          By using Tenorwise you agree to the <a href="https://fred.stlouisfed.org/docs/api/terms_of_use.html">FRED® API Terms of Use</a>.
+          By using Tenorwise you agree to the{' '}
+          <a href="https://fred.stlouisfed.org/docs/api/terms_of_use.html">FRED® API Terms of Use</a>.
         </p>
-        <p>Mortgage rate: Optimal Blue Mortgage Market Indices (OBMMI™) 30-Year Fixed Rate Conforming Mortgage Index, via FRED. Portfolio mix based on BNY's Form 10-Q (quarter ended 30 September 2026); positions are design choices, not BNY's holdings.</p>
+        {chrome.state === 'ok' && (
+          <p>
+            {chrome.data.mbs.mortgage_rate.attribution}{' '}
+            <a href={chrome.data.portfolio.source.url}>{chrome.data.portfolio.source.text}</a>
+          </p>
+        )}
       </footer>
-    </>
+    </div>
   )
 }

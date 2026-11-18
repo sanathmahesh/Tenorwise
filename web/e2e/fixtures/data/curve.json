@@ -1,0 +1,71 @@
+{
+ "data_date": "2026-11-16",
+ "points": [
+  {
+   "discount_factor": 0.9965949672,
+   "par_yield": 4.1,
+   "tenor_years": 0.08333333333,
+   "zero_rate": 4.093011746
+  },
+  {
+   "discount_factor": 0.9892664589,
+   "par_yield": 4.34,
+   "tenor_years": 0.25,
+   "zero_rate": 4.316624431
+  },
+  {
+   "discount_factor": 0.9783778495,
+   "par_yield": 4.42,
+   "tenor_years": 0.5,
+   "zero_rate": 4.371866871
+  },
+  {
+   "discount_factor": 0.9553313182,
+   "par_yield": 4.62,
+   "tenor_years": 1.0,
+   "zero_rate": 4.569706859
+  },
+  {
+   "discount_factor": 0.9088378475,
+   "par_yield": 4.83,
+   "tenor_years": 2.0,
+   "zero_rate": 4.779429318
+  },
+  {
+   "discount_factor": 0.865412946,
+   "par_yield": 4.87,
+   "tenor_years": 3.0,
+   "zero_rate": 4.81828306
+  },
+  {
+   "discount_factor": 0.7835190265,
+   "par_yield": 4.93,
+   "tenor_years": 5.0,
+   "zero_rate": 4.87919867
+  },
+  {
+   "discount_factor": 0.706371299,
+   "par_yield": 5.01,
+   "tenor_years": 7.0,
+   "zero_rate": 4.965918007
+  },
+  {
+   "discount_factor": 0.6010161478,
+   "par_yield": 5.12,
+   "tenor_years": 10.0,
+   "zero_rate": 5.091334766
+  },
+  {
+   "discount_factor": 0.324893974,
+   "par_yield": 5.51,
+   "tenor_years": 20.0,
+   "zero_rate": 5.621281918
+  },
+  {
+   "discount_factor": 0.1944258172,
+   "par_yield": 5.46,
+   "tenor_years": 30.0,
+   "zero_rate": 5.459015304
+  }
+ ]
+}

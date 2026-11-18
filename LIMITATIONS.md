@@ -217,3 +217,13 @@ What Tenorwise cannot tell you, and why.
   build time only, has a published denial-of-service advisory
   (GHSA-fc5q-39xc-vjpf) with no fixed release. It processes only the
   project's own file patterns and does not ship in the site.
+
+## Interface
+
+- **Charts are visual aids.** Bar lengths, axis ranges and label positions are
+  drawn from the data, but only the printed figures are the engine's numbers.
+- **The analyst's expected-wait line is measured on the eval machine** for the
+  production model (`evidence.json`), not in the deployed app. It is omitted
+  when there is no measurement.
+- **The interface was checked in Chromium only,** at 1280px and 390px wide.
+  Other browsers were not tested.

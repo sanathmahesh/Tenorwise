@@ -3,7 +3,7 @@
 An interest-rate risk and hedging tool for a bank-style bond portfolio, with an
 AI analyst whose every number is checked against the calculation engine.
 
-**Status:** Phase 10 (strategy artifacts and About page) drafted; waiting for the owner's effort timings and review of the opportunity map. Eval results: [docs/evidence/evals/report.md](docs/evidence/evals/report.md). The build plan and progress log are in
+**Status:** Phase 11 (the implemented design) done; Phase 10 waits for the owner's effort timings and review of the opportunity map. Eval results: [docs/evidence/evals/report.md](docs/evidence/evals/report.md). The build plan and progress log are in
 [PLAN.md](PLAN.md). There is no live link yet.
 
 ## Run locally
@@ -102,7 +102,16 @@ Tests (the live LLM test is skipped unless `TENORWISE_LIVE=1`; this also runs th
 
 ```bash
 uv run pytest
-npm test --prefix web    # the About page tests alone (vitest)
+npm test --prefix web            # unit and page tests (vitest)
+npx playwright install chromium  # once, for the browser smoke tests
+npm run test:e2e --prefix web    # every screen and analyst state, desktop and phone (Playwright)
+```
+
+After an engine or contract change, regenerate the browser-test fixtures and the design contract:
+
+```bash
+uv run python scripts/make_web_fixtures.py   # web/e2e/fixtures, from the real engine and agent loop
+uv run python scripts/export_contract.py     # docs/api/contract.md, for the design handoff
 ```
 
 Agreement with QuantLib (writes docs/evidence/quantlib_report.json):

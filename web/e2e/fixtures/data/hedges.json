@@ -1,0 +1,443 @@
+{
+ "afs_dv01": 2409163.473,
+ "data_date": "2026-11-16",
+ "grid": [
+  {
+   "aoci_net": 0.0,
+   "carry_given_up": 0.0,
+   "loss_avoided": 0.0,
+   "net_carry": 298293237.0,
+   "net_delta_mv": 0.0,
+   "scenario_id": "base",
+   "securities_delta_mv": 0.0,
+   "strategy_id": "unhedged",
+   "swap_pnl": 0.0
+  },
+  {
+   "aoci_net": 0.0,
+   "carry_given_up": 16185102.4,
+   "loss_avoided": 0.0,
+   "net_carry": 282108134.6,
+   "net_delta_mv": 0.0,
+   "scenario_id": "base",
+   "securities_delta_mv": 0.0,
+   "strategy_id": "dv01_50",
+   "swap_pnl": 0.0
+  },
+  {
+   "aoci_net": 0.0,
+   "carry_given_up": 32370204.8,
+   "loss_avoided": 0.0,
+   "net_carry": 265923032.2,
+   "net_delta_mv": 0.0,
+   "scenario_id": "base",
+   "securities_delta_mv": 0.0,
+   "strategy_id": "dv01_full",
+   "swap_pnl": 0.0
+  },
+  {
+   "aoci_net": 0.0,
+   "carry_given_up": 34613352.2,
+   "loss_avoided": 0.0,
+   "net_carry": 263679884.8,
+   "net_delta_mv": 0.0,
+   "scenario_id": "base",
+   "securities_delta_mv": 0.0,
+   "strategy_id": "key_rate",
+   "swap_pnl": 0.0
+  },
+  {
+   "aoci_net": -230829661.9,
+   "carry_given_up": 0.0,
+   "loss_avoided": 0.0,
+   "net_carry": 298332395.9,
+   "net_delta_mv": -370601853.6,
+   "scenario_id": "parallel_up_100",
+   "securities_delta_mv": -370601853.6,
+   "strategy_id": "unhedged",
+   "swap_pnl": 0.0
+  },
+  {
+   "aoci_net": -113431591.3,
+   "carry_given_up": -11247274.55,
+   "loss_avoided": 117398070.6,
+   "net_carry": 309579670.5,
+   "net_delta_mv": -253203783.0,
+   "scenario_id": "parallel_up_100",
+   "securities_delta_mv": -370601853.6,
+   "strategy_id": "dv01_50",
+   "swap_pnl": 117398070.6
+  },
+  {
+   "aoci_net": 3966479.36,
+   "carry_given_up": -22494549.1,
+   "loss_avoided": 234796141.3,
+   "net_carry": 320826945.0,
+   "net_delta_mv": -135805712.3,
+   "scenario_id": "parallel_up_100",
+   "securities_delta_mv": -370601853.6,
+   "strategy_id": "dv01_full",
+   "swap_pnl": 234796141.3
+  },
+  {
+   "aoci_net": 2381706.608,
+   "carry_given_up": -23821274.42,
+   "loss_avoided": 233211368.5,
+   "net_carry": 322153670.4,
+   "net_delta_mv": -137390485.1,
+   "scenario_id": "parallel_up_100",
+   "securities_delta_mv": -370601853.6,
+   "strategy_id": "key_rate",
+   "swap_pnl": 233211368.5
+  },
+  {
+   "aoci_net": 247954539.2,
+   "carry_given_up": 0.0,
+   "loss_avoided": 0.0,
+   "net_carry": 297686687.2,
+   "net_delta_mv": 402161329.9,
+   "scenario_id": "parallel_down_100",
+   "securities_delta_mv": 402161329.9,
+   "strategy_id": "unhedged",
+   "swap_pnl": 0.0
+  },
+  {
+   "aoci_net": 124316619.1,
+   "carry_given_up": 43617479.34,
+   "loss_avoided": -123637920.1,
+   "net_carry": 254069207.9,
+   "net_delta_mv": 278523409.8,
+   "scenario_id": "parallel_down_100",
+   "securities_delta_mv": 402161329.9,
+   "strategy_id": "dv01_50",
+   "swap_pnl": -123637920.1
+  },
+  {
+   "aoci_net": 678698.9686,
+   "carry_given_up": 87234958.69,
+   "loss_avoided": -247275840.3,
+   "net_carry": 210451728.5,
+   "net_delta_mv": 154885489.7,
+   "scenario_id": "parallel_down_100",
+   "securities_delta_mv": 402161329.9,
+   "strategy_id": "dv01_full",
+   "swap_pnl": -247275840.3
+  },
+  {
+   "aoci_net": -1118010.154,
+   "carry_given_up": 93047978.82,
+   "loss_avoided": -249072549.4,
+   "net_carry": 204638708.4,
+   "net_delta_mv": 153088780.5,
+   "scenario_id": "parallel_down_100",
+   "securities_delta_mv": 402161329.9,
+   "strategy_id": "key_rate",
+   "swap_pnl": -249072549.4
+  },
+  {
+   "aoci_net": -443509293.2,
+   "carry_given_up": 0.0,
+   "loss_avoided": 0.0,
+   "net_carry": 298334376.5,
+   "net_delta_mv": -710449406.2,
+   "scenario_id": "parallel_up_200",
+   "securities_delta_mv": -710449406.2,
+   "strategy_id": "unhedged",
+   "swap_pnl": 0.0
+  },
+  {
+   "aoci_net": -214605005.4,
+   "carry_given_up": -38679651.49,
+   "loss_avoided": 228904287.8,
+   "net_carry": 337014028.0,
+   "net_delta_mv": -481545118.5,
+   "scenario_id": "parallel_up_200",
+   "securities_delta_mv": -710449406.2,
+   "strategy_id": "dv01_50",
+   "swap_pnl": 228904287.8
+  },
+  {
+   "aoci_net": 14299282.37,
+   "carry_given_up": -77359302.99,
+   "loss_avoided": 457808575.6,
+   "net_carry": 375693679.5,
+   "net_delta_mv": -252640830.7,
+   "scenario_id": "parallel_up_200",
+   "securities_delta_mv": -710449406.2,
+   "strategy_id": "dv01_full",
+   "swap_pnl": 457808575.6
+  },
+  {
+   "aoci_net": 8341144.575,
+   "carry_given_up": -82255901.04,
+   "loss_avoided": 451850437.8,
+   "net_carry": 380590277.6,
+   "net_delta_mv": -258598968.5,
+   "scenario_id": "parallel_up_200",
+   "securities_delta_mv": -710449406.2,
+   "strategy_id": "key_rate",
+   "swap_pnl": 451850437.8
+  },
+  {
+   "aoci_net": 494667284.2,
+   "carry_given_up": 0.0,
+   "loss_avoided": 0.0,
+   "net_carry": 295193043.7,
+   "net_delta_mv": 819804379.2,
+   "scenario_id": "parallel_down_200",
+   "securities_delta_mv": 819804379.2,
+   "strategy_id": "unhedged",
+   "swap_pnl": 0.0
+  },
+  {
+   "aoci_net": 240781045.6,
+   "carry_given_up": 71049856.29,
+   "loss_avoided": -253886238.5,
+   "net_carry": 224143187.5,
+   "net_delta_mv": 565918140.7,
+   "scenario_id": "parallel_down_200",
+   "securities_delta_mv": 819804379.2,
+   "strategy_id": "dv01_50",
+   "swap_pnl": -253886238.5
+  },
+  {
+   "aoci_net": -13105192.91,
+   "carry_given_up": 142099712.6,
+   "loss_avoided": -507772477.1,
+   "net_carry": 153093331.2,
+   "net_delta_mv": 312031902.1,
+   "scenario_id": "parallel_down_200",
+   "securities_delta_mv": 819804379.2,
+   "strategy_id": "dv01_full",
+   "swap_pnl": -507772477.1
+  },
+  {
+   "aoci_net": -20762196.19,
+   "carry_given_up": 151482605.4,
+   "loss_avoided": -515429480.4,
+   "net_carry": 143710438.3,
+   "net_delta_mv": 304374898.9,
+   "scenario_id": "parallel_down_200",
+   "securities_delta_mv": 819804379.2,
+   "strategy_id": "key_rate",
+   "swap_pnl": -515429480.4
+  },
+  {
+   "aoci_net": -138772780.8,
+   "carry_given_up": 0.0,
+   "loss_avoided": 0.0,
+   "net_carry": 298330071.5,
+   "net_delta_mv": -233143548.7,
+   "scenario_id": "bear_steepener",
+   "securities_delta_mv": -233143548.7,
+   "strategy_id": "unhedged",
+   "swap_pnl": 0.0
+  },
+  {
+   "aoci_net": -79140586.79,
+   "carry_given_up": 9327008.161,
+   "loss_avoided": 59632194.06,
+   "net_carry": 289003063.4,
+   "net_delta_mv": -173511354.6,
+   "scenario_id": "bear_steepener",
+   "securities_delta_mv": -233143548.7,
+   "strategy_id": "dv01_50",
+   "swap_pnl": 59632194.06
+  },
+  {
+   "aoci_net": -19508392.72,
+   "carry_given_up": 18654016.32,
+   "loss_avoided": 119264388.1,
+   "net_carry": 279676055.2,
+   "net_delta_mv": -113879160.6,
+   "scenario_id": "bear_steepener",
+   "securities_delta_mv": -233143548.7,
+   "strategy_id": "dv01_full",
+   "swap_pnl": 119264388.1
+  },
+  {
+   "aoci_net": -5548401.165,
+   "carry_given_up": 20004695.54,
+   "loss_avoided": 133224379.7,
+   "net_carry": 278325376.0,
+   "net_delta_mv": -99919169.01,
+   "scenario_id": "bear_steepener",
+   "securities_delta_mv": -233143548.7,
+   "strategy_id": "key_rate",
+   "swap_pnl": 133224379.7
+  },
+  {
+   "aoci_net": 146165096.8,
+   "carry_given_up": 0.0,
+   "loss_avoided": 0.0,
+   "net_carry": 297987678.9,
+   "net_delta_mv": 247856323.3,
+   "scenario_id": "bull_flattener",
+   "securities_delta_mv": 247856323.3,
+   "strategy_id": "unhedged",
+   "swap_pnl": 0.0
+  },
+  {
+   "aoci_net": 85330929.59,
+   "carry_given_up": 23043196.63,
+   "loss_avoided": -60834167.17,
+   "net_carry": 274944482.2,
+   "net_delta_mv": 187022156.1,
+   "scenario_id": "bull_flattener",
+   "securities_delta_mv": 247856323.3,
+   "strategy_id": "dv01_50",
+   "swap_pnl": -60834167.17
+  },
+  {
+   "aoci_net": 24496762.43,
+   "carry_given_up": 46086393.27,
+   "loss_avoided": -121668334.3,
+   "net_carry": 251901285.6,
+   "net_delta_mv": 126187989.0,
+   "scenario_id": "bull_flattener",
+   "securities_delta_mv": 247856323.3,
+   "strategy_id": "dv01_full",
+   "swap_pnl": -121668334.3
+  },
+  {
+   "aoci_net": 7445715.195,
+   "carry_given_up": 49222008.85,
+   "loss_avoided": -138719381.6,
+   "net_carry": 248765670.0,
+   "net_delta_mv": 109136941.7,
+   "scenario_id": "bull_flattener",
+   "securities_delta_mv": 247856323.3,
+   "strategy_id": "key_rate",
+   "swap_pnl": -138719381.6
+  },
+  {
+   "aoci_net": -589322159.1,
+   "carry_given_up": 0.0,
+   "loss_avoided": 0.0,
+   "net_carry": 298334445.1,
+   "net_delta_mv": -923140386.2,
+   "scenario_id": "replay_2022",
+   "securities_delta_mv": -923140386.2,
+   "strategy_id": "unhedged",
+   "swap_pnl": 0.0
+  },
+  {
+   "aoci_net": -285890792.2,
+   "carry_given_up": -103420061.1,
+   "loss_avoided": 303431366.9,
+   "net_carry": 401754506.2,
+   "net_delta_mv": -619709019.3,
+   "scenario_id": "replay_2022",
+   "securities_delta_mv": -923140386.2,
+   "strategy_id": "dv01_50",
+   "swap_pnl": 303431366.9
+  },
+  {
+   "aoci_net": 17540574.68,
+   "carry_given_up": -206840122.2,
+   "loss_avoided": 606862733.8,
+   "net_carry": 505174567.3,
+   "net_delta_mv": -316277652.4,
+   "scenario_id": "replay_2022",
+   "securities_delta_mv": -923140386.2,
+   "strategy_id": "dv01_full",
+   "swap_pnl": 606862733.8
+  },
+  {
+   "aoci_net": 18060524.11,
+   "carry_given_up": -220161619.9,
+   "loss_avoided": 607382683.2,
+   "net_carry": 518496065.0,
+   "net_delta_mv": -315757703.0,
+   "scenario_id": "replay_2022",
+   "securities_delta_mv": -923140386.2,
+   "strategy_id": "key_rate",
+   "swap_pnl": 607382683.2
+  }
+ ],
+ "hedged_book": "AFS",
+ "strategies": [
+  {
+   "dv01_after": 2409163.473,
+   "id": "unhedged",
+   "key_rate_dv01_after": {
+    "10": 797410.9499,
+    "2": 479585.0651,
+    "30": 300895.7693,
+    "5": 831272.6613
+   },
+   "name": "Unhedged",
+   "swaps": []
+  },
+  {
+   "dv01_after": 1204581.737,
+   "id": "dv01_50",
+   "key_rate_dv01_after": {
+    "10": 797410.9499,
+    "2": 479585.0651,
+    "30": 300895.7693,
+    "5": -373309.0294
+   },
+   "name": "50% DV01 hedge",
+   "swaps": [
+    {
+     "dv01": -1204581.737,
+     "fixed_rate": 4.93,
+     "notional": 2743237695.0,
+     "tenor_years": 5.0
+    }
+   ]
+  },
+  {
+   "dv01_after": 0.0,
+   "id": "dv01_full",
+   "key_rate_dv01_after": {
+    "10": 797410.9499,
+    "2": 479585.0651,
+    "30": 300895.7693,
+    "5": -1577890.72
+   },
+   "name": "Full DV01 hedge",
+   "swaps": [
+    {
+     "dv01": -2409163.473,
+     "fixed_rate": 4.93,
+     "notional": 5486475389.0,
+     "tenor_years": 5.0
+    }
+   ]
+  },
+  {
+   "dv01_after": -1.156427149,
+   "id": "key_rate",
+   "key_rate_dv01_after": {
+    "10": -300895.7693,
+    "2": 0.0,
+    "30": 300895.7693,
+    "5": 0.0
+   },
+   "name": "Key-rate-matched hedge",
+   "swaps": [
+    {
+     "dv01": -479585.0651,
+     "fixed_rate": 4.83,
+     "notional": 2540962201.0,
+     "tenor_years": 2.0
+    },
+    {
+     "dv01": -831272.6929,
+     "fixed_rate": 4.93,
+     "notional": 1893087465.0,
+     "tenor_years": 5.0
+    },
+    {
+     "dv01": -1098306.871,
+     "fixed_rate": 5.12,
+     "notional": 1409412997.0,
+     "tenor_years": 10.0
+    }
+   ]
+  }
+ ],
+ "swap_spread_bp": 0.0
+}

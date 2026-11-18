@@ -1,0 +1,115 @@
+{
+ "answer_md": "If every Treasury yield rises 100 bp, the portfolio's market value changes by -$370.6M[[v11]], out of $8.65B[[v1]]. Of that, -$230.8M[[v13]] is on available-for-sale securities and would reduce AOCI; -$139.8M[[v14]] is held to maturity and not recognized.",
+ "checks": [
+  {
+   "passed": true,
+   "reason": "context number",
+   "tag": null,
+   "token": "100 bp"
+  },
+  {
+   "passed": true,
+   "reason": "matches the cited display",
+   "tag": "v11",
+   "token": "-$370.6M"
+  },
+  {
+   "passed": true,
+   "reason": "matches the cited display",
+   "tag": "v1",
+   "token": "$8.65B"
+  },
+  {
+   "passed": true,
+   "reason": "matches the cited display",
+   "tag": "v13",
+   "token": "-$230.8M"
+  },
+  {
+   "passed": true,
+   "reason": "matches the cited display",
+   "tag": "v14",
+   "token": "-$139.8M"
+  }
+ ],
+ "data_date": "2026-11-16",
+ "error": null,
+ "fallback": null,
+ "notice": null,
+ "request_id": null,
+ "sections": [],
+ "status": "answered",
+ "trace": [
+  {
+   "args": {},
+   "ms": 0,
+   "tool": "get_portfolio_summary"
+  },
+  {
+   "args": {
+    "scenario_id": "parallel_up_100"
+   },
+   "ms": 0,
+   "tool": "run_scenario"
+  }
+ ],
+ "usage": {
+  "completion_tokens": 60,
+  "cost_is_upper_bound": false,
+  "cost_usd": null,
+  "latency_ms": 0,
+  "llm_calls": 3,
+  "model": "fixture/scripted-fake",
+  "prompt_tokens": 300,
+  "served_tier": "asap"
+ },
+ "values": {
+  "v1": {
+   "args": {},
+   "display": "$8.65B",
+   "inputs": [],
+   "label": "Portfolio market value",
+   "method": "portfolio_aggregate",
+   "tool": "get_portfolio_summary",
+   "unit": "usd",
+   "value": 8648633146.0
+  },
+  "v11": {
+   "args": {
+    "scenario_id": "parallel_up_100"
+   },
+   "display": "-$370.6M",
+   "inputs": [],
+   "label": "Change in market value, total",
+   "method": "scenario_change",
+   "tool": "run_scenario",
+   "unit": "usd",
+   "value": -370601853.6
+  },
+  "v13": {
+   "args": {
+    "scenario_id": "parallel_up_100"
+   },
+   "display": "-$230.8M",
+   "inputs": [],
+   "label": "AOCI impact (AFS change, pre-tax)",
+   "method": "aoci_impact",
+   "tool": "run_scenario",
+   "unit": "usd",
+   "value": -230829661.9
+  },
+  "v14": {
+   "args": {
+    "scenario_id": "parallel_up_100"
+   },
+   "display": "-$139.8M",
+   "inputs": [],
+   "label": "HTM change, not recognized",
+   "method": "htm_unrecognized",
+   "tool": "run_scenario",
+   "unit": "usd",
+   "value": -139772191.7
+  }
+ },
+ "verification_rule": "Every number in an answer is checked against the engine before it is shown. A tagged number must equal the cited value's display string, or be that value correctly rounded to the printed precision and within 0.5% of it; an explicit sign must match. An untagged number must be a context number (a tool argument, tenor, shock size, hedge ratio, horizon or date). One failure blocks the answer."
+}
