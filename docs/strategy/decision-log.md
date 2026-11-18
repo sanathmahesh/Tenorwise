@@ -203,3 +203,34 @@ decision, newest at the bottom. Changes to PLAN.md are recorded here too.
 - **Phase:** 2
 - **Decision:** the plan gives no number. The error of a duration-plus-convexity estimate is the third-order term, largest for the longest zero-coupon bond. For a continuously compounded 30-year zero at 100 bp it is about 1.7% of the change (calculated). The threshold, fixed before the first run, is 2.5% of the actual change, and adding convexity must also beat duration alone.
 - **Measured:** worst case 1.54% (30-year zero, +100 bp). Duration alone was off by up to 15.9%.
+
+## D-031. Plan change: mortgage rate from Optimal Blue (OBMMIC30YF), not Freddie Mac (MORTGAGE30US)
+
+- **Date:** 2026-11-17, approved by the owner
+- **Issue:** FRED's notes for MORTGAGE30US say "Copyright, 2016, Freddie Mac. Reprinted with permission." Freddie Mac's terms (https://www.freddiemac.com/terms, read 2026-11-17) say data is for "internal business purposes or your own personal use only" and "You may not redistribute Data, publish Data, or commercially exploit Data or derived products/services without a separate written agreement or license". The mortgage spread drives every mortgage-bond figure Tenorwise publishes, and a fixture in a public repository would redistribute the data.
+- **Change:** mortgage spread = latest OBMMIC30YF (Optimal Blue 30-Year Fixed Rate Conforming Mortgage Index, via FRED) minus DGS10 on the same date. FRED's notes for OBMMIC30YF contain no copyright notice. Optimal Blue's own page returned HTTP 403 to an automated request, so the owner checked its terms in a browser and found them acceptable for this use. Attribution: "Optimal Blue Mortgage Market Indices (OBMMI™), via FRED".
+- **Side benefit:** OBMMIC30YF is daily, so the spread uses the same date as the Treasury curve; the weekly Freddie Mac series would have used an earlier Thursday.
+- **Alternatives rejected:** (B) asking Freddie Mac for written permission, which is slow and uncertain; (C) a fixed illustrative spread, which drops a real market input.
+- **No Freddie Mac data was fetched or stored** beyond reading the series metadata.
+
+## D-032. Plan change: Phase 3 test definitions
+
+- **Date:** 2026-11-17, approved by the owner
+- **Issue:** with the test pool discounted at plain Treasury rates, a pool whose WAC equals today's mortgage rate is a premium bond. At synthetic spreads it priced at 102.9 to 109.4. That produced negative effective durations at −100 bp, a mechanical result of static valuation. Separately, effective duration rises with rates only while prepayments respond. Once CPR reaches its 6% floor, the pool behaves like a fixed bond and its duration drifts down.
+- **Change:** "a pool near current rates" means WAC equal to the current mortgage rate *and* discounted at the spread that prices it at par on the base curve, which is the market's sense of a current-coupon pool. The gain-versus-loss test uses that pool. "Effective duration rises as rates rise" is tested from −100 to +50 bp; the behaviour beyond that is documented in NOTES.md and LIMITATIONS.md.
+
+## D-033. The demonstration pool is a current-coupon pool priced at par
+
+- **Phase:** 3
+- **Decision:** `mbs_profile` and the Phase 3 tests use a pool with WAC equal to today's mortgage rate, 36 months old with 324 months left. It is discounted at the spread found by `discount_spread_for_price` (162.1 bp on 16 Nov 2026). The profile covers −300 to +300 bp in 50 bp steps, next to the Treasury bullet whose effective duration is closest at base (5.12%, 7y 6m).
+- **Why:** it is the most informative single pool, sitting at the knee of the S-curve, and matches the market meaning of "near current rates" (D-032). The portfolio's actual pools are chosen in Phase 4.
+
+## D-034. Fixture script never overwrites; one fixture file per dataset
+
+- **Phase:** 3
+- **Decision:** `scripts/update_fred_fixture.py --dataset treasury|mortgage|all` writes `fred_treasury_par_<date>.json` and `fred_obmmic30yf_<date>.json`, and refuses to overwrite existing files without `--force`. When the mortgage fixture was added, the pinned Treasury fixture stayed byte-identical (checked by checksum).
+
+## D-035. The CPR reported for a pool is its first projected month's CPR
+
+- **Phase:** 3
+- **Decision:** the `cpr` field in profiles (and later `mbs.json`) is the CPR in month 1 of the projection. For a seasoned pool (36 months or more) it equals the long-run CPR, because the ramp is complete.

@@ -1,0 +1,212 @@
+{
+ "as_of": "2026-11-17",
+ "description": "Raw FRED series/observations response for OBMMIC30YF. Mortgage rate: Optimal Blue Mortgage Market Indices (OBMMI\u2122), 30-Year Fixed Rate Conforming Mortgage Index (OBMMIC30YF), via FRED.",
+ "fetched_at": "2026-11-18T03:06:33Z",
+ "observation_end": "2026-11-17",
+ "observation_start": "2026-10-03",
+ "responses": {
+  "OBMMIC30YF": {
+   "count": 31,
+   "file_type": "json",
+   "limit": 100000,
+   "observation_end": "2026-11-17",
+   "observation_start": "2026-10-03",
+   "observations": [
+    {
+     "date": "2026-10-05",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "7.458"
+    },
+    {
+     "date": "2026-10-06",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "7.451"
+    },
+    {
+     "date": "2026-10-07",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "7.433"
+    },
+    {
+     "date": "2026-10-08",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "7.424"
+    },
+    {
+     "date": "2026-10-09",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "7.388"
+    },
+    {
+     "date": "2026-10-12",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2026-10-13",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "7.361"
+    },
+    {
+     "date": "2026-10-14",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "7.378"
+    },
+    {
+     "date": "2026-10-15",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "7.294"
+    },
+    {
+     "date": "2026-10-16",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "7.276"
+    },
+    {
+     "date": "2026-10-19",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "7.322"
+    },
+    {
+     "date": "2026-10-20",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "7.326"
+    },
+    {
+     "date": "2026-10-21",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "7.304"
+    },
+    {
+     "date": "2026-10-22",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "7.251"
+    },
+    {
+     "date": "2026-10-23",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "7.229"
+    },
+    {
+     "date": "2026-10-26",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "7.203"
+    },
+    {
+     "date": "2026-10-27",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "7.218"
+    },
+    {
+     "date": "2026-10-28",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "7.22"
+    },
+    {
+     "date": "2026-10-29",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "7.147"
+    },
+    {
+     "date": "2026-10-30",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "7.147"
+    },
+    {
+     "date": "2026-11-02",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "7.13"
+    },
+    {
+     "date": "2026-11-03",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "7.174"
+    },
+    {
+     "date": "2026-11-04",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "7.115"
+    },
+    {
+     "date": "2026-11-05",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "7.089"
+    },
+    {
+     "date": "2026-11-06",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "7.087"
+    },
+    {
+     "date": "2026-11-09",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "7.045"
+    },
+    {
+     "date": "2026-11-10",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "7.164"
+    },
+    {
+     "date": "2026-11-11",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2026-11-12",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "7.254"
+    },
+    {
+     "date": "2026-11-13",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "7.255"
+    },
+    {
+     "date": "2026-11-16",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "7.263"
+    }
+   ],
+   "offset": 0,
+   "order_by": "observation_date",
+   "output_type": 1,
+   "realtime_end": "2026-11-17",
+   "realtime_start": "2026-11-17",
+   "sort_order": "asc",
+   "units": "lin"
+  }
+ },
+ "source": "https://api.stlouisfed.org/fred/series/observations"
+}

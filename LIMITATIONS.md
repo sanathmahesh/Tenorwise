@@ -55,3 +55,26 @@ What Tenorwise cannot tell you, and why.
   years, because those bumps lower the bootstrapped zero rate near 10 years,
   where its principal is paid. The buckets still sum to the total.
 
+## Agency mortgage bonds (stylized)
+
+- **Stylized, not calibrated.** The prepayment curve's four parameters are
+  illustrative. Tenorwise shows *how* mortgage bonds behave, not what a real
+  pool is worth or how fast it will prepay.
+- **Static valuation.** One cash-flow projection per scenario, with no rate
+  uncertainty. That misses the time value of the borrower's prepayment
+  option, which an option-adjusted spread (OAS) model would capture.
+- **Missing prepayment effects:** burnout (pools that have already passed up
+  refinancing chances stay slow), seasonality, house-price and cash-out
+  effects, loan-size and credit differences.
+- **A fixed mortgage spread.** Mortgage rates move one-for-one with the
+  10-year Treasury in every scenario. In real stress the spread can widen
+  sharply.
+- **The edges of the S-curve.** Beyond about +50 bp prepayments sit at their
+  floor and duration drifts down as rates rise. In deep rallies they sit at
+  their ceiling and duration rises again as rates fall. A pool priced well
+  above par can even show negative duration. These follow from the model's
+  assumptions, not from market behaviour.
+- **One product.** Only 30-year conforming fixed-rate pools. No 15-year
+  pools, adjustable-rate mortgages, multifamily, or structured mortgage
+  securities.
+

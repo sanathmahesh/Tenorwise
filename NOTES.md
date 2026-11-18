@@ -519,3 +519,156 @@ duration is shown for reference and labelled as yield-based.
    A single DV01 hedge protects against parallel moves only. Matching each
    bucket also protects against changes in the curve's shape, which is the
    key-rate-matched hedge in Phase 6.
+
+---
+
+## Phase 3. Agency mortgage bonds (stylized)
+
+### Finance concepts, in plain English
+
+- **Agency mortgage pass-through.** A bond backed by a pool of home loans.
+  Homeowners' monthly payments "pass through" to the investor. A government
+  agency (Fannie Mae, Freddie Mac or Ginnie Mae) guarantees the payments, so
+  the investor bears interest-rate risk but almost no credit risk. Agency
+  mortgage bonds are the largest holding in BNY's securities portfolio
+  (Phase 4).
+- **WAC and net coupon.** The loans' average interest rate is the WAC
+  (weighted-average coupon). The investor receives a little less, the *net
+  coupon*, because servicers and the agency take a fee. Tenorwise uses
+  0.50 percentage point.
+- **Level payment.** Each borrower pays the same amount every month. Early
+  payments are mostly interest; later ones mostly principal.
+- **Prepayment.** Borrowers can repay early, usually by refinancing when
+  market mortgage rates fall below their own rate. The *refinancing
+  incentive* is WAC minus today's mortgage rate.
+- **CPR and SMM.** CPR (conditional prepayment rate) is the annualised
+  fraction of the remaining balance repaid early. SMM is the monthly
+  equivalent: 1 − (1 − CPR)^(1/12).
+- **The S-curve.** Prepayments respond to the incentive in an S shape. When
+  refinancing saves nothing, a few people still move house or sell (6% a
+  year here). When the saving is large, almost everyone who can refinance
+  does (40%). The steep middle is where speeds react most to rates. New
+  loans prepay slowly at first, so speeds ramp up over 30 months of age.
+- **Weighted average life (WAL).** On average, how many years until the
+  principal comes back. It is short when borrowers refinance fast and long
+  when they don't.
+- **Negative convexity.** When rates fall, prepayments accelerate and hand
+  back principal at par just when it is worth more than par, so the price
+  gain is capped. When rates rise, prepayments slow and the investor is
+  stuck with a below-market coupon for longer (*extension risk*). So the
+  loss from a rate rise is larger than the gain from an equal fall: the
+  opposite of an ordinary bond.
+- **Current-coupon pool.** A pool whose coupon matches today's market and
+  which trades near par. "A pool near current rates" means this (D-032).
+- **Mortgage spread.** How much higher mortgage rates are than the 10-year
+  Treasury yield: 2.14 percentage points on 16 November 2026 (Optimal Blue
+  index 7.26% minus 5.12%). Each scenario's mortgage rate is its 10-year
+  par yield plus this fixed spread.
+
+### How the code implements it
+
+- [tenorwise/instruments/mbs.py](tenorwise/instruments/mbs.py): `PrepaymentModel`
+  (the S-curve and ramp, labelled stylized), `MortgagePool` (WAC, remaining
+  term, age), `project()` (the monthly loop: level payment, interest,
+  scheduled principal, prepayment), `price()` (discount the investor cash
+  flows on the curve plus a spread) and `discount_spread_for_price()` (the
+  spread that prices a pool at par).
+- [tenorwise/curve/mortgage_spread.py](tenorwise/curve/mortgage_spread.py):
+  OBMMIC30YF minus DGS10 on the latest date both have values, with no filling
+  and a 7-day staleness limit. The pinned data is in
+  [data/fixtures/fred_obmmic30yf_2026-11-17.json](data/fixtures/fred_obmmic30yf_2026-11-17.json).
+- Risk comes from the same engine as bonds
+  ([tenorwise/analytics/risk.py](tenorwise/analytics/risk.py)). The pool's
+  price function reads the shocked curve's 10-year par yield, so every bump
+  also changes prepayments. This is what makes effective duration
+  "effective".
+- [tenorwise/analytics/mbs_profile.py](tenorwise/analytics/mbs_profile.py):
+  price, effective duration and convexity, average life and CPR across
+  shifts from −300 to +300 bp, next to the Treasury bullet with the closest
+  effective duration. Fields follow the `mbs.json` contract. Run with
+  `uv run python -m tenorwise.analytics.mbs_profile`.
+
+### Results on the pinned data (2026-11-16), computed by the engine
+
+Pool: WAC 7.263% (today's mortgage rate), net coupon 6.763%, 36 months old,
+324 months left. A discount spread of 162.1 bp prices it at 100. The
+comparison is a 5.12% Treasury bullet of 7.5 years.
+
+| Shift | CPR | Avg life | Pool price | Eff. duration | Treasury price |
+|---|---|---|---|---|---|
+| −300 bp | 39.9% | 1.95 y | 106.05 | 1.77 | 121.49 |
+| −100 bp | 23.0% | 3.63 y | 103.65 | 0.56 | 107.03 |
+| 0 | 7.6% | 8.95 y | 100.00 | 6.19 | 100.57 |
+| +100 bp | 6.1% | 10.11 y | 93.87 | 6.09 | 94.56 |
+| +300 bp | 6.0% | 10.18 y | 83.73 | 5.41 | 83.79 |
+
+- **Negative convexity:** −137 at today's rates. The Treasury's is positive.
+- **Asymmetry:** +3.65 at −100 bp against −6.13 at +100 bp.
+- **Extension:** average life stretches from 2.0 to 10.2 years.
+- **Capped upside:** at −300 bp the pool gains 6.0 points while the Treasury
+  gains 20.9.
+
+### Why this design, and what was rejected
+
+- **Static valuation, as the plan specifies.** Project cash flows once per
+  scenario, then discount. The industry standard is an option-adjusted
+  spread (OAS) model that simulates thousands of rate paths. It values the
+  borrower's option more accurately but is far harder to explain and test.
+  Static valuation still shows negative convexity and extension, which is
+  the purpose here.
+- **A logistic S-curve with four parameters.** Each parameter has a plain
+  meaning (floor, ceiling, steepness, midpoint) and can be drawn on a
+  whiteboard. Real prepayment models add burnout, seasonality, turnover and
+  cash-out refinancing.
+- **Mortgage rate from Optimal Blue, not Freddie Mac** (D-031). Freddie Mac's
+  terms forbid publishing its data or anything derived from it. Optimal
+  Blue's index is daily, which also matches the Treasury curve's date.
+- **"Current coupon" means priced at par** (D-032). Discounting at plain
+  Treasury rates made the test pool a premium bond, and in static
+  valuation that produced negative durations at −100 bp. Pricing at par is
+  how the market defines a current-coupon pool.
+
+### What would break it, and the behaviour at the edges
+
+- **Prepayment floor (about +50 bp and beyond).** CPR sits at its 6% floor,
+  the pool behaves like an ordinary bond, and its duration *falls* slowly as
+  rates rise further: 6.36 at +50 bp, 5.41 at +300 bp. The plan's
+  "effective duration rises as rates rise" holds only from −100 to +50 bp
+  here (D-032).
+- **Prepayment ceiling (deep rallies).** CPR approaches 40% and stops
+  responding. Duration then rises again as rates fall, from 0.56 at
+  −100 bp to 1.77 at −300 bp.
+- **Premium pricing.** A pool priced well above par can show negative
+  effective duration in static valuation (seen during testing with Treasury
+  discounting). It is a property of the model, not of real mortgage bonds.
+- The parameters are illustrative. A different k or x0 moves every number
+  above.
+
+### Interview questions
+
+1. **Why do mortgage bonds have negative convexity?**
+   Borrowers hold an option to repay at par. When rates fall they refinance,
+   so the investor gets par back just when the bond is worth more. When rates
+   rise they stay put, and the investor holds a below-market coupon for
+   longer.
+2. **What is extension risk?**
+   As rates rise, prepayments slow and the bond's average life lengthens. In
+   this model it goes from 9 years to over 10, which raises duration just
+   when rates are hurting.
+3. **Why is your valuation called "static", and what does that miss?**
+   It projects one set of cash flows per scenario and discounts it. It
+   ignores that rates are uncertain, so it misses the time value of the
+   borrower's option. An OAS model would charge for that option.
+4. **Why does the pool's duration fall again when rates rise a lot?**
+   Prepayments can't fall below the floor (people still move house). Once
+   they're there, the pool is effectively a fixed bond, and a fixed bond's
+   duration falls as yields rise.
+5. **Why didn't you use Freddie Mac's mortgage rate?**
+   Its terms forbid publishing the data or derived products without a
+   licence, and Tenorwise publishes derived figures. Optimal Blue's index
+   via FRED carries no such notice, and it is daily, which lines up with the
+   Treasury curve.
+6. **What does the discount spread of 162 bp represent?**
+   The extra yield over Treasuries at which this stylized pool prices at
+   par. It is a calibration choice that makes the pool current-coupon, not a
+   market OAS.

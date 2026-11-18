@@ -205,7 +205,7 @@ All times are year fractions. Maturities are whole months; `t = months / 12`. No
 - `CPR = ramp * (CPR_min + (CPR_max - CPR_min) / (1 + exp(-k * (incentive - x0))))`, where:
   - incentive = WAC - mortgage rate, in percentage points;
   - mortgage rate = the scenario's 10-year par yield + a fixed mortgage spread;
-  - mortgage spread = latest FRED MORTGAGE30US minus DGS10 on the same date;
+  - mortgage spread = latest FRED OBMMIC30YF (Optimal Blue 30-year fixed conforming mortgage index) minus DGS10 on the same date (changed from MORTGAGE30US on 2026-11-17, decision log D-031: Freddie Mac's terms forbid publishing its data or derived products without a licence);
   - ramp = min(1, age in months / 30).
 - Starting parameters: CPR_min 6%, CPR_max 40%, k = 3, x0 = 1.0. These are illustrative, not calibrated; say so wherever they appear.
 - Valuation is static: project cash flows once under the scenario curve and discount them. No rate volatility, no option-adjusted spread, no burnout, no seasonality.
@@ -485,9 +485,9 @@ For each phase: write the listed tests first, implement, run the whole suite, up
   - CPR and SMM round-trip;
   - CPR rises with incentive and stays within its bounds;
   - average life at +200 bp is above base, which is above -200 bp;
-  - effective convexity is negative for a pool near current rates and positive for a Treasury of similar duration;
-  - the gain at -100 bp is smaller than the loss at +100 bp;
-  - effective duration rises as rates rise.
+  - effective convexity is negative for a pool near current rates (WAC equal to the current mortgage rate, discounted at the spread that prices it at par) and positive for a Treasury of similar duration (reworded 2026-11-17, D-032);
+  - for that pool, the gain at -100 bp is smaller than the loss at +100 bp;
+  - effective duration rises as rates rise from -100 to +50 bp, where prepayments respond; beyond that the pool behaves like a fixed bond and this is documented, not tested as rising (reworded 2026-11-17, D-032).
 - I can run: a table of price, duration, average life and CPR across shifts.
 
 ### Phase 4. Portfolio

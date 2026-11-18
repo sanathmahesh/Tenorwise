@@ -3,7 +3,7 @@
 An interest-rate risk and hedging tool for a bank-style bond portfolio, with an
 AI analyst whose every number is checked against the calculation engine.
 
-**Status:** Phase 2 (bond analytics) done. The build plan and progress log are in
+**Status:** Phase 3 (agency mortgage bonds, stylized) done. The build plan and progress log are in
 [PLAN.md](PLAN.md). There is no live link yet.
 
 ## Run locally
@@ -34,6 +34,13 @@ Price a bond and print its risk measures (coupon in percent, maturity in months)
 ```bash
 uv run python -m tenorwise.analytics --coupon 4.5 --maturity-months 123
 uv run python -m tenorwise.analytics --coupon 5 --maturity-months 120 --spread-bp 100 --face 1000000
+```
+
+Stylized mortgage-bond profile across rate shifts (price, duration, average life, CPR):
+
+```bash
+uv run python -m tenorwise.analytics.mbs_profile
+uv run python -m tenorwise.analytics.mbs_profile --wac 6.5 --age 60 --remaining 300
 ```
 
 Tests:
@@ -75,7 +82,8 @@ build) and packages `api/index.py` as the Python function.
 ## Data
 
 US Treasury par yields come from FRED (series DGS1MO to DGS30, Federal Reserve
-H.15 release).
+H.15 release). The mortgage rate is the Optimal Blue Mortgage Market Indices
+(OBMMI™) 30-Year Fixed Rate Conforming Mortgage Index (OBMMIC30YF), via FRED.
 
 This product uses the FRED® API but is not endorsed or certified by the
 Federal Reserve Bank of St. Louis. See the

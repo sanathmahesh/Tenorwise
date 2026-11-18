@@ -23,9 +23,16 @@ from tenorwise.curve.fred import (
     parse_observations,
     select_par_curve,
 )
+from tenorwise.curve.mortgage_spread import (
+    MORTGAGE_RATE_SERIES,
+    TEN_YEAR_SERIES,
+    MortgageSpread,
+    select_mortgage_spread,
+)
 from tenorwise.paths import FIXTURES_DIR
 
 PINNED_FIXTURE = FIXTURES_DIR / "fred_treasury_par_2026-11-17.json"
+PINNED_MORTGAGE_FIXTURE = FIXTURES_DIR / "fred_obmmic30yf_2026-11-17.json"
 
 
 @dataclass(frozen=True)
@@ -58,6 +65,19 @@ def fixture_par_curve(path: Path = PINNED_FIXTURE) -> ParCurve:
     return load_fixture(path).par_curve()
 
 
+def fixture_mortgage_spread(
+    mortgage_path: Path = PINNED_MORTGAGE_FIXTURE, treasury_path: Path = PINNED_FIXTURE
+) -> MortgageSpread:
+    """OBMMIC30YF from the mortgage fixture minus DGS10 from the Treasury fixture."""
+    mortgage_fx = load_fixture(mortgage_path)
+    treasury_fx = load_fixture(treasury_path)
+    return select_mortgage_spread(
+        parse_observations(mortgage_fx.raw[MORTGAGE_RATE_SERIES]),
+        parse_observations(treasury_fx.raw[TEN_YEAR_SERIES]),
+        as_of=mortgage_fx.as_of,
+    )
+
+
 def write_fixture(
     path: Path,
     as_of: date,
@@ -65,9 +85,10 @@ def write_fixture(
     observation_start: date,
     observation_end: date,
     raw: dict[str, dict[str, Any]],
+    description: str = "Raw FRED series/observations responses for the 11 Treasury par-yield series",
 ) -> None:
     doc = {
-        "description": "Raw FRED series/observations responses for the 11 Treasury par-yield series",
+        "description": description,
         "source": FRED_OBSERVATIONS_URL,
         "as_of": as_of.isoformat(),
         "fetched_at": fetched_at,
