@@ -136,16 +136,25 @@ decision, newest at the bottom. Changes to PLAN.md are recorded here too.
 - **Phase:** 1
 - **Decision:** the floor applies after the shock is added and before the rebuild. `ShockedCurve.floor_bound` and `floored_tenor_months` report it. Unshocked market data is never altered.
 
-## D-021. Flat-curve test split because of the short-end convention (owner decision pending)
+## D-021. Flat-curve test split because of the short-end convention
 
 - **Phase:** 1
 - **Issue:** PLAN.md asks for "a flat par curve gives a flat zero curve at the equivalent continuous rate". The plan also prices tenors of 6 months and under with simple interest, and those two specifications conflict at 1 and 3 months. At a flat 4%, those zero rates come out 3.3 bp and 2.0 bp above the 6-month-and-beyond level (calculated from the formulas).
 - **Done:** implemented the plan's formula as written. The test checks flatness from 6 months out, and checks the short end against its own simple-interest formula. No tolerance was loosened.
 - **Option for the owner:** treat the short end as semiannual too, DF = (1 + y/2)^(-2T). The zero curve would then be flat everywhere for a flat par curve, matching the "semiannual bond-equivalent" treatment of every other tenor. That is a plan change and needs approval.
+- **Resolved 2026-11-17:** the owner chose to keep the plan's simple-interest formula. Treasury quotes bills of 6 months and under on a simple-interest bond-equivalent basis, so the formula follows market convention. The test wording in PLAN.md was changed to match (D-023).
 
 ## D-022. FRED attribution and terms
 
 - **Phase:** 1
 - **Read on 2026-11-17:** the FRED API Terms of Use require the notice "This product uses the FRED® API but is not endorsed or certified by the Federal Reserve Bank of St. Louis". For an application used by others, they also require a link to the Terms of Use and a statement in the application's own terms that its users agree to be bound by them. None of the 11 series' notes contain the word "Copyright", so no third-party restrictions apply to them.
 - **Done now:** the notice is printed by the curve CLI and the fixture script, and appears in README.md.
-- **Pending:** the interface footer (Phase 7 placeholder, Phase 11 design). The wording of the "users agree" statement is for the owner to approve.
+- **Approved 2026-11-17, for the interface footer (Phase 7 placeholder, Phase 11 design):** "This product uses the FRED® API but is not endorsed or certified by the Federal Reserve Bank of St. Louis. By using Tenorwise you agree to the FRED® API Terms of Use", with the last words linking to https://fred.stlouisfed.org/docs/api/terms_of_use.html.
+- **Still open:** the terms require a privacy policy if the application collects information about its users. This is to be raised in Phase 8 with the hashed-IP rate limits.
+
+## D-023. Plan change: Phase 1 flat-curve test reworded
+
+- **Date:** 2026-11-17, approved by the owner
+- **Change:** PLAN.md Phase 1 now reads "a flat par curve gives a flat zero curve at the equivalent continuous rate from 6 months out, and at 1 and 3 months each zero rate matches its own simple-interest instrument". The engine's formula is unchanged.
+- **Why:** see D-021. The original wording could not hold under the plan's own short-end formula.
+

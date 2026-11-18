@@ -451,7 +451,7 @@ For each phase: write the listed tests first, implement, run the whole suite, up
   - the parser handles "." and picks the latest complete date;
   - stale data fails;
   - every input par instrument reprices to 100 within 1e-8;
-  - a flat par curve gives a flat zero curve at the equivalent continuous rate;
+  - a flat par curve gives a flat zero curve at the equivalent continuous rate from 6 months out, and at 1 and 3 months each zero rate matches its own simple-interest instrument (reworded 2026-11-17, decision log D-023);
   - discount factors are positive and decreasing;
   - interpolation is exact at curve points and linear between;
   - a zero shock returns the same curve;
@@ -623,7 +623,7 @@ Update this table at the end of each phase.
 | Phase | Status | Date | Commit |
 |---|---|---|---|
 | 0. Foundations, probe, skeleton deploy | Done | 2026-11-17 | e94ac6b, 63453bf |
-| 1. Yield curve | Done; awaiting go-ahead (D-021, D-022 open) | 2026-11-17 | c3bbfc4 |
+| 1. Yield curve | Done | 2026-11-17 | c3bbfc4 |
 | 2. Bond analytics | Not started | | |
 | 3. Agency mortgage bonds | Not started | | |
 | 4. Portfolio | Not started | | |
