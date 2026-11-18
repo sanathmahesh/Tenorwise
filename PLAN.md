@@ -628,7 +628,7 @@ Update this table at the end of each phase.
 | 3. Agency mortgage bonds | Done | 2026-11-17 | 5b9f2ec |
 | 4. Portfolio | Done | 2026-11-17 | c786a5a, 257343a |
 | 5. Scenarios | Done | 2026-11-17 | fda2fdf |
-| 6. Hedging | Not started | | |
+| 6. Hedging | Done; awaiting go-ahead | 2026-11-17 | c3fc7db |
 | 7. Snapshot, API, placeholder interface | Not started | | |
 | 8. AI analyst and verification | Not started | | |
 | 9. Evals | Not started | | |
