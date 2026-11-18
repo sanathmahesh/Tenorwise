@@ -57,3 +57,5 @@ Use `moonshotai/Kimi-K3.1-Pro` for the analyst.
 - **Reruns.** The eval should be rerun before any switch, and whenever Sail changes a model version or price.
 
 The choice of model is the owner's. Switching means changing `LLM_MODEL` in the deployment's environment.
+
+**Owner's decision (2026-11-18):** keep `zai-org/GLM-5.3` for now (decision log D-075). The analysis and recommendation above stand. The deployed analyst keeps the faster model and accepts its higher block rate.

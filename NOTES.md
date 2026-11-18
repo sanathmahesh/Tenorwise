@@ -1567,7 +1567,8 @@ accounts. US supervisors' guidance on managing that risk is SR 26-2 (April
   memo number trace to an eval file. Reusing the verifier means the project
   holds its own documents to the same rule as its AI.
 - **The recommendation is not acted on.** Switching the deployed model
-  (`LLM_MODEL`) is the owner's decision.
+  (`LLM_MODEL`) is the owner's decision. The owner chose to keep GLM-5.3 for
+  now, for its speed (D-075).
 - **The opportunity map avoids invented figures.** Its scores are judgments
   backed by cited sources. It quotes no market sizes or time savings, because
   none were measured.

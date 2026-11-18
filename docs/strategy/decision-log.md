@@ -542,3 +542,10 @@ decision, newest at the bottom. Changes to PLAN.md are recorded here too.
 - **Decision:** the model memo recommends `moonshotai/Kimi-K3.1-Pro`, which had the best accuracy, the fewest repairs and no blocks. The trade-off is slower answers and a higher cost per question than `zai-org/GLM-5.3`.
   - The deployed model stays GLM-5.3 until the owner decides.
   - A test pins the kill switch the rollout plan relies on: a global daily cap of zero refuses AI requests and leaves the engine working.
+
+## D-075. Owner decisions after Phase 10's draft
+
+- **Date:** 2026-11-18
+- **Model:** keep `zai-org/GLM-5.3` as the deployed analyst for now, against the memo's recommendation of `moonshotai/Kimi-K3.1-Pro`. The memo records the decision; its analysis is unchanged.
+- **evidence.json:** no new fields. It keeps the contract fields (PLAN.md section 8). The accuracy range over repeats and the before-repair block rate stay in `docs/evidence/evals/summary.json` and `report.md`.
+- **Effort timings:** the owner will record them later. Until then the About page says they are not yet recorded.
