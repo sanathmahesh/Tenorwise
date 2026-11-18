@@ -96,6 +96,19 @@ class GroupRow(RiskFields):
     weight: float = Field(description="percent of total amortized cost")
 
 
+class ClassSplit(Contract):
+    """Market value in US dollars by accounting class."""
+
+    afs: float = Field(alias="AFS")
+    htm: float = Field(alias="HTM")
+
+
+class SectorRow(GroupRow):
+    market_value_by_class: ClassSplit = Field(
+        description="added: market value of the sector's AFS and HTM positions (US dollars)"
+    )
+
+
 class PositionRow(Contract):
     id: str
     name: str
@@ -126,7 +139,7 @@ class Source(Contract):
 class Portfolio(Contract):
     data_date: str
     summary: PortfolioSummary
-    by_sector: list[GroupRow]
+    by_sector: list[SectorRow]
     by_class: list[GroupRow]
     positions: list[PositionRow]
     source: Source
@@ -142,6 +155,9 @@ class MbsProfileRow(Contract):
     avg_life_years: float
     cpr: float = Field(description="percent, first projected month")
     eff_convexity: float = Field(description="added")
+    incentive_pct: float = Field(
+        description="added: refinancing incentive in percentage points, pool WAC minus the mortgage rate after the shift"
+    )
 
 
 class PriceRow(Contract):

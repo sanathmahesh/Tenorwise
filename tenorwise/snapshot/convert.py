@@ -79,11 +79,19 @@ def position_row(v: PositionValuation) -> m.PositionRow:
     )
 
 
+def sector_row(pv: PortfolioValuation, sector: str, agg: Aggregate) -> m.SectorRow:
+    def mv(klass: str) -> float:
+        return USD * sum(v.market_value for v in pv.positions if v.position.sector == sector and v.position.klass == klass)
+
+    base = group_row(sector, SECTOR_NAMES[sector], agg)
+    return m.SectorRow(**base.model_dump(by_alias=True), market_value_by_class=m.ClassSplit(afs=mv("AFS"), htm=mv("HTM")))
+
+
 def portfolio_model(pv: PortfolioValuation, data_date: str, source: m.Source) -> m.Portfolio:
     return m.Portfolio(
         data_date=data_date,
         summary=m.PortfolioSummary(**_risk(pv.summary)),
-        by_sector=[group_row(s, SECTOR_NAMES[s], g) for s, g in pv.by_sector.items()],
+        by_sector=[sector_row(pv, s, g) for s, g in pv.by_sector.items()],
         by_class=[group_row(k, CLASS_NAMES[k], g) for k, g in pv.by_class.items()],
         positions=[position_row(v) for v in pv.positions],
         source=source,

@@ -133,3 +133,29 @@ def test_meta_lists_assumptions_and_fred_series(builds):
     assert [a["id"] for a in meta["assumptions"]][:3] == ["A-01", "A-02", "A-03"]
     ids = {s["id"] for s in meta["fred_series"]}
     assert {"DGS1MO", "DGS10", "DGS30", "OBMMIC30YF"} <= ids
+
+
+# ------------------------------------------------------------------ Phase 11 additions (owner-approved, D-076)
+
+
+def test_sector_rows_split_market_value_by_accounting_class(builds):
+    web, _ = builds[0]
+    portfolio = load(web / "portfolio.json")
+    for row in portfolio["by_sector"]:
+        split = row["market_value_by_class"]
+        assert set(split) == {"AFS", "HTM"}
+        for klass in ("AFS", "HTM"):
+            expected = sum(p["market_value"] for p in portfolio["positions"]
+                           if p["sector"] == row["id"] and p["class"] == klass)
+            assert split[klass] == pytest.approx(expected, rel=1e-9, abs=1e-3)
+        assert split["AFS"] + split["HTM"] == pytest.approx(row["market_value"], rel=1e-9)
+
+
+def test_mbs_profile_rows_carry_the_engines_refinancing_incentive(builds):
+    web, _ = builds[0]
+    mbs = load(web / "mbs.json")
+    rows = {r["shift_bp"]: r for r in mbs["profile"]}
+    # incentive (percentage points) = pool WAC minus the mortgage rate after the shift
+    assert rows[0.0]["incentive_pct"] == pytest.approx(mbs["pool"]["wac"] - mbs["mortgage_rate"]["mortgage_rate"], abs=1e-6)
+    for s, r in rows.items():
+        assert r["incentive_pct"] == pytest.approx(rows[0.0]["incentive_pct"] - s / 100, abs=1e-6)

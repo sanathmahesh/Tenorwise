@@ -49,6 +49,10 @@
     "5": 327376.7095
    },
    "market_value": 3010873555.0,
+   "market_value_by_class": {
+    "AFS": 2581636952.0,
+    "HTM": 429236603.5
+   },
    "name": "Treasuries",
    "unrealized": -173471362.7,
    "weight": 31.84344918
@@ -66,6 +70,10 @@
     "5": 403479.0833
    },
    "market_value": 3622227418.0,
+   "market_value_by_class": {
+    "AFS": 1614047698.0,
+    "HTM": 2008179720.0
+   },
    "name": "Agency mortgage bonds",
    "unrealized": -957607173.6,
    "weight": 45.79834591
@@ -83,6 +91,10 @@
     "5": 263185.1649
    },
    "market_value": 1005191191.0,
+   "market_value_by_class": {
+    "AFS": 617963337.5,
+    "HTM": 387227854.0
+   },
    "name": "Agency debt",
    "unrealized": -128084896.5,
    "weight": 11.33276088
@@ -100,6 +112,10 @@
     "5": 198397.3906
    },
    "market_value": 1010340982.0,
+   "market_value_by_class": {
+    "AFS": 965378404.0,
+    "HTM": 44962578.0
+   },
    "name": "IG corporates (proxy)",
    "unrealized": -92203420.72,
    "weight": 11.02544403

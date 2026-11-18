@@ -192,6 +192,7 @@ def compute_snapshot(
                 m.MbsProfileRow(
                     shift_bp=r.shift_bp, price=r.price, eff_duration=r.eff_duration,
                     avg_life_years=r.avg_life_years, cpr=cv.PCT * r.cpr, eff_convexity=r.eff_convexity,
+                    incentive_pct=r.incentive_pct,
                 )
                 for r in profile
             ],

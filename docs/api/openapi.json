@@ -225,6 +225,26 @@
     "title": "CheckOut",
     "type": "object"
    },
+   "ClassSplit": {
+    "additionalProperties": false,
+    "description": "Market value in US dollars by accounting class.",
+    "properties": {
+     "AFS": {
+      "title": "Afs",
+      "type": "number"
+     },
+     "HTM": {
+      "title": "Htm",
+      "type": "number"
+     }
+    },
+    "required": [
+     "AFS",
+     "HTM"
+    ],
+    "title": "ClassSplit",
+    "type": "object"
+   },
    "CommentaryRequest": {
     "additionalProperties": false,
     "properties": {},
@@ -925,6 +945,11 @@
       "title": "Eff Duration",
       "type": "number"
      },
+     "incentive_pct": {
+      "description": "added: refinancing incentive in percentage points, pool WAC minus the mortgage rate after the shift",
+      "title": "Incentive Pct",
+      "type": "number"
+     },
      "price": {
       "title": "Price",
       "type": "number"
@@ -940,7 +965,8 @@
      "eff_duration",
      "avg_life_years",
      "cpr",
-     "eff_convexity"
+     "eff_convexity",
+     "incentive_pct"
     ],
     "title": "MbsProfileRow",
     "type": "object"
@@ -1106,7 +1132,7 @@
      },
      "by_sector": {
       "items": {
-       "$ref": "#/components/schemas/GroupRow"
+       "$ref": "#/components/schemas/SectorRow"
       },
       "title": "By Sector",
       "type": "array"
@@ -1664,6 +1690,73 @@
      "body_md"
     ],
     "title": "SectionOut",
+    "type": "object"
+   },
+   "SectorRow": {
+    "additionalProperties": false,
+    "properties": {
+     "amortized_cost": {
+      "title": "Amortized Cost",
+      "type": "number"
+     },
+     "convexity": {
+      "description": "effective (curve-based) convexity",
+      "title": "Convexity",
+      "type": "number"
+     },
+     "dv01": {
+      "title": "Dv01",
+      "type": "number"
+     },
+     "eff_duration": {
+      "title": "Eff Duration",
+      "type": "number"
+     },
+     "id": {
+      "description": "added: sector or class identifier",
+      "title": "Id",
+      "type": "string"
+     },
+     "key_rate_dv01": {
+      "$ref": "#/components/schemas/KeyRateDV01"
+     },
+     "market_value": {
+      "title": "Market Value",
+      "type": "number"
+     },
+     "market_value_by_class": {
+      "$ref": "#/components/schemas/ClassSplit",
+      "description": "added: market value of the sector's AFS and HTM positions (US dollars)"
+     },
+     "name": {
+      "description": "added: display name",
+      "title": "Name",
+      "type": "string"
+     },
+     "unrealized": {
+      "title": "Unrealized",
+      "type": "number"
+     },
+     "weight": {
+      "description": "percent of total amortized cost",
+      "title": "Weight",
+      "type": "number"
+     }
+    },
+    "required": [
+     "market_value",
+     "amortized_cost",
+     "unrealized",
+     "eff_duration",
+     "convexity",
+     "dv01",
+     "key_rate_dv01",
+     "id",
+     "name",
+     "weight",
+     "market_value_by_class"
+    ],
+    "title": "SectorRow",
     "type": "object"
    },
    "ShockPoint": {

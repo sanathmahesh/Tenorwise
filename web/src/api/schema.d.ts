@@ -161,6 +161,16 @@ export interface components {
             /** Token */
             token: string;
         };
+        /**
+         * ClassSplit
+         * @description Market value in US dollars by accounting class.
+         */
+        ClassSplit: {
+            /** Afs */
+            AFS: number;
+            /** Htm */
+            HTM: number;
+        };
         /** CommentaryRequest */
         CommentaryRequest: Record<string, never>;
         /** Curve */
@@ -442,6 +452,11 @@ export interface components {
             eff_convexity: number;
             /** Eff Duration */
             eff_duration: number;
+            /**
+             * Incentive Pct
+             * @description added: refinancing incentive in percentage points, pool WAC minus the mortgage rate after the shift
+             */
+            incentive_pct: number;
             /** Price */
             price: number;
             /** Shift Bp */
@@ -502,7 +517,7 @@ export interface components {
             /** By Class */
             by_class: components["schemas"]["GroupRow"][];
             /** By Sector */
-            by_sector: components["schemas"]["GroupRow"][];
+            by_sector: components["schemas"]["SectorRow"][];
             /** Data Date */
             data_date: string;
             /** Positions */
@@ -733,6 +748,42 @@ export interface components {
             body_md: string;
             /** Heading */
             heading: string;
+        };
+        /** SectorRow */
+        SectorRow: {
+            /** Amortized Cost */
+            amortized_cost: number;
+            /**
+             * Convexity
+             * @description effective (curve-based) convexity
+             */
+            convexity: number;
+            /** Dv01 */
+            dv01: number;
+            /** Eff Duration */
+            eff_duration: number;
+            /**
+             * Id
+             * @description added: sector or class identifier
+             */
+            id: string;
+            key_rate_dv01: components["schemas"]["KeyRateDV01"];
+            /** Market Value */
+            market_value: number;
+            /** @description added: market value of the sector's AFS and HTM positions (US dollars) */
+            market_value_by_class: components["schemas"]["ClassSplit"];
+            /**
+             * Name
+             * @description added: display name
+             */
+            name: string;
+            /** Unrealized */
+            unrealized: number;
+            /**
+             * Weight
+             * @description percent of total amortized cost
+             */
+            weight: number;
         };
         /** ShockPoint */
         ShockPoint: {
