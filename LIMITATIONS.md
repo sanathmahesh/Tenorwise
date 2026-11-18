@@ -207,8 +207,9 @@ What Tenorwise cannot tell you, and why.
 - **The opportunity map's scores are reasoned judgments from public sources,
   not measurements or practitioner interviews.** Practitioners might score
   them differently.
-- **The effort comparison has no data yet.** When it does, it will describe
-  one non-expert operator, not a team of professionals.
+- **Time saved has not been measured.** The effort study was designed but not
+  run (owner decision, D-081). Run as designed, it would describe one
+  non-expert operator, not a team of professionals.
 - **The model recommendation rests on 36 questions and 3 repeats** on the
   pinned snapshot. Commentary drafting was not part of the eval.
 - **The risk and control table is not a validation.** The engine has had no

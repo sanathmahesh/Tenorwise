@@ -1541,8 +1541,9 @@ accounts. US supervisors' guidance on managing that risk is SR 26-2 (April
   six files, the decision log included.
   - The files are imported as raw text at build time, so the page and the
     repository cannot drift apart.
-  - The timings table computes minutes from the CSV, and says "Timings not
-    yet recorded" while the CSV is empty.
+  - The timings table computes minutes from the CSV. While the CSV is empty
+    it says "Study not run" (D-081; it said "Timings not yet recorded" until
+    the owner decided not to run the study).
 
 ### Results
 
@@ -1556,7 +1557,9 @@ accounts. US supervisors' guidance on managing that risk is SR 26-2 (April
   The rule was not loosened.
 - **Zero-failure bound:** the summary now carries the exact one-sided 95%
   upper bound on the verified-but-wrong rate: 2.74% to 2.81% by model.
-- **Not yet recorded:** the effort timings. They wait for the owner.
+- **Effort timings: not run.** On 2026-11-18 the owner decided not to run the
+  timing study (D-081), so time saved is unmeasured. The same day the owner
+  reviewed the opportunity map and asked for no changes.
 
 ### Why this design, and what was rejected
 

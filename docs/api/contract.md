@@ -443,4 +443,4 @@ How the analyst's response is shown:
 
 The About page bodies are the repository's `docs/strategy/*.md` files: the opportunity map, effort, model memo, risks and controls, rollout plan and decision log.
 - **Styling:** design the styles for generic Markdown: headings, paragraphs, lists, bold, code spans, links and wide tables (which need to scroll on phone).
-- **Effort timings:** come from a CSV. Until it has rows, show "Timings not yet recorded".
+- **Effort timings:** come from a CSV. Until it has rows, show "Study not run" and that time saved has not been measured (D-081).

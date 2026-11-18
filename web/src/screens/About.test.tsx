@@ -10,16 +10,16 @@ const HEADER = 'task_id,method,date,start_time,end_time,completed,matches_engine
 const escape = (s: string) => s.replace(/&/g, '&amp;').replace(/'/g, '&#x27;')
 
 describe('effort timings', () => {
-  it('says the timings are not yet recorded while the CSV has no rows', () => {
+  it('says the study was not run while the CSV has no rows (D-081)', () => {
     const html = renderToStaticMarkup(<EffortTimings csv={HEADER} />)
-    expect(html).toContain('Timings not yet recorded')
-    expect(html).toContain('one non-expert')
+    expect(html).toContain('Study not run')
+    expect(html).toContain('has not been measured')
     expect(html).not.toContain('<table')
   })
 
-  it('follows the committed CSV: not yet recorded until it has rows', () => {
+  it('follows the committed CSV: not run until it has rows', () => {
     const html = renderToStaticMarkup(<EffortTimings csv={committedCsv} />)
-    expect(html.includes('Timings not yet recorded')).toBe(parseTimings(committedCsv).rows.length === 0)
+    expect(html.includes('Study not run')).toBe(parseTimings(committedCsv).rows.length === 0)
   })
 
   it('computes minutes from start and end, and keeps quoted notes intact', () => {
@@ -29,7 +29,8 @@ describe('effort timings', () => {
     expect(rows.map((r) => [r.task_id, r.method, r.minutes])).toEqual([['T1', 'manual', 42], ['T1', 'tool', 3]])
     expect(rows[0].notes).toBe('used FRED, then a calculator')
     const html = renderToStaticMarkup(<EffortTimings csv={csv} />)
-    expect(html).not.toContain('Timings not yet recorded')
+    expect(html).not.toContain('Study not run')
+    expect(html).toContain('one non-expert')
     expect(html).toContain('<td>42</td>')
   })
 
@@ -65,6 +66,6 @@ describe('About page', () => {
     expect(renderToStaticMarkup(<About docId="opportunity-map" />))
       .toContain('reasoned judgments from public sources, not measurements or practitioner interviews')
     expect(renderToStaticMarkup(<About docId="rollout-plan" />)).toContain('has not been executed')
-    expect(renderToStaticMarkup(<About docId="effort" />)).toContain('Timings not yet recorded')
+    expect(renderToStaticMarkup(<About docId="effort" />)).toContain('Study not run')
   })
 })

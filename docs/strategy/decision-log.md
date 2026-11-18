@@ -623,3 +623,18 @@ decision, newest at the bottom. Changes to PLAN.md are recorded here too.
   - Every commit ID changed, and the progress log in PLAN.md now cites the new IDs.
   - Deployments built before the rewrite report `cda4d65`, which is now `8b45d6b`.
   - This repository's own git setting now uses the no-reply address, so later commits keep the personal address out.
+
+## D-081. The effort timing study is not run; the opportunity map is reviewed
+
+- **Phase:** 10
+- **Owner decisions (2026-11-18):**
+  - Not to run the manual against tool-assisted timing study.
+  - The opportunity map was reviewed, with no changes asked for.
+- **Why the study can go:** it would have timed one person, the builder, on tasks they designed, with a tool they built. That is weak evidence of time saved. Saying "not measured" is the honest claim.
+- **What changes:**
+  - `effort.md` keeps the method, marked "designed, not run". The rollout plan already measures time saved in a pilot that way.
+  - The About page says "Study not run" instead of "Timings not yet recorded".
+  - LIMITATIONS.md says time saved has not been measured.
+- **Unchanged:**
+  - The timings CSV keeps its header. The page would show any rows recorded later.
+  - No timing has been entered or estimated.

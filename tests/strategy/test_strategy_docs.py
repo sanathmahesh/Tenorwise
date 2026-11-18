@@ -127,6 +127,19 @@ def test_effort_timings_csv_has_the_agreed_columns_and_only_recorded_rows():
         assert r[0] in tasks and r[1] in ("manual", "tool"), r
 
 
+def test_effort_study_is_marked_not_run_while_no_timing_is_recorded():
+    """The owner decided not to run the timing study (D-081). Until a timing is recorded, every place that
+    mentions it says so, and nothing claims a time saving."""
+    with (STRATEGY / "effort-timings.csv").open(newline="") as f:
+        recorded = list(csv.reader(f))[1:]
+    if recorded:
+        pytest.skip("timings have been recorded")
+    assert "**Status: designed, not run.**" in read("effort.md")
+    assert "D-081" in read("decision-log.md")
+    assert "Time saved has not been measured" in (REPO / "LIMITATIONS.md").read_text(encoding="utf-8")
+    assert "still to be recorded" not in read("opportunity-map.md")
+
+
 def test_effort_sheet_names_the_operator_and_the_tasks():
     text = read("effort.md")
     assert "one non-expert" in text

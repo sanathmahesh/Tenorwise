@@ -18,10 +18,11 @@ export function EffortTimings({ csv }: { csv: string }) {
   return (
     <div>
       <h2>Recorded timings</h2>
-      <p>Operator: one non-expert (the author, with no finance background). The timings describe this operator only.</p>
       {rows.length === 0
-        ? <p className="empty-block"><strong>Timings not yet recorded.</strong> The owner records them in docs/strategy/effort-timings.csv.</p>
+        ? <p className="empty-block"><strong>Study not run.</strong> The owner decided not to run it (decision log D-081), so the time Tenorwise saves has not been measured.</p>
         : (
+          <>
+          <p>Operator: one non-expert (the author, with no finance background). The timings describe this operator only.</p>
           <div className="md-table">
             <table>
               <thead>
@@ -37,6 +38,7 @@ export function EffortTimings({ csv }: { csv: string }) {
               </tbody>
             </table>
           </div>
+          </>
         )}
       {errors.length > 0 && (
         <div role="alert">

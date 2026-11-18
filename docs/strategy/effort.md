@@ -2,12 +2,13 @@
 
 How long do typical rate-risk tasks take by hand, and how long with Tenorwise?
 
-**Status:**
-- The owner records the timings in `docs/strategy/effort-timings.csv`.
-- Until that file has rows, this page says the timings are not yet recorded.
-- No one else enters or estimates a timing.
+**Status: designed, not run.**
+- On 2026-11-18 the owner decided not to run this study (decision log D-081).
+- No timing has been recorded, entered or estimated, so the time Tenorwise saves has not been measured.
+- The method below is kept for a pilot with real analysts. The rollout plan measures time saved this way.
+- No one but the operator enters a timing, and no one estimates one.
 
-**Operator:** one non-expert, the author: a master's student with no finance background. The timings describe this one operator only. They are not a productivity estimate for professionals, who would be faster by hand.
+**Operator, as designed:** one non-expert, the author: a master's student with no finance background. The timings describe this one operator only. They are not a productivity estimate for professionals, who would be faster by hand.
 
 ## Methods
 
@@ -86,7 +87,7 @@ Write a note of about 150 words for an investment committee on the +100 bp scena
 
 ## Recording
 
-Add one row per attempt to `docs/strategy/effort-timings.csv`. The columns are:
+If the study is run, add one row per attempt to `docs/strategy/effort-timings.csv`. The columns are:
 
 - `task_id`: T1 to T5.
 - `method`: `manual` or `tool`.

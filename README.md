@@ -172,7 +172,7 @@ uv run python scripts/make_results.py   # RESULTS.md; a test checks every number
 - [MODEL_CARD.md](MODEL_CARD.md): intended use, components, evidence and the human review procedure
 - [NOTES.md](NOTES.md): the finance and the design, phase by phase
 - [ASSUMPTIONS.md](ASSUMPTIONS.md) and [LIMITATIONS.md](LIMITATIONS.md)
-- [docs/strategy/](docs/strategy/): opportunity map, effort sheet and timings, model memo, risks and controls, rollout plan (proposal), decision log; all rendered on the About page
+- [docs/strategy/](docs/strategy/): opportunity map, effort study (designed, not run), model memo, risks and controls, rollout plan (proposal), decision log; all rendered on the About page
 - [docs/provider-probe.md](docs/provider-probe.md)
 - [docs/evidence/evals/](docs/evidence/evals/): eval raw results, summary and report
 

@@ -2,7 +2,7 @@
 
 Where could AI help a bank's investment and lending teams, and why did Tenorwise pick rate-risk analysis of the bond portfolio?
 
-The scores below are reasoned judgments from public sources, not measurements or practitioner interviews. They are a draft for the owner to challenge and change. The sources are listed at the end.
+The scores below are reasoned judgments from public sources, not measurements or practitioner interviews. The owner reviewed them on 2026-11-18 and asked for no changes. The sources are listed at the end.
 
 ## Rubric
 
@@ -126,7 +126,7 @@ Tenorwise takes workflow 1, for five reasons:
 - **The main AI risk can be checked by code.** Generative models state wrong numbers confidently, which NIST AI 600-1 calls confabulation (section 2.2). Here a deterministic engine is the source of truth for every figure, so code can check each number before it is shown, and evals can measure what slips through.
 - **It has a clean governance story.** The engine is a model under SR 26-2's definition and the AI layer is outside it (footnote 3). The project shows how each would be governed.
 - **It matters.** Interest-rate risk in bond portfolios, and its effect on AOCI, is a central topic for a bank's asset side.
-- **What it gives up.** It is internal analysis, not a revenue workflow, and the time it saves has not been measured: the effort timings are still to be recorded.
+- **What it gives up.** It is internal analysis, not a revenue workflow, and the time it saves has not been measured: the effort study was designed but not run (D-081).
 
 **Next candidates:**
 

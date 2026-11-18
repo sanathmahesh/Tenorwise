@@ -147,14 +147,14 @@ test('Evidence shows each model, marks the production model and lists every ques
   expect(errors).toEqual([])
 })
 
-test('About renders the strategy files, the reference pages and the empty timings state', async ({ page }) => {
+test('About renders the strategy files, the reference pages and the not-run timings state', async ({ page }) => {
   const errors = watchErrors(page)
   await open(page, 'About')
   const pages = page.getByRole('navigation', { name: 'About pages' }).getByRole('link')
   await expect(pages).toHaveCount(10)
   await expect(page.getByRole('heading', { level: 1, name: 'Opportunity map' }).last()).toBeVisible()
   await pages.getByText('Effort', { exact: true }).click()
-  await expect(page.getByText('Timings not yet recorded')).toBeVisible()
+  await expect(page.getByText('Study not run')).toBeVisible()
   await pages.getByText('Limitations', { exact: true }).click()
   await expect(page.locator('article')).toContainText('Verification proves each number came from the engine')
   await pages.getByText('Assumptions', { exact: true }).click()
