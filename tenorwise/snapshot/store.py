@@ -10,8 +10,11 @@ import os
 from pathlib import Path
 from typing import Any
 
-REPO_ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_SNAPSHOT_DIR = REPO_ROOT / "data" / "snapshot" / "v1"
+from tenorwise.paths import DATA_DIR, REPO_ROOT
+
+DEFAULT_SNAPSHOT_DIR = DATA_DIR / "snapshot" / "v1"
+
+__all__ = ["DEFAULT_SNAPSHOT_DIR", "REPO_ROOT", "read_json", "snapshot_dir"]
 
 # Lets tests point the API at a temporary snapshot.
 SNAPSHOT_DIR_ENV = "TENORWISE_SNAPSHOT_DIR"

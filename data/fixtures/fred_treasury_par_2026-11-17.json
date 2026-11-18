@@ -1,0 +1,2232 @@
+{
+ "as_of": "2026-11-17",
+ "description": "Raw FRED series/observations responses for the 11 Treasury par-yield series",
+ "fetched_at": "2026-11-18T02:07:30Z",
+ "observation_end": "2026-11-17",
+ "observation_start": "2026-10-03",
+ "responses": {
+  "DGS1": {
+   "count": 31,
+   "file_type": "json",
+   "limit": 100000,
+   "observation_end": "2026-11-17",
+   "observation_start": "2026-10-03",
+   "observations": [
+    {
+     "date": "2026-10-05",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.47"
+    },
+    {
+     "date": "2026-10-06",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.46"
+    },
+    {
+     "date": "2026-10-07",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.42"
+    },
+    {
+     "date": "2026-10-08",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.44"
+    },
+    {
+     "date": "2026-10-09",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.47"
+    },
+    {
+     "date": "2026-10-12",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2026-10-13",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.48"
+    },
+    {
+     "date": "2026-10-14",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.53"
+    },
+    {
+     "date": "2026-10-15",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.49"
+    },
+    {
+     "date": "2026-10-16",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.46"
+    },
+    {
+     "date": "2026-10-19",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.5"
+    },
+    {
+     "date": "2026-10-20",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.51"
+    },
+    {
+     "date": "2026-10-21",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.52"
+    },
+    {
+     "date": "2026-10-22",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.41"
+    },
+    {
+     "date": "2026-10-23",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.44"
+    },
+    {
+     "date": "2026-10-26",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.47"
+    },
+    {
+     "date": "2026-10-27",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.5"
+    },
+    {
+     "date": "2026-10-28",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.47"
+    },
+    {
+     "date": "2026-10-29",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.42"
+    },
+    {
+     "date": "2026-10-30",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.36"
+    },
+    {
+     "date": "2026-11-02",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.38"
+    },
+    {
+     "date": "2026-11-03",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.4"
+    },
+    {
+     "date": "2026-11-04",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.39"
+    },
+    {
+     "date": "2026-11-05",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.28"
+    },
+    {
+     "date": "2026-11-06",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.33"
+    },
+    {
+     "date": "2026-11-09",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.38"
+    },
+    {
+     "date": "2026-11-10",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.56"
+    },
+    {
+     "date": "2026-11-11",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2026-11-12",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.65"
+    },
+    {
+     "date": "2026-11-13",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.65"
+    },
+    {
+     "date": "2026-11-16",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.62"
+    }
+   ],
+   "offset": 0,
+   "order_by": "observation_date",
+   "output_type": 1,
+   "realtime_end": "2026-11-17",
+   "realtime_start": "2026-11-17",
+   "sort_order": "asc",
+   "units": "lin"
+  },
+  "DGS10": {
+   "count": 31,
+   "file_type": "json",
+   "limit": 100000,
+   "observation_end": "2026-11-17",
+   "observation_start": "2026-10-03",
+   "observations": [
+    {
+     "date": "2026-10-05",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.31"
+    },
+    {
+     "date": "2026-10-06",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.27"
+    },
+    {
+     "date": "2026-10-07",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.28"
+    },
+    {
+     "date": "2026-10-08",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.22"
+    },
+    {
+     "date": "2026-10-09",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.24"
+    },
+    {
+     "date": "2026-10-12",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2026-10-13",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.21"
+    },
+    {
+     "date": "2026-10-14",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.19"
+    },
+    {
+     "date": "2026-10-15",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.1"
+    },
+    {
+     "date": "2026-10-16",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.09"
+    },
+    {
+     "date": "2026-10-19",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.15"
+    },
+    {
+     "date": "2026-10-20",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.12"
+    },
+    {
+     "date": "2026-10-21",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.13"
+    },
+    {
+     "date": "2026-10-22",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.96"
+    },
+    {
+     "date": "2026-10-23",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5"
+    },
+    {
+     "date": "2026-10-26",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5"
+    },
+    {
+     "date": "2026-10-27",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.99"
+    },
+    {
+     "date": "2026-10-28",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.05"
+    },
+    {
+     "date": "2026-10-29",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.98"
+    },
+    {
+     "date": "2026-10-30",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.94"
+    },
+    {
+     "date": "2026-11-02",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.91"
+    },
+    {
+     "date": "2026-11-03",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.95"
+    },
+    {
+     "date": "2026-11-04",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.9"
+    },
+    {
+     "date": "2026-11-05",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.84"
+    },
+    {
+     "date": "2026-11-06",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.86"
+    },
+    {
+     "date": "2026-11-09",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.88"
+    },
+    {
+     "date": "2026-11-10",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.98"
+    },
+    {
+     "date": "2026-11-11",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2026-11-12",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.1"
+    },
+    {
+     "date": "2026-11-13",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.15"
+    },
+    {
+     "date": "2026-11-16",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.12"
+    }
+   ],
+   "offset": 0,
+   "order_by": "observation_date",
+   "output_type": 1,
+   "realtime_end": "2026-11-17",
+   "realtime_start": "2026-11-17",
+   "sort_order": "asc",
+   "units": "lin"
+  },
+  "DGS1MO": {
+   "count": 31,
+   "file_type": "json",
+   "limit": 100000,
+   "observation_end": "2026-11-17",
+   "observation_start": "2026-10-03",
+   "observations": [
+    {
+     "date": "2026-10-05",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.05"
+    },
+    {
+     "date": "2026-10-06",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.06"
+    },
+    {
+     "date": "2026-10-07",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.07"
+    },
+    {
+     "date": "2026-10-08",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.14"
+    },
+    {
+     "date": "2026-10-09",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.13"
+    },
+    {
+     "date": "2026-10-12",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2026-10-13",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.1"
+    },
+    {
+     "date": "2026-10-14",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.11"
+    },
+    {
+     "date": "2026-10-15",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.17"
+    },
+    {
+     "date": "2026-10-16",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.12"
+    },
+    {
+     "date": "2026-10-19",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.11"
+    },
+    {
+     "date": "2026-10-20",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.1"
+    },
+    {
+     "date": "2026-10-21",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.09"
+    },
+    {
+     "date": "2026-10-22",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.11"
+    },
+    {
+     "date": "2026-10-23",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.11"
+    },
+    {
+     "date": "2026-10-26",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.11"
+    },
+    {
+     "date": "2026-10-27",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.1"
+    },
+    {
+     "date": "2026-10-28",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.07"
+    },
+    {
+     "date": "2026-10-29",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.06"
+    },
+    {
+     "date": "2026-10-30",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.06"
+    },
+    {
+     "date": "2026-11-02",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.05"
+    },
+    {
+     "date": "2026-11-03",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.03"
+    },
+    {
+     "date": "2026-11-04",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.01"
+    },
+    {
+     "date": "2026-11-05",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.03"
+    },
+    {
+     "date": "2026-11-06",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.02"
+    },
+    {
+     "date": "2026-11-09",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.04"
+    },
+    {
+     "date": "2026-11-10",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.05"
+    },
+    {
+     "date": "2026-11-11",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2026-11-12",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.12"
+    },
+    {
+     "date": "2026-11-13",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.1"
+    },
+    {
+     "date": "2026-11-16",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.1"
+    }
+   ],
+   "offset": 0,
+   "order_by": "observation_date",
+   "output_type": 1,
+   "realtime_end": "2026-11-17",
+   "realtime_start": "2026-11-17",
+   "sort_order": "asc",
+   "units": "lin"
+  },
+  "DGS2": {
+   "count": 31,
+   "file_type": "json",
+   "limit": 100000,
+   "observation_end": "2026-11-17",
+   "observation_start": "2026-10-03",
+   "observations": [
+    {
+     "date": "2026-10-05",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.84"
+    },
+    {
+     "date": "2026-10-06",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.79"
+    },
+    {
+     "date": "2026-10-07",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.77"
+    },
+    {
+     "date": "2026-10-08",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.75"
+    },
+    {
+     "date": "2026-10-09",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.8"
+    },
+    {
+     "date": "2026-10-12",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2026-10-13",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.79"
+    },
+    {
+     "date": "2026-10-14",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.82"
+    },
+    {
+     "date": "2026-10-15",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.77"
+    },
+    {
+     "date": "2026-10-16",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.74"
+    },
+    {
+     "date": "2026-10-19",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.77"
+    },
+    {
+     "date": "2026-10-20",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.79"
+    },
+    {
+     "date": "2026-10-21",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.81"
+    },
+    {
+     "date": "2026-10-22",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.65"
+    },
+    {
+     "date": "2026-10-23",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.69"
+    },
+    {
+     "date": "2026-10-26",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.68"
+    },
+    {
+     "date": "2026-10-27",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.7"
+    },
+    {
+     "date": "2026-10-28",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.67"
+    },
+    {
+     "date": "2026-10-29",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.61"
+    },
+    {
+     "date": "2026-10-30",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.56"
+    },
+    {
+     "date": "2026-11-02",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.59"
+    },
+    {
+     "date": "2026-11-03",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.61"
+    },
+    {
+     "date": "2026-11-04",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.58"
+    },
+    {
+     "date": "2026-11-05",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.46"
+    },
+    {
+     "date": "2026-11-06",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.51"
+    },
+    {
+     "date": "2026-11-09",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.56"
+    },
+    {
+     "date": "2026-11-10",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.73"
+    },
+    {
+     "date": "2026-11-11",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2026-11-12",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.86"
+    },
+    {
+     "date": "2026-11-13",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.88"
+    },
+    {
+     "date": "2026-11-16",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.83"
+    }
+   ],
+   "offset": 0,
+   "order_by": "observation_date",
+   "output_type": 1,
+   "realtime_end": "2026-11-17",
+   "realtime_start": "2026-11-17",
+   "sort_order": "asc",
+   "units": "lin"
+  },
+  "DGS20": {
+   "count": 31,
+   "file_type": "json",
+   "limit": 100000,
+   "observation_end": "2026-11-17",
+   "observation_start": "2026-10-03",
+   "observations": [
+    {
+     "date": "2026-10-05",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.7"
+    },
+    {
+     "date": "2026-10-06",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.68"
+    },
+    {
+     "date": "2026-10-07",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.71"
+    },
+    {
+     "date": "2026-10-08",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.64"
+    },
+    {
+     "date": "2026-10-09",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.65"
+    },
+    {
+     "date": "2026-10-12",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2026-10-13",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.6"
+    },
+    {
+     "date": "2026-10-14",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.57"
+    },
+    {
+     "date": "2026-10-15",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.48"
+    },
+    {
+     "date": "2026-10-16",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.47"
+    },
+    {
+     "date": "2026-10-19",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.53"
+    },
+    {
+     "date": "2026-10-20",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.47"
+    },
+    {
+     "date": "2026-10-21",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.47"
+    },
+    {
+     "date": "2026-10-22",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.32"
+    },
+    {
+     "date": "2026-10-23",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.37"
+    },
+    {
+     "date": "2026-10-26",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.35"
+    },
+    {
+     "date": "2026-10-27",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.34"
+    },
+    {
+     "date": "2026-10-28",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.41"
+    },
+    {
+     "date": "2026-10-29",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.35"
+    },
+    {
+     "date": "2026-10-30",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.34"
+    },
+    {
+     "date": "2026-11-02",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.31"
+    },
+    {
+     "date": "2026-11-03",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.35"
+    },
+    {
+     "date": "2026-11-04",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.3"
+    },
+    {
+     "date": "2026-11-05",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.27"
+    },
+    {
+     "date": "2026-11-06",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.29"
+    },
+    {
+     "date": "2026-11-09",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.29"
+    },
+    {
+     "date": "2026-11-10",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.39"
+    },
+    {
+     "date": "2026-11-11",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2026-11-12",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.48"
+    },
+    {
+     "date": "2026-11-13",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.52"
+    },
+    {
+     "date": "2026-11-16",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.51"
+    }
+   ],
+   "offset": 0,
+   "order_by": "observation_date",
+   "output_type": 1,
+   "realtime_end": "2026-11-17",
+   "realtime_start": "2026-11-17",
+   "sort_order": "asc",
+   "units": "lin"
+  },
+  "DGS3": {
+   "count": 31,
+   "file_type": "json",
+   "limit": 100000,
+   "observation_end": "2026-11-17",
+   "observation_start": "2026-10-03",
+   "observations": [
+    {
+     "date": "2026-10-05",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.97"
+    },
+    {
+     "date": "2026-10-06",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.88"
+    },
+    {
+     "date": "2026-10-07",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.87"
+    },
+    {
+     "date": "2026-10-08",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.85"
+    },
+    {
+     "date": "2026-10-09",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.89"
+    },
+    {
+     "date": "2026-10-12",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2026-10-13",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.9"
+    },
+    {
+     "date": "2026-10-14",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.92"
+    },
+    {
+     "date": "2026-10-15",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.85"
+    },
+    {
+     "date": "2026-10-16",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.82"
+    },
+    {
+     "date": "2026-10-19",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.85"
+    },
+    {
+     "date": "2026-10-20",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.86"
+    },
+    {
+     "date": "2026-10-21",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.89"
+    },
+    {
+     "date": "2026-10-22",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.72"
+    },
+    {
+     "date": "2026-10-23",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.75"
+    },
+    {
+     "date": "2026-10-26",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.79"
+    },
+    {
+     "date": "2026-10-27",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.8"
+    },
+    {
+     "date": "2026-10-28",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.8"
+    },
+    {
+     "date": "2026-10-29",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.73"
+    },
+    {
+     "date": "2026-10-30",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.65"
+    },
+    {
+     "date": "2026-11-02",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.65"
+    },
+    {
+     "date": "2026-11-03",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.68"
+    },
+    {
+     "date": "2026-11-04",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.64"
+    },
+    {
+     "date": "2026-11-05",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.53"
+    },
+    {
+     "date": "2026-11-06",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.59"
+    },
+    {
+     "date": "2026-11-09",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.58"
+    },
+    {
+     "date": "2026-11-10",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.74"
+    },
+    {
+     "date": "2026-11-11",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2026-11-12",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.9"
+    },
+    {
+     "date": "2026-11-13",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.92"
+    },
+    {
+     "date": "2026-11-16",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.87"
+    }
+   ],
+   "offset": 0,
+   "order_by": "observation_date",
+   "output_type": 1,
+   "realtime_end": "2026-11-17",
+   "realtime_start": "2026-11-17",
+   "sort_order": "asc",
+   "units": "lin"
+  },
+  "DGS30": {
+   "count": 31,
+   "file_type": "json",
+   "limit": 100000,
+   "observation_end": "2026-11-17",
+   "observation_start": "2026-10-03",
+   "observations": [
+    {
+     "date": "2026-10-05",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.66"
+    },
+    {
+     "date": "2026-10-06",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.64"
+    },
+    {
+     "date": "2026-10-07",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.67"
+    },
+    {
+     "date": "2026-10-08",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.6"
+    },
+    {
+     "date": "2026-10-09",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.6"
+    },
+    {
+     "date": "2026-10-12",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2026-10-13",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.56"
+    },
+    {
+     "date": "2026-10-14",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.52"
+    },
+    {
+     "date": "2026-10-15",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.43"
+    },
+    {
+     "date": "2026-10-16",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.43"
+    },
+    {
+     "date": "2026-10-19",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.48"
+    },
+    {
+     "date": "2026-10-20",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.42"
+    },
+    {
+     "date": "2026-10-21",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.42"
+    },
+    {
+     "date": "2026-10-22",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.29"
+    },
+    {
+     "date": "2026-10-23",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.33"
+    },
+    {
+     "date": "2026-10-26",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.31"
+    },
+    {
+     "date": "2026-10-27",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.3"
+    },
+    {
+     "date": "2026-10-28",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.37"
+    },
+    {
+     "date": "2026-10-29",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.32"
+    },
+    {
+     "date": "2026-10-30",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.31"
+    },
+    {
+     "date": "2026-11-02",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.28"
+    },
+    {
+     "date": "2026-11-03",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.32"
+    },
+    {
+     "date": "2026-11-04",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.28"
+    },
+    {
+     "date": "2026-11-05",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.25"
+    },
+    {
+     "date": "2026-11-06",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.26"
+    },
+    {
+     "date": "2026-11-09",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.26"
+    },
+    {
+     "date": "2026-11-10",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.35"
+    },
+    {
+     "date": "2026-11-11",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2026-11-12",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.43"
+    },
+    {
+     "date": "2026-11-13",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.47"
+    },
+    {
+     "date": "2026-11-16",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.46"
+    }
+   ],
+   "offset": 0,
+   "order_by": "observation_date",
+   "output_type": 1,
+   "realtime_end": "2026-11-17",
+   "realtime_start": "2026-11-17",
+   "sort_order": "asc",
+   "units": "lin"
+  },
+  "DGS3MO": {
+   "count": 31,
+   "file_type": "json",
+   "limit": 100000,
+   "observation_end": "2026-11-17",
+   "observation_start": "2026-10-03",
+   "observations": [
+    {
+     "date": "2026-10-05",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.22"
+    },
+    {
+     "date": "2026-10-06",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.21"
+    },
+    {
+     "date": "2026-10-07",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.22"
+    },
+    {
+     "date": "2026-10-08",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.23"
+    },
+    {
+     "date": "2026-10-09",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.25"
+    },
+    {
+     "date": "2026-10-12",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2026-10-13",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.26"
+    },
+    {
+     "date": "2026-10-14",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.28"
+    },
+    {
+     "date": "2026-10-15",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.28"
+    },
+    {
+     "date": "2026-10-16",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.26"
+    },
+    {
+     "date": "2026-10-19",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.27"
+    },
+    {
+     "date": "2026-10-20",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.26"
+    },
+    {
+     "date": "2026-10-21",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.25"
+    },
+    {
+     "date": "2026-10-22",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.22"
+    },
+    {
+     "date": "2026-10-23",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.22"
+    },
+    {
+     "date": "2026-10-26",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.22"
+    },
+    {
+     "date": "2026-10-27",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.22"
+    },
+    {
+     "date": "2026-10-28",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.18"
+    },
+    {
+     "date": "2026-10-29",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.18"
+    },
+    {
+     "date": "2026-10-30",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.16"
+    },
+    {
+     "date": "2026-11-02",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.21"
+    },
+    {
+     "date": "2026-11-03",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.21"
+    },
+    {
+     "date": "2026-11-04",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.21"
+    },
+    {
+     "date": "2026-11-05",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.17"
+    },
+    {
+     "date": "2026-11-06",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.19"
+    },
+    {
+     "date": "2026-11-09",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.24"
+    },
+    {
+     "date": "2026-11-10",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.3"
+    },
+    {
+     "date": "2026-11-11",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2026-11-12",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.32"
+    },
+    {
+     "date": "2026-11-13",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.32"
+    },
+    {
+     "date": "2026-11-16",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.34"
+    }
+   ],
+   "offset": 0,
+   "order_by": "observation_date",
+   "output_type": 1,
+   "realtime_end": "2026-11-17",
+   "realtime_start": "2026-11-17",
+   "sort_order": "asc",
+   "units": "lin"
+  },
+  "DGS5": {
+   "count": 31,
+   "file_type": "json",
+   "limit": 100000,
+   "observation_end": "2026-11-17",
+   "observation_start": "2026-10-03",
+   "observations": [
+    {
+     "date": "2026-10-05",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.06"
+    },
+    {
+     "date": "2026-10-06",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.03"
+    },
+    {
+     "date": "2026-10-07",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.03"
+    },
+    {
+     "date": "2026-10-08",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.99"
+    },
+    {
+     "date": "2026-10-09",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.02"
+    },
+    {
+     "date": "2026-10-12",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2026-10-13",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5"
+    },
+    {
+     "date": "2026-10-14",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5"
+    },
+    {
+     "date": "2026-10-15",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.91"
+    },
+    {
+     "date": "2026-10-16",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.89"
+    },
+    {
+     "date": "2026-10-19",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.94"
+    },
+    {
+     "date": "2026-10-20",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.94"
+    },
+    {
+     "date": "2026-10-21",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.95"
+    },
+    {
+     "date": "2026-10-22",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.78"
+    },
+    {
+     "date": "2026-10-23",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.82"
+    },
+    {
+     "date": "2026-10-26",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.84"
+    },
+    {
+     "date": "2026-10-27",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.82"
+    },
+    {
+     "date": "2026-10-28",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.85"
+    },
+    {
+     "date": "2026-10-29",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.78"
+    },
+    {
+     "date": "2026-10-30",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.71"
+    },
+    {
+     "date": "2026-11-02",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.7"
+    },
+    {
+     "date": "2026-11-03",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.74"
+    },
+    {
+     "date": "2026-11-04",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.69"
+    },
+    {
+     "date": "2026-11-05",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.59"
+    },
+    {
+     "date": "2026-11-06",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.64"
+    },
+    {
+     "date": "2026-11-09",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.67"
+    },
+    {
+     "date": "2026-11-10",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.81"
+    },
+    {
+     "date": "2026-11-11",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2026-11-12",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.95"
+    },
+    {
+     "date": "2026-11-13",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.98"
+    },
+    {
+     "date": "2026-11-16",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.93"
+    }
+   ],
+   "offset": 0,
+   "order_by": "observation_date",
+   "output_type": 1,
+   "realtime_end": "2026-11-17",
+   "realtime_start": "2026-11-17",
+   "sort_order": "asc",
+   "units": "lin"
+  },
+  "DGS6MO": {
+   "count": 31,
+   "file_type": "json",
+   "limit": 100000,
+   "observation_end": "2026-11-17",
+   "observation_start": "2026-10-03",
+   "observations": [
+    {
+     "date": "2026-10-05",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.3"
+    },
+    {
+     "date": "2026-10-06",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.28"
+    },
+    {
+     "date": "2026-10-07",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.28"
+    },
+    {
+     "date": "2026-10-08",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.3"
+    },
+    {
+     "date": "2026-10-09",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.32"
+    },
+    {
+     "date": "2026-10-12",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2026-10-13",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.34"
+    },
+    {
+     "date": "2026-10-14",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.37"
+    },
+    {
+     "date": "2026-10-15",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.35"
+    },
+    {
+     "date": "2026-10-16",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.34"
+    },
+    {
+     "date": "2026-10-19",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.37"
+    },
+    {
+     "date": "2026-10-20",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.36"
+    },
+    {
+     "date": "2026-10-21",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.35"
+    },
+    {
+     "date": "2026-10-22",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.29"
+    },
+    {
+     "date": "2026-10-23",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.3"
+    },
+    {
+     "date": "2026-10-26",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.35"
+    },
+    {
+     "date": "2026-10-27",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.34"
+    },
+    {
+     "date": "2026-10-28",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.32"
+    },
+    {
+     "date": "2026-10-29",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.28"
+    },
+    {
+     "date": "2026-10-30",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.25"
+    },
+    {
+     "date": "2026-11-02",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.25"
+    },
+    {
+     "date": "2026-11-03",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.26"
+    },
+    {
+     "date": "2026-11-04",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.25"
+    },
+    {
+     "date": "2026-11-05",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.19"
+    },
+    {
+     "date": "2026-11-06",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.23"
+    },
+    {
+     "date": "2026-11-09",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.26"
+    },
+    {
+     "date": "2026-11-10",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.38"
+    },
+    {
+     "date": "2026-11-11",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2026-11-12",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.42"
+    },
+    {
+     "date": "2026-11-13",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.42"
+    },
+    {
+     "date": "2026-11-16",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.42"
+    }
+   ],
+   "offset": 0,
+   "order_by": "observation_date",
+   "output_type": 1,
+   "realtime_end": "2026-11-17",
+   "realtime_start": "2026-11-17",
+   "sort_order": "asc",
+   "units": "lin"
+  },
+  "DGS7": {
+   "count": 31,
+   "file_type": "json",
+   "limit": 100000,
+   "observation_end": "2026-11-17",
+   "observation_start": "2026-10-03",
+   "observations": [
+    {
+     "date": "2026-10-05",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.19"
+    },
+    {
+     "date": "2026-10-06",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.15"
+    },
+    {
+     "date": "2026-10-07",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.15"
+    },
+    {
+     "date": "2026-10-08",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.11"
+    },
+    {
+     "date": "2026-10-09",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.13"
+    },
+    {
+     "date": "2026-10-12",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2026-10-13",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.11"
+    },
+    {
+     "date": "2026-10-14",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.09"
+    },
+    {
+     "date": "2026-10-15",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5"
+    },
+    {
+     "date": "2026-10-16",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.98"
+    },
+    {
+     "date": "2026-10-19",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.04"
+    },
+    {
+     "date": "2026-10-20",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.02"
+    },
+    {
+     "date": "2026-10-21",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.03"
+    },
+    {
+     "date": "2026-10-22",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.86"
+    },
+    {
+     "date": "2026-10-23",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.89"
+    },
+    {
+     "date": "2026-10-26",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.91"
+    },
+    {
+     "date": "2026-10-27",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.91"
+    },
+    {
+     "date": "2026-10-28",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.95"
+    },
+    {
+     "date": "2026-10-29",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.87"
+    },
+    {
+     "date": "2026-10-30",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.8"
+    },
+    {
+     "date": "2026-11-02",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.79"
+    },
+    {
+     "date": "2026-11-03",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.83"
+    },
+    {
+     "date": "2026-11-04",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.77"
+    },
+    {
+     "date": "2026-11-05",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.7"
+    },
+    {
+     "date": "2026-11-06",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.74"
+    },
+    {
+     "date": "2026-11-09",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.76"
+    },
+    {
+     "date": "2026-11-10",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "4.89"
+    },
+    {
+     "date": "2026-11-11",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "."
+    },
+    {
+     "date": "2026-11-12",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.02"
+    },
+    {
+     "date": "2026-11-13",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.05"
+    },
+    {
+     "date": "2026-11-16",
+     "realtime_end": "2026-11-17",
+     "realtime_start": "2026-11-17",
+     "value": "5.01"
+    }
+   ],
+   "offset": 0,
+   "order_by": "observation_date",
+   "output_type": 1,
+   "realtime_end": "2026-11-17",
+   "realtime_start": "2026-11-17",
+   "sort_order": "asc",
+   "units": "lin"
+  }
+ },
+ "source": "https://api.stlouisfed.org/fred/series/observations"
+}

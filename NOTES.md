@@ -6,8 +6,18 @@ break it, and interview questions with short model answers.
 
 ## Sign conventions
 
-To be written in Phase 1, when the first signed quantity (a rate shock) appears.
-It will be stated once here and used everywhere.
+Stated once here and used everywhere in the code, the API and the interface.
+
+- **Rates** are decimals inside the engine (0.05 means 5%). The API and the
+  interface show them in percent.
+- **Basis points** measure shocks and changes in rates: 1 bp = 0.01
+  percentage point = 0.0001 as a decimal.
+- **A positive shock means yields go up.** A shock of +100 bp turns a 5.00%
+  par yield into 6.00%.
+- **A change is "after minus before"**: the value on the shocked curve minus
+  the value on the base curve. So a negative change in a bond's value is a
+  loss.
+- Phase 2 adds the sign of DV01 and duration here.
 
 ---
 
@@ -166,3 +176,167 @@ D-013. The ones most likely to come up in an interview:
    from inside the deployed function and returns it, and the two copies
    matched. The build log also showed the function being packaged after the
    build step ran.
+
+---
+
+## Phase 1. Yield curve
+
+### Finance concepts, in plain English
+
+- **Basis point (bp).** One hundredth of a percentage point. Rate moves are
+  quoted in basis points: "+25 bp" turns 4.00% into 4.25%.
+- **Treasury par yield.** The US government borrows by selling bonds. A *par
+  yield* is the coupon rate at which a new bond of a given maturity would sell
+  for exactly its face value (100). FRED publishes these daily for 11
+  maturities, from 1 month to 30 years (series DGS1MO ... DGS30, from the
+  Federal Reserve's H.15 release). The 16 November 2026 values run from 4.10%
+  at 1 month to 5.51% at 20 years.
+- **Yield curve.** Those yields plotted against maturity. On 16 November 2026
+  the curve slopes upward to 20 years and dips slightly at 30 years.
+- **Compounding.** The same interest rate can be quoted different ways.
+  *Semiannual* (how US Treasury yields are quoted) pays half the annual rate
+  every six months. *Simple interest* pays the rate once, pro rata, at the
+  end. *Continuous compounding* is the limit of compounding ever more often.
+  It makes the maths clean: a dollar due at time t is worth exp(-z·t) today.
+- **Discount factor.** What one dollar paid at a future date is worth today.
+  At 10 years on this curve it is about 0.60.
+- **Zero rate.** The single interest rate, for one date, that turns a future
+  dollar into today's value: DF(t) = exp(-z(t)·t). Once you have zero rates
+  for every date, you can value any fixed cash flow by discounting each
+  payment separately.
+- **Bootstrapping.** Par yields describe bonds that pay coupons along the way,
+  but valuation needs zero rates. Bootstrapping recovers them one maturity at
+  a time, shortest first. Each par bond's early coupons are discounted with
+  zero rates already found, which leaves one unknown, the zero rate at its
+  maturity. That unknown is solved so the bond prices at exactly 100.
+- **Interpolation.** There are only 11 points; a bond paying in 8.5 years
+  needs a rate in between. Tenorwise draws a straight line between
+  neighbouring zero rates, and holds the end values flat beyond 1 month and
+  30 years.
+- **Rate shock.** A hypothetical rate move. A *parallel* shock moves every
+  maturity by the same amount. A *key-rate* shock moves one region of the
+  curve, shaped like a tent centred on 2, 5, 10 or 30 years. Because the four
+  tents add up to 1 at every maturity, bumping all four by 1 bp is the same
+  as a 1 bp parallel shift. That property is what lets the key-rate risks
+  in Phase 2 add up to the total.
+
+### How the code implements it
+
+- [tenorwise/curve/fred.py](tenorwise/curve/fred.py): fetches the 11 series and
+  parses FRED's "." (missing) into `None`. It picks the most recent date on
+  which all 11 have a value, without filling forward, and refuses data more
+  than 7 days older than the build date. Error messages are written locally
+  and scrubbed of the API key.
+- [tenorwise/curve/bootstrap.py](tenorwise/curve/bootstrap.py): `ParCurve`,
+  `ZeroCurve` and `bootstrap()`. Tenors of 6 months and under use
+  `z = ln(1 + y·T)/T`; longer tenors solve the par-bond equation with
+  `scipy.optimize.brentq`. Interpolation is `numpy.interp`, which is linear
+  between points and flat beyond the ends, exactly the rule.
+- [tenorwise/curve/shocks.py](tenorwise/curve/shocks.py): every shock is an
+  11-element vector of basis points added to the par yields. The curve is then
+  rebuilt with the same `bootstrap()`, and yields are floored at 0% with a
+  flag. Each tent is `numpy.interp` of a one-hot vector over the nodes
+  2, 5, 10 and 30, which is why the four sum to exactly 1.
+- [tenorwise/curve/fixture.py](tenorwise/curve/fixture.py) and
+  [data/fixtures/fred_treasury_par_2026-11-17.json](data/fixtures/fred_treasury_par_2026-11-17.json):
+  the pinned FRED responses, stored verbatim, used by tests and later evals.
+  The fetch date stands in for the build date, so the fixture never goes
+  stale. [scripts/update_fred_fixture.py](scripts/update_fred_fixture.py)
+  makes a new one.
+- `uv run python -m tenorwise.curve` ([tenorwise/curve/__main__.py](tenorwise/curve/__main__.py))
+  prints the curve, its data date and the FRED notice, with optional shocks.
+- [tests/benchmark/quantlib_curve.py](tests/benchmark/quantlib_curve.py): the
+  same bootstrap in QuantLib, with conventions that reduce to ours.
+
+### Results on the pinned data (data date 2026-11-16)
+
+These figures were measured by running the code, not estimated:
+
+- The 11 input instruments reprice to 100 within 1.3e-13 (the test requires 1e-8).
+- Zero rates agree with QuantLib's piecewise linear-zero curve within 1.5e-13
+  as a decimal rate, about 0.0000000015 bp, at worst at 3 months. The
+  tolerance, fixed before the first run, is 1e-10.
+- Real FRED data contains "." on bond-market holidays: 12 October and
+  11 November 2026 in the fixture window.
+
+### Why this design, and what was rejected
+
+- **Linear interpolation in zero rates**, as the plan specifies. Splines or
+  monotone-convex methods give smoother forward rates, which matters for
+  pricing products that depend on forwards between curve points. They are
+  harder to explain and to test exactly, and nothing in Tenorwise prices such
+  products.
+- **One shock mechanism for everything.** Scenarios, duration bumps and
+  key-rate bumps all go through `apply_shock()`, so they cannot disagree about
+  what "rates up 1 bp" means.
+- **Fail the build on stale or incomplete data** instead of filling forward.
+  A curve mixing two dates would show a market that never existed. The site
+  keeps serving the previous deployment.
+- **Fixture holds raw responses, not a cleaned table.** Tests then exercise
+  the same parsing code as production, including the "." handling.
+
+### An inconsistency in the plan, flagged for decision
+
+The plan prices tenors of 6 months and under as one simple-interest payment,
+DF = 1/(1 + y·T), and longer ones as semiannual bonds. On a flat par curve the
+two conventions give different zero rates. At a flat 4%, the 1-month and
+3-month zero rates come out 3.3 bp and 2.0 bp above the 3.96% level that holds
+from 6 months on. These figures are calculated from the formulas,
+12·ln(1 + 0.04/12) and 4·ln(1.01) against 2·ln(1.02). So the plan's test "a
+flat par curve gives a flat zero curve" cannot pass at 1 and 3 months as
+written. The test was split: flat from 6 months out, and the short end
+checked against its own simple-interest formula. The alternative would treat
+the short end as semiannual too, DF = (1 + y/2)^(-2T). That would make the
+curve flat, but it changes the plan, so the owner decides. Decision log D-021.
+
+### What would break it
+
+- FRED changing its response format or the "." convention. The parser fails
+  loudly on any other non-numeric value.
+- A day when one series is missing for more than 7 days. The build then fails
+  instead of using a mixed or stale curve.
+- Very low or negative rates. The 0% floor binds and the result is flagged,
+  but the model cannot represent negative yields.
+- Key-rate shocks are applied to par yields, not zero rates. A bump in one
+  region moves zero rates elsewhere through the bootstrap. On the pinned curve,
+  +25 bp on the 10-year tent leaves the 30-year par yield unchanged but lowers
+  the 30-year zero rate by 13.6 bp. The 30-year bond's coupons from 10 to 20
+  years are now discounted more heavily, so its later cash flows must be
+  discounted less for it to still price at 100.
+
+### Interview questions
+
+1. **What is a zero rate, and why not just use the par yields?**
+   A par yield blends the rates for every coupon date of one bond. A zero
+   rate applies to a single date. To value a portfolio of different bonds,
+   you discount each cash flow at the rate for its own date, so you need
+   zero rates. Bootstrapping extracts them from the par yields.
+2. **Walk me through the bootstrap.**
+   Short tenors are single payments, so their discount factor comes straight
+   from the yield. For each longer tenor, the par bond's early coupons are
+   discounted with zero rates already found. The only unknown is the zero
+   rate at its maturity, solved so the bond prices at 100. Then move to the
+   next tenor.
+3. **How do you know the curve is right?**
+   The 11 input bonds reprice to 100 within 1.3e-13. An independent QuantLib
+   build with matching conventions agrees within 1.5e-13 in rate. Unit tests
+   also cover flat curves, interpolation, and positive, falling discount
+   factors.
+4. **A 10-year shock lowered the 30-year zero rate. Is that a bug?**
+   No. Shocks move par yields. The 30-year bond's coupons in the bumped
+   region are worth less, so with its own par yield unchanged, its later cash
+   flows must be discounted less for it still to price at par. It is a
+   property of bootstrapping from par yields, and it is listed in
+   LIMITATIONS.md.
+5. **Why must the key-rate tents add up to 1?**
+   So that bumping every bucket by 1 bp is exactly a 1 bp parallel shift.
+   The key-rate risks then add up to total rate risk, and nothing is lost
+   or counted twice.
+6. **Why fail the build on stale data rather than use yesterday's numbers?**
+   A model that silently runs on old data gives confident wrong answers.
+   Failing keeps the last good deployment live, and the date on screen stays
+   true.
+7. **What does linear interpolation in zero rates cost you?**
+   The implied forward rates jump at every curve point. It is fine for
+   valuing fixed cash flows, but would be poor for pricing anything that
+   depends on forward rates between points.

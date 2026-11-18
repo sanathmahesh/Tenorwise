@@ -3,7 +3,7 @@
 An interest-rate risk and hedging tool for a bank-style bond portfolio, with an
 AI analyst whose every number is checked against the calculation engine.
 
-**Status:** Phase 0 (foundations). The build plan and progress log are in
+**Status:** Phase 1 (yield curve) done. The build plan and progress log are in
 [PLAN.md](PLAN.md). There is no live link yet.
 
 ## Run locally
@@ -18,6 +18,15 @@ cp .env.example .env                      # then fill in your own keys
 uv run python scripts/build_snapshot.py   # writes the static JSON snapshot
 uv run --env-file .env uvicorn api.index:app --port 8000   # API on :8000
 npm run dev --prefix web                  # frontend on :5173 (proxies /api to :8000)
+```
+
+Print the yield curve and its market data date (pinned FRED data, offline):
+
+```bash
+uv run python -m tenorwise.curve                    # base curve
+uv run python -m tenorwise.curve --parallel 100     # +100 bp parallel shock
+uv run python -m tenorwise.curve --key-rate 10 25   # +25 bp on the 10-year key rate
+uv run --env-file .env python -m tenorwise.curve --live   # fetch today's curve from FRED
 ```
 
 Tests:
@@ -49,3 +58,12 @@ build) and packages `api/index.py` as the Python function.
 - [ASSUMPTIONS.md](ASSUMPTIONS.md) and [LIMITATIONS.md](LIMITATIONS.md)
 - [docs/strategy/decision-log.md](docs/strategy/decision-log.md)
 - [docs/provider-probe.md](docs/provider-probe.md)
+
+## Data
+
+US Treasury par yields come from FRED (series DGS1MO to DGS30, Federal Reserve
+H.15 release).
+
+This product uses the FRED® API but is not endorsed or certified by the
+Federal Reserve Bank of St. Louis. See the
+[FRED® API Terms of Use](https://fred.stlouisfed.org/docs/api/terms_of_use.html).

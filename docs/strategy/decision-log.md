@@ -100,3 +100,52 @@ decision, newest at the bottom. Changes to PLAN.md are recorded here too.
 - **Date:** 2026-11-17, approved by the owner after Phase 0
 - **Change:** PLAN.md sections 4 and 9 now list 503 `service_overloaded` next to 429 and 503 `model_capacity_unavailable` as retryable.
 - **Why:** Sail's `retries.md` says `service_overloaded` is returned "before accepting a request in any service tier". Like the other two, it cannot have started inference, so a retry cannot double-charge.
+
+## D-015. The FRED fixture stores raw responses, and its fetch date is the build date
+
+- **Phase:** 1
+- **Decision:** `data/fixtures/fred_treasury_par_2026-11-17.json` stores FRED's JSON responses verbatim for a 45-day window, with no API key. The fetch date (`as_of`) stands in for the build date in the 7-day staleness check. Pinning a new fixture is a code change to `PINNED_FIXTURE`; the update script never re-pins.
+- **Alternative rejected:** storing a cleaned table of the 11 yields. Tests would then skip the real parsing path, including the "." handling.
+
+## D-016. FRED error messages are built locally and scrubbed of the key
+
+- **Phase:** 1
+- **Decision:** the FRED key can only travel as a query parameter, so any message containing the request URL would leak it. `fetch_observations` never reuses httpx's exception text that may include URLs. It builds its own message, removes the key from it, and raises with `from None` so the original exception is not displayed.
+- **Evidence:** `tests/unit/test_fred.py::test_fetch_errors_never_contain_the_api_key` (HTTP 500, an HTTP 400 that echoes the key, and a network error).
+
+## D-017. `numpy.interp` for both interpolation and the key-rate tents
+
+- **Phase:** 1
+- **Decision:** `numpy.interp` is linear between points and flat beyond the ends, which is exactly the plan's rule. The same function builds each key-rate tent by interpolating a one-hot vector over the nodes 2, 5, 10 and 30. The four tents therefore add up to 1 by construction.
+- **Alternatives rejected:** `scipy` interpolators or splines. Smoother forward rates, but not what the plan specifies and harder to explain. Hand-written piecewise tent formulas would also need their own tests for the sum-to-1 property.
+
+## D-018. The QuantLib benchmark conventions, and a tolerance fixed in advance
+
+- **Phase:** 1
+- **Decision:** QuantLib uses 30/360 day counts from a reference date on the 15th of a month, so n months is exactly n/12 years. It uses no calendar, no adjustment and zero settlement lag. Deposits model tenors of 6 months and under; par fixed-rate bonds model the longer tenors. The curve is `PiecewiseLinearZero`. The tolerance (1e-10 in rate) was set before the first run.
+- **Measured:** maximum difference 1.5e-13, at the 3-month point, on the 2026-11-16 curve.
+
+## D-019. Shocks act on par yields, and the curve is fully rebuilt
+
+- **Phase:** 1
+- **Decision:** as the plan specifies, every shock adds basis points to the 11 par yields and calls the same `bootstrap()`.
+- **Consequence:** a key-rate bump at one tenor moves zero rates at other tenors through the bootstrap. On the pinned curve, +25 bp on the 10-year tent lowers the 30-year zero rate by 13.6 bp. This is documented in ASSUMPTIONS.md (A-06) and LIMITATIONS.md rather than "fixed", because shocking zero rates directly would be a different model from the one the plan specifies.
+
+## D-020. Floor at 0% applies to shocked par yields only
+
+- **Phase:** 1
+- **Decision:** the floor applies after the shock is added and before the rebuild. `ShockedCurve.floor_bound` and `floored_tenor_months` report it. Unshocked market data is never altered.
+
+## D-021. Flat-curve test split because of the short-end convention (owner decision pending)
+
+- **Phase:** 1
+- **Issue:** PLAN.md asks for "a flat par curve gives a flat zero curve at the equivalent continuous rate". The plan also prices tenors of 6 months and under with simple interest, and those two specifications conflict at 1 and 3 months. At a flat 4%, those zero rates come out 3.3 bp and 2.0 bp above the 6-month-and-beyond level (calculated from the formulas).
+- **Done:** implemented the plan's formula as written. The test checks flatness from 6 months out, and checks the short end against its own simple-interest formula. No tolerance was loosened.
+- **Option for the owner:** treat the short end as semiannual too, DF = (1 + y/2)^(-2T). The zero curve would then be flat everywhere for a flat par curve, matching the "semiannual bond-equivalent" treatment of every other tenor. That is a plan change and needs approval.
+
+## D-022. FRED attribution and terms
+
+- **Phase:** 1
+- **Read on 2026-11-17:** the FRED API Terms of Use require the notice "This product uses the FRED® API but is not endorsed or certified by the Federal Reserve Bank of St. Louis". For an application used by others, they also require a link to the Terms of Use and a statement in the application's own terms that its users agree to be bound by them. None of the 11 series' notes contain the word "Copyright", so no third-party restrictions apply to them.
+- **Done now:** the notice is printed by the curve CLI and the fixture script, and appears in README.md.
+- **Pending:** the interface footer (Phase 7 placeholder, Phase 11 design). The wording of the "users agree" statement is for the owner to approve.
