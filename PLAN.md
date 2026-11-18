@@ -467,7 +467,7 @@ For each phase: write the listed tests first, implement, run the whole suite, up
   - a zero-coupon bond's Macaulay duration equals its maturity;
   - price to yield to price round-trips;
   - clean plus accrued equals dirty;
-  - formula DV01 matches bump-and-reprice within 0.1%;
+  - formula DV01 matches bump-and-reprice within 0.1% on a flat par curve; on the real curve, the gap equals the bond's own-yield move per 1 bp of par yields, within 0.1% (reworded 2026-11-17, decision log D-024);
   - duration plus convexity predicts a 100 bp reprice closely;
   - convexity is positive;
   - the four key-rate durations sum to effective duration within 0.5%;

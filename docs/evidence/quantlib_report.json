@@ -1,0 +1,107 @@
+{
+  "all_within_tolerance": true,
+  "bond_grid": {
+    "count": 170,
+    "coupons": [
+      0.0,
+      0.02,
+      0.045,
+      0.06,
+      0.08
+    ],
+    "maturity_months": [
+      6,
+      7,
+      12,
+      18,
+      23,
+      24,
+      37,
+      60,
+      61,
+      84,
+      117,
+      120,
+      123,
+      179,
+      240,
+      299,
+      360
+    ],
+    "spreads": [
+      0.0,
+      0.01
+    ]
+  },
+  "data_date": "2026-11-16",
+  "fixture": "data/fixtures/fred_treasury_par_2026-11-17.json",
+  "generated_at": "2026-11-18T02:44:45Z",
+  "generated_by": "scripts/quantlib_report.py",
+  "quantlib": [
+    {
+      "description": "Bootstrapped zero rate at each of the 11 curve points vs QuantLib PiecewiseLinearZero",
+      "instruments": 11,
+      "max_abs_diff": 1.5386303342523888e-13,
+      "measure": "zero_rate",
+      "tolerance": 1e-10,
+      "unit": "decimal rate"
+    },
+    {
+      "description": "Fixed-rate bond dirty price vs QuantLib on the same zero curve",
+      "instruments": 170,
+      "max_abs_diff": 1.4210854715202004e-13,
+      "measure": "dirty_price",
+      "tolerance": 1e-09,
+      "unit": "price per 100 face"
+    },
+    {
+      "description": "Fixed-rate bond clean price vs QuantLib on the same zero curve",
+      "instruments": 170,
+      "max_abs_diff": 1.5631940186722204e-13,
+      "measure": "clean_price",
+      "tolerance": 1e-09,
+      "unit": "price per 100 face"
+    },
+    {
+      "description": "Fixed-rate bond accrued vs QuantLib on the same zero curve",
+      "instruments": 170,
+      "max_abs_diff": 1.0658141036401503e-14,
+      "measure": "accrued",
+      "tolerance": 1e-09,
+      "unit": "price per 100 face"
+    },
+    {
+      "description": "Fixed-rate bond yield vs QuantLib on the same zero curve",
+      "instruments": 170,
+      "max_abs_diff": 7.077671781985373e-16,
+      "measure": "yield",
+      "tolerance": 1e-10,
+      "unit": "decimal rate"
+    },
+    {
+      "description": "Fixed-rate bond macaulay duration vs QuantLib on the same zero curve",
+      "instruments": 170,
+      "max_abs_diff": 4.973799150320701e-14,
+      "measure": "macaulay_duration",
+      "tolerance": 1e-08,
+      "unit": "years"
+    },
+    {
+      "description": "Fixed-rate bond modified duration vs QuantLib on the same zero curve",
+      "instruments": 170,
+      "max_abs_diff": 4.973799150320701e-14,
+      "measure": "modified_duration",
+      "tolerance": 1e-08,
+      "unit": "years"
+    },
+    {
+      "description": "Fixed-rate bond convexity vs QuantLib on the same zero curve",
+      "instruments": 170,
+      "max_abs_diff": 1.9895196601282805e-12,
+      "measure": "convexity",
+      "tolerance": 1e-06,
+      "unit": "years squared"
+    }
+  ],
+  "quantlib_version": "1.44"
+}

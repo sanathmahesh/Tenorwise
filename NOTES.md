@@ -17,7 +17,15 @@ Stated once here and used everywhere in the code, the API and the interface.
 - **A change is "after minus before"**: the value on the shocked curve minus
   the value on the base curve. So a negative change in a bond's value is a
   loss.
-- Phase 2 adds the sign of DV01 and duration here.
+- **Duration and DV01 are positive for an ordinary long bond.** They measure
+  how much value is *lost* when rates rise: DV01 = (value at −1 bp − value at
+  +1 bp) / 2, in dollars per basis point. A negative key-rate duration means
+  that bucket's bump *raises* the value.
+- **Convexity is positive when gains from falling rates exceed losses from
+  rising rates of the same size.** Ordinary bonds have positive convexity;
+  mortgage bonds (Phase 3) can have negative convexity.
+- **Prices** are dirty (including accrued interest) unless labelled clean, in
+  the same units as face (100 = per 100 face).
 
 ---
 
@@ -340,3 +348,174 @@ curve flat, but it changes the plan, so the owner decides. Decision log D-021.
    The implied forward rates jump at every curve point. It is fine for
    valuing fixed cash flows, but would be poor for pricing anything that
    depends on forward rates between points.
+
+---
+
+## Phase 2. Bond analytics
+
+### Finance concepts, in plain English
+
+- **Fixed-rate bond.** A loan you can buy and sell. It pays a fixed coupon
+  (half the annual rate every six months) and returns its face value at
+  maturity. Tenorwise's bonds have no call features and no floating rates.
+- **Dirty price, clean price, accrued interest.** If you buy a bond between
+  coupon dates, the seller has earned part of the next coupon. *Accrued
+  interest* is that part: the semiannual coupon times the fraction of the
+  half-year already elapsed. The *dirty* price is what you actually pay,
+  which is the present value of all future payments. The *clean* price is
+  the dirty price minus accrued; markets quote clean prices so they don't
+  jump on coupon dates.
+- **Spread.** Extra yield investors demand to hold a bond that is riskier
+  or less liquid than a Treasury. Tenorwise adds a constant spread for each
+  sector to the Treasury zero rates.
+- **Yield (yield to maturity).** The single rate that, applied to every cash
+  flow, reproduces the bond's price. It is a summary of the price, not a
+  rate the bond actually earns on each cash flow.
+- **Duration.** How sensitive the price is to rates, measured in years.
+  *Macaulay duration* is the present-value-weighted average time to the
+  bond's cash flows. *Modified duration* is approximately the percentage
+  price drop for a 1 percentage point rise in the bond's own yield.
+  *Effective duration* measures the same thing by actually shifting the
+  yield curve and repricing, which is the version that also works for
+  mortgage bonds and swaps.
+- **Convexity.** Duration itself changes as rates move. Positive convexity
+  means the price curve bends upward: you gain more when rates fall than you
+  lose when they rise by the same amount. Duration alone misses this, so
+  duration plus convexity gives a much better estimate for large moves.
+- **DV01 ("dollar value of a basis point").** The dollars lost when rates
+  rise 1 bp. A bank's risk desk adds DV01s across positions to get the
+  portfolio's total rate exposure in dollars.
+- **Key-rate DV01 and key-rate duration.** The DV01 broken down by where on
+  the curve the rate move happens (around 2, 5, 10 or 30 years). A 2-year
+  bond's risk sits almost entirely in the 2-year bucket; a 30-year bond's in
+  the 30-year bucket. Hedges in Phase 6 use this breakdown to match each
+  bucket.
+
+### How the code implements it
+
+- [tenorwise/instruments/bond.py](tenorwise/instruments/bond.py): `FixedRateBond`
+  (coupon, whole months to maturity, face). Cash flows run at T, T−6
+  months, ... while positive, so an off-cycle bond (e.g. 123 months) has a
+  short time to its next coupon and non-zero accrued. `dirty_price(curve,
+  spread)` discounts each cash flow at `exp(-(z(t) + s)·t)`.
+- [tenorwise/analytics/yield_measures.py](tenorwise/analytics/yield_measures.py):
+  yield, Macaulay and modified duration and convexity for any stream of
+  fixed cash flows. The yield is compounded semiannually and solved with
+  `brentq`. The bond delegates to these functions, and Phase 3's mortgage
+  cash flows can reuse them.
+- [tenorwise/analytics/risk.py](tenorwise/analytics/risk.py): curve-based risk.
+  `build_risk_curves()` builds the 12 bumped curves once per base curve:
+  ±25 bp and ±1 bp parallel, and ±1 bp on each of the four tents.
+  `risk_measures(price_fn, curves)` reprices any instrument on them. The
+  instrument only supplies a function from curve to value, which is why
+  mortgage pools and swaps can plug in later.
+- `uv run python -m tenorwise.analytics --coupon 4.5 --maturity-months 123`
+  ([tenorwise/analytics/__main__.py](tenorwise/analytics/__main__.py)) prints
+  price, yield, both kinds of duration, convexity, DV01 and key-rate DV01s.
+- [tests/benchmark/quantlib_bonds.py](tests/benchmark/quantlib_bonds.py) and
+  [scripts/quantlib_report.py](scripts/quantlib_report.py): QuantLib prices
+  the same 170 bonds on Tenorwise's zero curve, with conventions that reduce
+  to ours. The measured differences go to
+  [docs/evidence/quantlib_report.json](docs/evidence/quantlib_report.json).
+
+### Results on the pinned data (data date 2026-11-16)
+
+These figures were measured by running the code:
+
+- **QuantLib agreement across 170 bonds.** The grid has coupons from 0% to
+  8%, maturities from 6 months to 30 years including off-cycle ones, and
+  spreads of 0 and 1%. Maximum absolute differences:
+  - dirty price 1.4e-13 and clean price 1.6e-13, per 100 face;
+  - yield 7.1e-16;
+  - Macaulay and modified duration 5.0e-14 years;
+  - convexity 2.0e-12.
+- **Key-rate durations add up.** The four key-rate durations sum to the
+  effective duration within 0.096% at worst (30-year zero-coupon bond);
+  the plan allows 0.5%.
+- **Convexity matters at 100 bp.** For ±100 bp, duration plus convexity
+  predicts the actual reprice within 1.54% of the change at worst (30-year
+  zero, +100 bp). Duration alone misses by up to 15.9%.
+- **Example: a 4.5% bond with 10y 3m to maturity.** Dirty price 96.109,
+  yield 5.135%, modified duration 7.963, effective duration 8.014, DV01
+  $0.0770 per 100 face per bp. Its key-rate durations: −0.026 (2y),
+  −0.110 (5y), 8.031 (10y), 0.118 (30y).
+
+### Two kinds of DV01, and why they differ on a real curve
+
+*Formula* DV01 comes from the bond's own yield: modified duration × price ×
+0.0001. *Bump-and-reprice* DV01, the definition Tenorwise uses, raises all 11
+par yields by 1 bp, rebuilds the curve and reprices. On a flat curve they are
+the same thing. On a synthetic flat 5% curve they agree within 0.012% for
+every bond in the grid; with a 1% spread they differ by exactly the
+compounding factor exp(s/2), about 0.5%.
+
+On the real 16 November curve, which slopes upward, they differ by up to
++4.45% (20-year zero-coupon bond, no spread). The reason is that the
+bootstrap amplifies a parallel par-yield shift at long maturities, so a 1 bp
+par move shifts a 20-year zero bond's own yield by 1.045 bp. It is the same
+spillover as Phase 1's key-rate example. The owner chose (D-024) to test the
+formula match on a flat curve, and to test on the real curve that the
+bond's own-yield move explains the gap exactly.
+
+Tenorwise's headline duration and DV01 are bump-and-reprice measures,
+because the scenarios in Phase 5 move the curve the same way. Modified
+duration is shown for reference and labelled as yield-based.
+
+### Why this design, and what was rejected
+
+- **One risk engine for every instrument.** Bump the curve, reprice, and
+  divide. It needs no formulas specific to each instrument, which is why it
+  can handle mortgage bonds whose cash flows change with rates. The
+  alternative, analytic duration formulas per instrument, breaks as soon as
+  cash flows depend on rates.
+- **Build the 12 bumped curves once.** Each bump is a full rebuild of the
+  curve, so for a 40-position portfolio this does 12 rebuilds instead of 480.
+- **Central differences.** Bumping both up and down cancels the convexity
+  error in duration and keeps the estimates accurate with modest bump sizes.
+- **Key-rate bumps of ±1 bp** (the plan does not give a size). They match
+  the DV01 bump, so key-rate DV01s are directly "dollars per bp in this
+  bucket".
+
+### What would break it
+
+- Any bump hitting the 0% floor. `RiskCurves.floor_bound` flags it and the
+  CLI prints a warning, but the measures are then distorted.
+- Instruments with zero value (a swap at inception). Duration divides by
+  value, so `risk_measures` returns `None` for durations and keeps DV01.
+- Reading modified duration as the curve risk on a steep curve. It
+  understates long-bond DV01 by up to about 4.5% on the pinned curve.
+
+### Interview questions
+
+1. **What's the difference between dirty and clean price?**
+   Dirty is what you pay: the present value of all future cash flows. Clean
+   removes the interest the seller has earned since the last coupon, so
+   quoted prices don't jump on coupon dates.
+2. **Modified versus effective duration?**
+   Modified duration comes from the bond's own yield and assumes cash flows
+   are fixed. Effective duration shifts the actual curve and reprices, so it
+   works for any instrument, including ones whose cash flows change with
+   rates.
+3. **Why did your formula DV01 and bump DV01 disagree by 4% for a long
+   bond?**
+   They answer different questions. One moves the bond's own yield by 1 bp;
+   the other moves the 11 par yields by 1 bp. On an upward-sloping curve,
+   bootstrapping turns a 1 bp par move into a larger zero-rate move at long
+   maturities. On a flat curve they agree within 0.012%.
+4. **Why does a 10-year bond have negative key-rate duration at 5 years?**
+   Bumping the 5-year region raises par yields up to 10 years less than at
+   5. To keep the 10-year par bond at par, the bootstrapped 10-year zero
+   rate falls, and the bond's principal is paid near 10 years, so its value
+   rises. The four buckets still add up to total duration.
+5. **How do you know your bond maths is right?**
+   It agrees with QuantLib on 170 bonds to about 1e-13 in price, and unit
+   tests check textbook identities. A par bond prices at 100; a zero-coupon
+   bond's Macaulay duration equals its maturity; clean plus accrued equals
+   dirty; price to yield to price round-trips.
+6. **Why bother with convexity?**
+   For a 100 bp move, duration alone missed the actual price change by up
+   to 16% on the test grid; adding convexity cut the worst error to 1.5%.
+7. **Why are the key-rate buckets useful for hedging?**
+   A single DV01 hedge protects against parallel moves only. Matching each
+   bucket also protects against changes in the curve's shape, which is the
+   key-rate-matched hedge in Phase 6.

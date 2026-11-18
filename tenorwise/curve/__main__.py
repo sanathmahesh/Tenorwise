@@ -9,40 +9,16 @@
 from __future__ import annotations
 
 import argparse
-import os
 import sys
-from datetime import date
 
-import numpy as np
-
-from tenorwise.curve.bootstrap import ParCurve, bootstrap
-from tenorwise.curve.fixture import PINNED_FIXTURE, load_fixture
-from tenorwise.curve.fred import (
-    FRED_NOTICE,
-    PAR_SERIES,
-    fetch_par_series,
-    parse_observations,
-    select_par_curve,
-)
+from tenorwise.curve.bootstrap import bootstrap
+from tenorwise.curve.fred import FRED_NOTICE, PAR_SERIES
 from tenorwise.curve.shocks import KEY_RATE_BUCKETS, apply_shock, key_rate_shock, parallel_shock
-from tenorwise.paths import REPO_ROOT
+from tenorwise.curve.source import load_par_curve
 
 
 def tenor_label(months: int) -> str:
     return f"{months}M" if months < 12 else f"{months // 12}Y"
-
-
-def load_par(live: bool) -> tuple[ParCurve, str]:
-    if not live:
-        fx = load_fixture()
-        return fx.par_curve(), f"pinned fixture {PINNED_FIXTURE.relative_to(REPO_ROOT)} (fetched {fx.fetched_at})"
-    api_key = os.environ.get("FRED_API_KEY")
-    if not api_key:
-        raise SystemExit("FRED_API_KEY is not set (use: uv run --env-file .env ...)")
-    today = date.today()
-    raw = fetch_par_series(api_key, today)
-    parsed = {sid: parse_observations(r) for sid, r in raw.items()}
-    return select_par_curve(parsed, as_of=today), f"live FRED fetch on {today}"
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -55,7 +31,7 @@ def main(argv: list[str] | None = None) -> int:
     )
     args = ap.parse_args(argv)
 
-    par, source = load_par(args.live)
+    par, source = load_par_curve(args.live)
     shock = parallel_shock(0.0)
     labels = []
     if args.parallel:
@@ -97,5 +73,4 @@ def main(argv: list[str] | None = None) -> int:
 
 
 if __name__ == "__main__":
-    np.set_printoptions(suppress=True)
     sys.exit(main())

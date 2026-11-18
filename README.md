@@ -3,7 +3,7 @@
 An interest-rate risk and hedging tool for a bank-style bond portfolio, with an
 AI analyst whose every number is checked against the calculation engine.
 
-**Status:** Phase 1 (yield curve) done. The build plan and progress log are in
+**Status:** Phase 2 (bond analytics) done. The build plan and progress log are in
 [PLAN.md](PLAN.md). There is no live link yet.
 
 ## Run locally
@@ -29,10 +29,23 @@ uv run python -m tenorwise.curve --key-rate 10 25   # +25 bp on the 10-year key 
 uv run --env-file .env python -m tenorwise.curve --live   # fetch today's curve from FRED
 ```
 
+Price a bond and print its risk measures (coupon in percent, maturity in months):
+
+```bash
+uv run python -m tenorwise.analytics --coupon 4.5 --maturity-months 123
+uv run python -m tenorwise.analytics --coupon 5 --maturity-months 120 --spread-bp 100 --face 1000000
+```
+
 Tests:
 
 ```bash
 uv run pytest
+```
+
+Agreement with QuantLib (writes docs/evidence/quantlib_report.json):
+
+```bash
+uv run python scripts/quantlib_report.py
 ```
 
 Provider probe (makes about 15 small paid calls to the LLM provider):

@@ -34,3 +34,24 @@ What Tenorwise cannot tell you, and why.
 - **Short-end convention.** Tenors of 6 months and under use simple interest
   while longer tenors use semiannual compounding, so even a flat par curve
   gives a slightly non-flat zero curve below 6 months (ASSUMPTIONS.md, A-03).
+
+## Bonds and risk measures
+
+- **No credit risk, no call options.** Bonds always pay in full and on
+  schedule. Spreads are constant, so Tenorwise cannot show losses from
+  spreads widening, only from Treasury rates moving.
+- **Duration and convexity are local measures.** They describe small moves.
+  For a 100 bp move, duration plus convexity was within 1.54% of a full
+  reprice on the test grid, but for large scenarios the full reprice
+  (Phase 5) is the number to trust.
+- **Two meanings of "rate risk".** The headline duration and DV01 measure
+  sensitivity to a 1 bp move in *par yields*. Modified duration measures
+  sensitivity to the bond's own *yield*. On the 16 Nov 2026 curve they
+  differ by up to 4.45% for long zero-coupon bonds (measured). They are not
+  interchangeable, and the interface labels which is which.
+- **Key-rate buckets are not independent.** Because shocks act on par
+  yields, one bucket's bump moves zero rates in neighbouring regions. A bond
+  can show small negative risk in a bucket. The 10y 3m bond does at 2 and 5
+  years, because those bumps lower the bootstrapped zero rate near 10 years,
+  where its principal is paid. The buckets still sum to the total.
+

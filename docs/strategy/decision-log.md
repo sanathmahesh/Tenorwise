@@ -158,3 +158,48 @@ decision, newest at the bottom. Changes to PLAN.md are recorded here too.
 - **Change:** PLAN.md Phase 1 now reads "a flat par curve gives a flat zero curve at the equivalent continuous rate from 6 months out, and at 1 and 3 months each zero rate matches its own simple-interest instrument". The engine's formula is unchanged.
 - **Why:** see D-021. The original wording could not hold under the plan's own short-end formula.
 
+
+## D-024. Plan change: the formula-vs-bump DV01 test runs on a flat curve, and the real-curve gap is explained (option A)
+
+- **Date:** 2026-11-17, approved by the owner
+- **Issue:** the plan's test "formula DV01 matches bump-and-reprice within 0.1%" failed for 65 of 85 zero-spread bonds on the real curve, by up to +4.45% (20-year zero). On a synthetic flat 5% curve, all 85 agree within 0.012%. On the real curve, the gap equals the bond's own-yield move per 1 bp of par yields, to 5 decimal places. Bootstrapping an upward-sloping curve amplifies parallel par shifts at long maturities.
+- **Change:** PLAN.md Phase 2 now reads "formula DV01 matches bump-and-reprice within 0.1% on a flat par curve; on the real curve, the gap equals the bond's own-yield move per 1 bp of par yields, within 0.1%". The tolerance is unchanged.
+- **Alternatives rejected:**
+  - (B) Yield-based DV01 everywhere. Inconsistent with Phase 5, where scenarios move par yields, so DV01 would no longer predict scenario P&L.
+  - (C) Shock zero rates instead of par yields. That replaces the shock mechanism in PLAN.md section 6, a large change.
+- **Consequence:** headline duration and DV01 stay curve-based; `mod_duration` is shown and labelled as yield-based.
+
+## D-025. Key-rate bumps are ±1 bp
+
+- **Phase:** 2
+- **Decision:** the plan says "reprice under each tent" without a size. ±1 bp matches the DV01 bump, so key-rate DV01s read directly as dollars per bp in each bucket.
+- **Measured:** the four key-rate durations sum to the ±25 bp effective duration within 0.096% at worst on the 170-bond grid (the plan allows 0.5%).
+
+## D-026. One bump-and-reprice risk engine for every instrument
+
+- **Phase:** 2
+- **Decision:** `build_risk_curves()` builds the 12 bumped curves once; `risk_measures(price_fn, curves)` reprices any instrument given only a function from curve to value. Durations are `None` when the base value is zero, as for a swap at inception; DV01 is still reported.
+- **Alternative rejected:** analytic duration and convexity formulas for each instrument. They do not exist in closed form for mortgage pools, whose cash flows depend on rates, and they would need separate tests for each instrument.
+
+## D-027. Yield-based measures live in `analytics/yield_measures.py`
+
+- **Phase:** 2
+- **Decision:** yield, Macaulay and modified duration and convexity are functions of a cash-flow stream, not methods tied to one bond class. Mortgage cash flows can reuse them in Phase 3.
+
+## D-028. QuantLib bond benchmark: conventions and tolerances fixed in advance
+
+- **Phase:** 2
+- **Decision:** QuantLib prices each bond on Tenorwise's own zero curve, rebuilt as `ql.ZeroCurve` (linear, continuous). It uses 30/360 from the 15th of a month, a backward semiannual schedule whose first accrual date is on or before the reference date, and `ZeroSpreadedTermStructure` for the spread. QuantLib's yield solver accuracy is set to 1e-12. Tolerances, set before the first run: price 1e-9 per 100 face, yield 1e-10, durations 1e-8 years, convexity 1e-6.
+- **Measured (170 bonds):** price 1.4e-13, yield 7.1e-16, durations 5.0e-14, convexity 2.0e-12. Written to `docs/evidence/quantlib_report.json` by `scripts/quantlib_report.py`.
+
+## D-029. Benchmark tests skip only when QuantLib itself is missing
+
+- **Phase:** 2
+- **Issue found:** `pytest.importorskip("tests.benchmark.quantlib_bonds")` would turn *any* import error in Tenorwise's own code into a silent skip. It did exactly that before the bond module existed.
+- **Fix:** skip on `importorskip("QuantLib")` only, then import the helper normally, so a bug fails loudly.
+
+## D-030. "Duration plus convexity predicts a 100 bp reprice closely" means within 2.5% of the change
+
+- **Phase:** 2
+- **Decision:** the plan gives no number. The error of a duration-plus-convexity estimate is the third-order term, largest for the longest zero-coupon bond. For a continuously compounded 30-year zero at 100 bp it is about 1.7% of the change (calculated). The threshold, fixed before the first run, is 2.5% of the actual change, and adding convexity must also beat duration alone.
+- **Measured:** worst case 1.54% (30-year zero, +100 bp). Duration alone was off by up to 15.9%.

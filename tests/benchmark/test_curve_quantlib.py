@@ -11,7 +11,9 @@ import pytest
 from tenorwise.curve.bootstrap import bootstrap
 from tenorwise.curve.fixture import fixture_par_curve
 
-ql_curve = pytest.importorskip("tests.benchmark.quantlib_curve")
+pytest.importorskip("QuantLib")  # skip only if QuantLib itself is missing
+
+from tests.benchmark import quantlib_curve as ql_curve  # noqa: E402  (import errors here must fail, not skip)
 
 ZERO_RATE_TOLERANCE = 1e-10
 
