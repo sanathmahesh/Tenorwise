@@ -56,7 +56,7 @@ decision, newest at the bottom. Changes to PLAN.md are recorded here too.
 
 - **Phase:** 0 (probe); applies again in Phase 8
 - **Decision:** retry 429 and 503 errors with code `model_capacity_unavailable` or `service_overloaded`, waiting at least `Retry-After` and backing off exponentially with jitter. Do not retry timeouts or other 5xx errors, because the request may already have started and could be billed twice.
-- **Note:** PLAN.md names 429 and 503 `model_capacity_unavailable`. Sail's `retries.md` (read 2026-11-17) also lists 503 `service_overloaded` as refused "before accepting a request". It was included in the probe and is raised with the owner for Phase 8.
+- **Note:** PLAN.md names 429 and 503 `model_capacity_unavailable`. Sail's `retries.md` (read 2026-11-17) also lists 503 `service_overloaded` as refused "before accepting a request". It was included in the probe. The owner approved adding it on 2026-11-17 (D-014).
 
 ## D-008. A temporary `/api/deploy-check` endpoint instead of extra health fields
 
@@ -87,10 +87,16 @@ decision, newest at the bottom. Changes to PLAN.md are recorded here too.
 - **Phase:** 0
 - **What happened:** the approved action was a preview deploy. Vercel assigns a project's *first* deployment to production regardless, and the CLI said so only afterwards: "This is the project's first deployment, so it was assigned to production. Future deployments will be preview deployments unless you use --prod." The skeleton is therefore live at `https://tenorwise.vercel.app`, which is publicly reachable. Vercel's default protection covers deployment URLs, not the production domain.
 - **Exposure:** the Phase 0 placeholder page, `/api/health` and `/api/deploy-check`. No environment variables are set on Vercel, and no key was uploaded (`vercel deploy --dry` showed `.env` and `.env.local` excluded).
-- **Decision:** reported to the owner, who decides whether to keep or remove it. Every later deploy uses the CLI's default preview target, and production deploys happen only after asking (Phase 12).
+- **Decision:** reported to the owner, who decided on 2026-11-17 to **keep** it. The deployment holds nothing sensitive, and it reserves the `tenorwise.vercel.app` name. Every later deploy uses the CLI's default preview target, and production deploys happen only after asking (Phase 12).
 
 ## D-013. `vercel link` side effects
 
 - **Phase:** 0
 - **What happened:** `vercel link` created `.env.local` holding a short-lived `VERCEL_OIDC_TOKEN`. It also appended `.vercel` and `.env*` to `.gitignore`. That appended `.env*` would have overridden the `!.env.example` exception and ignored the example file.
 - **Decision:** reverted the `.gitignore` edit. The existing rules already ignore `.vercel/` and `.env.*` (including `.env.local`), and `.vercelignore` excludes `.env.*` from uploads.
+
+## D-014. Plan change: retry 503 `service_overloaded` as well
+
+- **Date:** 2026-11-17, approved by the owner after Phase 0
+- **Change:** PLAN.md sections 4 and 9 now list 503 `service_overloaded` next to 429 and 503 `model_capacity_unavailable` as retryable.
+- **Why:** Sail's `retries.md` says `service_overloaded` is returned "before accepting a request in any service tier". Like the other two, it cannot have started inference, so a retry cannot double-charge.

@@ -57,7 +57,7 @@ These were read from the sources below. Sources change, and some were transcribe
 - Rejected or unsupported on Chat Completions: `max_tokens` (use `max_completion_tokens`), `functions`, `function_call`, `n` other than 1, `seed`, `stop`, `logprobs`, `frequency_penalty`, `presence_penalty`, `logit_bias`.
 - Service tiers: the default is `asap` (no queueing, recommended for chat). `balanced` may queue the first turn for up to 5 minutes. The docs exclude only tools of type `custom` from `asap`; ordinary function tools appear to be allowed, but no page says so directly. The response reports the tier that served it in `service_tier`.
 - Usage fields: `prompt_tokens`, `completion_tokens`, `total_tokens`. The inner fields of `prompt_tokens_details` are not documented.
-- Errors: 429 and 503 `model_capacity_unavailable` are refused before inference and are safe to retry after `Retry-After` with backoff. Other 5xx and timeouts are uncertain. Disable SDK auto-retries and implement retries yourself as `retries.md` describes.
+- Errors: 429, 503 `model_capacity_unavailable` and 503 `service_overloaded` are refused before inference and are safe to retry after `Retry-After` with backoff (`service_overloaded` added 2026-11-17 from `retries.md`; decision log D-014). Other 5xx and timeouts are uncertain. Disable SDK auto-retries and implement retries yourself as `retries.md` describes.
 - There is no per-model capability matrix and no published context window. `GET /v1/models` returns IDs only.
 - Sail retires models at short notice (the changelog announced one retirement with a week's warning), so the model ID must be configuration.
 - GLM-5.3 returns HTTP 400 if reasoning effort is set to none.
@@ -389,7 +389,7 @@ The model writes each number followed by its tag: "falls by $412.3M[[v12]]". The
 
 ### Loop and limits
 
-- At most 6 model calls per request, a per-call timeout, a question length cap, and retries only for 429 and 503 capacity errors with backoff.
+- At most 6 model calls per request, a per-call timeout, a question length cap, and retries only for 429 and 503 capacity errors (`model_capacity_unavailable`, `service_overloaded`) with backoff.
 - Commentary: about 400 words in fixed sections (positioning, rate sensitivity, scenario results, hedging trade-off, caveats), verified the same way, and always shown with "Draft, requires human review".
 - Rate limits on the AI endpoints: one Vercel firewall rule per IP (I will create it in the dashboard from your instructions), plus per-IP and global daily caps in Upstash Redis keyed by a salted hash of the IP. If Redis is unreachable, the AI endpoints refuse; the rest of the app is unaffected. Propose the cap values and ask me.
 - Log request ID, model, tier, tokens, latency and verification outcome. Do not log question text.
@@ -622,7 +622,7 @@ Update this table at the end of each phase.
 
 | Phase | Status | Date | Commit |
 |---|---|---|---|
-| 0. Foundations, probe, skeleton deploy | Done; awaiting go-ahead | 2026-11-17 | e94ac6b, 63453bf |
+| 0. Foundations, probe, skeleton deploy | Done | 2026-11-17 | e94ac6b, 63453bf |
 | 1. Yield curve | Not started | | |
 | 2. Bond analytics | Not started | | |
 | 3. Agency mortgage bonds | Not started | | |
