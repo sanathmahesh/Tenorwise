@@ -632,6 +632,6 @@ Update this table at the end of each phase.
 | 7. Snapshot, API, placeholder interface | Done | 2026-11-17 | cb3725c |
 | 8. AI analyst and verification | Done | 2026-11-18 | 00704b5, b803d36 |
 | 9. Evals | Done | 2026-11-18 | 57eb8ca, 069601e |
-| 10. Strategy artifacts and About page | Drafted; waiting for owner's timings and opportunity-map review | 2026-11-18 | 51cd1cc |
+| 10. Strategy artifacts and About page | Done; timing study not run (owner decision, D-081) | 2026-11-18 | 51cd1cc, 1dcbd80 |
 | 11. Implement the handed-off design | Done | 2026-11-18 | ae6a45e, 11b95ad |
 | 12. Production deploy and final documents | Done | 2026-11-18 | 06509b4, b203633 |
