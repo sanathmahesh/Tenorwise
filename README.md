@@ -32,6 +32,17 @@ Provider probe (makes about 15 small paid calls to the LLM provider):
 uv run --env-file .env python scripts/probe_llm.py
 ```
 
+## Deploy (preview)
+
+Every deploy needs the owner's approval first (PLAN.md ground rule 10).
+
+```bash
+npx vercel@65.12.1 deploy --build-env TENORWISE_GIT_SHA=$(git rev-parse --short HEAD)
+```
+
+Vercel runs `scripts/vercel_build.sh` (the Python snapshot, then the Vite
+build) and packages `api/index.py` as the Python function.
+
 ## Documents
 
 - [NOTES.md](NOTES.md): the finance and the design, phase by phase

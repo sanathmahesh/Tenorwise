@@ -19,7 +19,7 @@ decision, newest at the bottom. Changes to PLAN.md are recorded here too.
 - **Alternatives rejected:**
   - *Vercel Services (beta):* separate frontend and backend services in one project. Vercel's docs (read 2026-11-17) recommend it for "a Python backend alongside another framework", and they describe the `/api` directory as supported for "existing projects". The plan says to try the `/api` layout first and to ask before switching to Services. A beta feature is also more to explain and more likely to change.
   - *FastAPI preset serving the frontend:* FastAPI's `app.frontend()` serves the built site and Vercel promotes the files to its CDN. This couples the static site to the Python app's deployment and routing.
-- **Status:** to be confirmed by the Phase 0 preview deploy.
+- **Status:** confirmed by the Phase 0 deploy (2026-11-18 UTC). The build step ran Python, the function read the files the build wrote, numpy and scipy worked in the function, and pandas and QuantLib were not installed. Services is not needed. Evidence is in NOTES.md, Phase 0.
 
 ## D-002. Pin the Vercel framework to Vite in `vercel.json`
 
@@ -81,3 +81,16 @@ decision, newest at the bottom. Changes to PLAN.md are recorded here too.
 - **Phase:** 0
 - **Decision:** `scripts/build_snapshot.py` reads `TENORWISE_GIT_SHA`, then `VERCEL_GIT_COMMIT_SHA`, then `git rev-parse`. CLI deploys pass `--build-env TENORWISE_GIT_SHA=<sha>`.
 - **Why:** a CLI deploy does not upload `.git` (`.vercelignore`), and `VERCEL_GIT_COMMIT_SHA` is set only for Git-connected deploys. The SHA is not a secret.
+
+## D-012. The first deployment went to production, not a preview
+
+- **Phase:** 0
+- **What happened:** the approved action was a preview deploy. Vercel assigns a project's *first* deployment to production regardless, and the CLI said so only afterwards: "This is the project's first deployment, so it was assigned to production. Future deployments will be preview deployments unless you use --prod." The skeleton is therefore live at `https://tenorwise.vercel.app`, which is publicly reachable. Vercel's default protection covers deployment URLs, not the production domain.
+- **Exposure:** the Phase 0 placeholder page, `/api/health` and `/api/deploy-check`. No environment variables are set on Vercel, and no key was uploaded (`vercel deploy --dry` showed `.env` and `.env.local` excluded).
+- **Decision:** reported to the owner, who decides whether to keep or remove it. Every later deploy uses the CLI's default preview target, and production deploys happen only after asking (Phase 12).
+
+## D-013. `vercel link` side effects
+
+- **Phase:** 0
+- **What happened:** `vercel link` created `.env.local` holding a short-lived `VERCEL_OIDC_TOKEN`. It also appended `.vercel` and `.env*` to `.gitignore`. That appended `.env*` would have overridden the `!.env.example` exception and ignored the example file.
+- **Decision:** reverted the `.gitignore` edit. The existing rules already ignore `.vercel/` and `.env.*` (including `.env.local`), and `.vercelignore` excludes `.env.*` from uploads.

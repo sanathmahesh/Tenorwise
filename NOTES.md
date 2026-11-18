@@ -76,10 +76,33 @@ Phase 0 builds no finance. It sets up the plumbing everything else depends on.
   side may work in steps of about 2 seconds. Too few calls to conclude
   anything; watch for it in the Phase 9 latency figures.
 
+### What the skeleton deploy proved (2026-11-18 01:54 UTC, deployment `dpl_D7D7FRMob4ikiwNsMjGHpCAThwuu`)
+
+PLAN.md section 4 listed two things as unconfirmed. Both are now confirmed.
+
+- **A Python script can run in the build step of a Vite-plus-`/api` project.**
+  Vercel's build image had Python 3.12.15 and uv 0.13.5 on the PATH. The
+  snapshot script ran with numpy and scipy installed from `uv.lock` with
+  `--no-dev`.
+- **Files the build step writes are bundled into the function.** The build
+  log shows Vercel builds the Python function *after* the build command
+  ("Installing required dependencies from uv.lock" comes after the Vite
+  build). The live `/api/deploy-check` returned `build_check.json` as read
+  inside the function, and it equals the static copy served at
+  `/data/v1/build_check.json`.
+- **numpy 2.5.5 and scipy 1.18.1 work in the function**, on Python 3.12.16.
+  The runtime patch version differs from the build image's 3.12.15.
+- **pandas and QuantLib are not installed in the function** (`importable`
+  reports false for both).
+- `/api/*` rewrites reach FastAPI with the full path intact (`/api/health`
+  answered from the `@app.get("/api/health")` route).
+- Vercel assigned the project's first deployment to production
+  (`tenorwise.vercel.app`, publicly reachable), not to a preview. See D-012.
+
 ### Why this design, and what was rejected
 
 See [docs/strategy/decision-log.md](docs/strategy/decision-log.md), D-001 to
-D-011. The ones most likely to come up in an interview:
+D-013. The ones most likely to come up in an interview:
 
 - **Compute at build time, serve static JSON.** Market data changes once a
   day, so the standard scenarios can be computed once per deploy. The function
@@ -137,3 +160,9 @@ D-011. The ones most likely to come up in an interview:
    429 and the 503 capacity errors are refused before the model runs, so a
    retry cannot double-charge. A timeout might mean the request is still
    running, so a blind retry could pay twice.
+7. **How did you prove the serverless function can read what the build produced?**
+   The build writes the same JSON file in two places: one served as a static
+   file, one inside the function's folder. A temporary endpoint reads its copy
+   from inside the deployed function and returns it, and the two copies
+   matched. The build log also showed the function being packaged after the
+   build step ran.
