@@ -134,3 +134,15 @@ What Tenorwise cannot tell you, and why.
 - **Carry given up assumes the floating rate stays fixed** for 12 months at
   the scenario's 3-month rate.
 
+## Snapshot and API
+
+- **One snapshot per deploy.** Market data is fetched when the site is built.
+  Until the next deploy, every page shows that day's data, with its date.
+- **Custom scenarios are limited.** Only a parallel shift or key-rate shocks
+  of −300 to +300 bp, recomputed on the build's market data. There is no
+  intraday data and no user-chosen curve.
+- **Rounded figures.** Published numbers are rounded to 10 significant
+  figures (dollar precision on a $10B book).
+- **Placeholder interface.** Phase 7's pages are plain tables. The designed
+  interface arrives in Phase 11.
+

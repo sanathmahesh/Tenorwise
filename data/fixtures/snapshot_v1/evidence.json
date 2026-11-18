@@ -1,0 +1,68 @@
+{
+ "data_date": "2026-11-16",
+ "models": [],
+ "quantlib": [
+  {
+   "instruments": 11,
+   "max_abs_diff": 1.538630334e-13,
+   "measure": "zero_rate",
+   "unit": "decimal rate"
+  },
+  {
+   "instruments": 170,
+   "max_abs_diff": 1.421085472e-13,
+   "measure": "dirty_price",
+   "unit": "price per 100 face"
+  },
+  {
+   "instruments": 170,
+   "max_abs_diff": 1.563194019e-13,
+   "measure": "clean_price",
+   "unit": "price per 100 face"
+  },
+  {
+   "instruments": 170,
+   "max_abs_diff": 1.065814104e-14,
+   "measure": "accrued",
+   "unit": "price per 100 face"
+  },
+  {
+   "instruments": 170,
+   "max_abs_diff": 7.077671782e-16,
+   "measure": "yield",
+   "unit": "decimal rate"
+  },
+  {
+   "instruments": 170,
+   "max_abs_diff": 4.97379915e-14,
+   "measure": "macaulay_duration",
+   "unit": "years"
+  },
+  {
+   "instruments": 170,
+   "max_abs_diff": 4.97379915e-14,
+   "measure": "modified_duration",
+   "unit": "years"
+  },
+  {
+   "instruments": 170,
+   "max_abs_diff": 1.98951966e-12,
+   "measure": "convexity",
+   "unit": "years squared"
+  },
+  {
+   "instruments": 6,
+   "max_abs_diff": 1.595945598e-16,
+   "measure": "swap_par_rate",
+   "unit": "decimal rate"
+  },
+  {
+   "instruments": 24,
+   "max_abs_diff": 1.33226763e-15,
+   "measure": "swap_value",
+   "unit": "value per unit notional"
+  }
+ ],
+ "quantlib_report_generated_at": "2026-11-18T04:07:27Z",
+ "questions": []
+}

@@ -12,13 +12,15 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
 PROBE = """
-import sys
+import os, sys
+os.environ["TENORWISE_SNAPSHOT_DIR"] = "data/fixtures/snapshot_v1"
 import api.index  # the Vercel entrypoint
 from fastapi.testclient import TestClient
 
 client = TestClient(api.index.app)
-for path in ("/api/health", "/api/deploy-check"):
-    client.get(path)
+assert client.get("/api/health").status_code == 200
+assert client.post("/api/scenario", json={"parallel_bp": 100}).status_code == 200
+assert client.post("/api/scenario", json={"key_rate_bp": {"2": 5, "5": 5, "10": 5, "30": 5}}).status_code == 200
 
 forbidden = {"pandas", "quantlib"}
 loaded = sorted(m for m in sys.modules if m.split(".")[0].lower() in forbidden)

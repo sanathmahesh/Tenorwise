@@ -1,0 +1,167 @@
+{
+ "data_date": "2026-11-16",
+ "methods": {
+  "amortized_cost": {
+   "formula": "sum CF (1 + book/2)^(-2t)",
+   "name": "Amortized cost",
+   "notes_anchor": "NOTES.md#phase-4-portfolio",
+   "plain_english": "The position's remaining cash flows discounted at the yield it was bought at (its book yield)."
+  },
+  "aoci_impact": {
+   "formula": "sum over AFS positions of (MV(shocked) - MV(base))",
+   "name": "AOCI impact",
+   "notes_anchor": "NOTES.md#phase-5-scenarios",
+   "plain_english": "The available-for-sale part of the change in value, which flows into equity. Pre-tax."
+  },
+  "aoci_net": {
+   "formula": "AFS change + swap P&L",
+   "name": "AOCI net of hedges",
+   "notes_anchor": "NOTES.md#phase-6-hedging",
+   "plain_english": "AFS change plus the swaps' gain or loss, treating swaps as perfectly effective fair-value hedges."
+  },
+  "avg_life": {
+   "formula": "sum t_m principal_m / sum principal_m",
+   "name": "Weighted average life",
+   "notes_anchor": "NOTES.md#phase-3-agency-mortgage-bonds-stylized",
+   "plain_english": "On average, how many years until the principal comes back."
+  },
+  "bond_price": {
+   "formula": "dirty = sum CF exp(-(z(t) + s) t); clean = dirty - accrued",
+   "name": "Bond price",
+   "notes_anchor": "NOTES.md#phase-2-bond-analytics",
+   "plain_english": "Each remaining payment discounted at the zero rate plus the sector spread. Dirty includes accrued interest; clean does not."
+  },
+  "carry_12m": {
+   "formula": "sum over 12 months of amortized cost x book yield / 12",
+   "name": "12-month carry",
+   "notes_anchor": "NOTES.md#phase-5-scenarios",
+   "plain_english": "Interest income over the next year at book yields; mortgage balances shrink with the scenario's prepayments. No funding cost or reinvestment."
+  },
+  "carry_given_up": {
+   "formula": "-N (float_3m - K)",
+   "name": "Carry given up",
+   "notes_anchor": "NOTES.md#phase-6-hedging",
+   "plain_english": "What the hedge costs in a year: fixed rate paid minus the 3-month floating rate received, on the notional."
+  },
+  "discount_factor": {
+   "formula": "DF(t) = exp(-z(t) t), z linear between curve points, flat beyond the ends",
+   "name": "Discount factor",
+   "notes_anchor": "NOTES.md#phase-1-yield-curve",
+   "plain_english": "What one dollar paid at a future date is worth today."
+  },
+  "dv01": {
+   "formula": "(P(-1bp) - P(+1bp)) / 2",
+   "name": "DV01",
+   "notes_anchor": "NOTES.md#phase-2-bond-analytics",
+   "plain_english": "Dollars lost if all Treasury par yields rise 1 basis point. Positive for a long bond position; negative for a pay-fixed swap."
+  },
+  "eff_convexity": {
+   "formula": "(P(-25bp) + P(+25bp) - 2 P0) / (P0 0.0025^2)",
+   "name": "Effective convexity",
+   "notes_anchor": "NOTES.md#phase-2-bond-analytics",
+   "plain_english": "How much duration itself changes as rates move. Negative means gains are capped in rallies (mortgage pools)."
+  },
+  "eff_duration": {
+   "formula": "(P(-25bp) - P(+25bp)) / (2 P0 0.0025)",
+   "name": "Effective duration (curve-based)",
+   "notes_anchor": "NOTES.md#phase-2-bond-analytics",
+   "plain_english": "Roughly the % value lost if all Treasury par yields rise 1 percentage point, from repricing at +/-25 bp."
+  },
+  "hedge_sizing": {
+   "formula": "N = -share x DV01_AFS / DV01_swap; key-rate: A n = -b",
+   "name": "Hedge sizing",
+   "notes_anchor": "NOTES.md#phase-6-hedging",
+   "plain_english": "DV01 hedges size one 5-year swap to offset 50% or 100% of the AFS DV01; the key-rate hedge solves 2/5/10-year swaps to zero the 2y, 5y and 10y+30y buckets."
+  },
+  "htm_unrecognized": {
+   "formula": "sum over HTM positions of (MV(shocked) - MV(base))",
+   "name": "HTM change, not recognized",
+   "notes_anchor": "NOTES.md#phase-5-scenarios",
+   "plain_english": "The held-to-maturity part of the change in value: real, but not shown in the accounts."
+  },
+  "key_rate_dv01": {
+   "formula": "(P(tent -1bp) - P(tent +1bp)) / 2",
+   "name": "Key-rate DV01",
+   "notes_anchor": "NOTES.md#phase-2-bond-analytics",
+   "plain_english": "DV01 from moving only the region of the curve around 2, 5, 10 or 30 years. The four add up to the total."
+  },
+  "mbs_cash_flows": {
+   "formula": "CPR = ramp (6% + 34% / (1 + exp(-3 (incentive - 1)))); SMM = 1 - (1 - CPR)^(1/12)",
+   "name": "Mortgage pool cash flows (stylized)",
+   "notes_anchor": "NOTES.md#phase-3-agency-mortgage-bonds-stylized",
+   "plain_english": "Monthly level payment plus prepayments driven by the refinancing incentive. Illustrative parameters, not calibrated."
+  },
+  "mbs_price": {
+   "formula": "sum CF_m exp(-(z(t_m) + s) t_m), t_m = m/12",
+   "name": "Mortgage pool price (stylized, static)",
+   "notes_anchor": "NOTES.md#phase-3-agency-mortgage-bonds-stylized",
+   "plain_english": "Project the pool's cash flows once under the scenario's curve and discount them at the zero rate plus the agency mortgage spread."
+  },
+  "mod_duration": {
+   "formula": "Macaulay / (1 + y/2), Macaulay = sum t PV / price",
+   "name": "Modified duration (yield-based)",
+   "notes_anchor": "NOTES.md#phase-2-bond-analytics",
+   "plain_english": "Roughly the % price change for a 1 percentage point move in the security's own yield."
+  },
+  "mortgage_spread": {
+   "formula": "OBMMIC30YF - DGS10",
+   "name": "Mortgage spread",
+   "notes_anchor": "NOTES.md#phase-3-agency-mortgage-bonds-stylized",
+   "plain_english": "Market mortgage rate (Optimal Blue index) minus the 10-year Treasury yield on the same date; held fixed in every scenario."
+  },
+  "par_yield": {
+   "formula": "FRED DGS1MO ... DGS30, latest date on which all 11 have values",
+   "name": "Treasury par yield",
+   "notes_anchor": "NOTES.md#phase-1-yield-curve",
+   "plain_english": "The coupon at which a new Treasury of that maturity would sell for exactly 100, from FRED (H.15), on the market data date."
+  },
+  "portfolio_aggregate": {
+   "formula": "sum; sum(MV_i D_i)/sum(MV_i); AC_group / AC_total",
+   "name": "Portfolio aggregation",
+   "notes_anchor": "NOTES.md#phase-4-portfolio",
+   "plain_english": "Values and DV01s add up; durations and convexities are market-value-weighted averages; weight is the share of amortized cost."
+  },
+  "rate_shock": {
+   "formula": "y_i' = max(0, y_i + shock_i / 10000); rebuild",
+   "name": "Rate shock",
+   "notes_anchor": "NOTES.md#phase-1-yield-curve",
+   "plain_english": "Basis points added to each of the 11 par yields, then the curve is rebuilt. Key-rate shocks use tents at 2, 5, 10 and 30 years that sum to 1."
+  },
+  "replay_2022": {
+   "formula": "100 x (y(2022-12-30) - y(2021-12-31)) bp per tenor",
+   "name": "2022 replay shock",
+   "notes_anchor": "NOTES.md#phase-5-scenarios",
+   "plain_english": "Each par yield's actual change from 31 Dec 2021 to 30 Dec 2022 (FRED), applied to today's curve."
+  },
+  "scenario_change": {
+   "formula": "MV(shocked) - MV(base)",
+   "name": "Scenario change in value",
+   "notes_anchor": "NOTES.md#phase-5-scenarios",
+   "plain_english": "Value on the shocked curve minus value today, with spreads held fixed."
+  },
+  "swap_par_rate": {
+   "formula": "K = (1 - DF(T)) / (0.5 sum DF(t_i)), swap curve = Treasury zero + spread",
+   "name": "Swap par rate",
+   "notes_anchor": "NOTES.md#phase-6-hedging",
+   "plain_english": "The fixed rate that makes a new pay-fixed swap worth zero."
+  },
+  "swap_value": {
+   "formula": "N ((1 - DF(T)) - K 0.5 sum DF(t_i))",
+   "name": "Swap value (pay fixed)",
+   "notes_anchor": "NOTES.md#phase-6-hedging",
+   "plain_english": "Value of receiving floating and paying the fixed rate; gains when rates rise."
+  },
+  "unrealized": {
+   "formula": "MV - amortized cost",
+   "name": "Unrealized gain or loss",
+   "notes_anchor": "NOTES.md#phase-4-portfolio",
+   "plain_english": "Market value minus amortized cost."
+  },
+  "zero_rate": {
+   "formula": "T <= 0.5: z = ln(1 + yT)/T; T >= 1: solve (y/2) sum DF(t_i) + DF(T) = 1 with z linear in t between points",
+   "name": "Zero rate (bootstrap)",
+   "notes_anchor": "NOTES.md#phase-1-yield-curve",
+   "plain_english": "The single rate for one date that discounts a dollar paid then back to today, solved maturity by maturity so every par bond prices to 100."
+  }
+ }
+}

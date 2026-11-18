@@ -3,7 +3,7 @@
 An interest-rate risk and hedging tool for a bank-style bond portfolio, with an
 AI analyst whose every number is checked against the calculation engine.
 
-**Status:** Phase 6 (hedging) done. The build plan and progress log are in
+**Status:** Phase 7 (snapshot, API, placeholder interface) done. The build plan and progress log are in
 [PLAN.md](PLAN.md). There is no live link yet.
 
 ## Run locally
@@ -15,9 +15,10 @@ uv sync                                   # Python 3.12 + dependencies
 npm ci --prefix web                       # frontend dependencies
 cp .env.example .env                      # then fill in your own keys
 
-uv run python scripts/build_snapshot.py   # writes the static JSON snapshot
+uv run python scripts/build_snapshot.py --fixture   # snapshot from the pinned data (offline)
+# or: uv run --env-file .env python scripts/build_snapshot.py   # live FRED (needs FRED_API_KEY)
 uv run --env-file .env uvicorn api.index:app --port 8000   # API on :8000
-npm run dev --prefix web                  # frontend on :5173 (proxies /api to :8000)
+npm run dev --prefix web                  # frontend on http://localhost:5173 (proxies /api to :8000)
 ```
 
 Print the yield curve and its market data date (pinned FRED data, offline):
@@ -60,6 +61,13 @@ Hedging strategies and the strategy-by-scenario matrix (AOCI net of hedges, loss
 ```bash
 uv run python -m tenorwise.hedging
 uv run python -m tenorwise.hedging --swap-spread-bp 25
+```
+
+After changing a contract model, regenerate the OpenAPI document and the TypeScript types:
+
+```bash
+uv run python scripts/export_openapi.py && npm run gen:types --prefix web
+uv run python scripts/build_snapshot.py --pin   # refresh the pinned fixture snapshot
 ```
 
 Tests:

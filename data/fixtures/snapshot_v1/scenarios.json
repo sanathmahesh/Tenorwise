@@ -1,0 +1,1494 @@
+{
+ "base_market_value": 8648633146.0,
+ "data_date": "2026-11-16",
+ "scenarios": [
+  {
+   "by_class": [
+    {
+     "aoci_impact": 0.0,
+     "carry_12m": 214384109.1,
+     "delta_mv": 0.0,
+     "delta_mv_pct": 0.0,
+     "htm_unrecognized": 0.0,
+     "id": "AFS",
+     "name": "Available-for-sale"
+    },
+    {
+     "aoci_impact": 0.0,
+     "carry_12m": 83909127.85,
+     "delta_mv": 0.0,
+     "delta_mv_pct": 0.0,
+     "htm_unrecognized": 0.0,
+     "id": "HTM",
+     "name": "Held-to-maturity"
+    }
+   ],
+   "by_sector": [
+    {
+     "aoci_impact": 0.0,
+     "carry_12m": 90448628.37,
+     "delta_mv": 0.0,
+     "delta_mv_pct": 0.0,
+     "htm_unrecognized": 0.0,
+     "id": "treasuries",
+     "name": "Treasuries"
+    },
+    {
+     "aoci_impact": 0.0,
+     "carry_12m": 142574047.7,
+     "delta_mv": 0.0,
+     "delta_mv_pct": 0.0,
+     "htm_unrecognized": 0.0,
+     "id": "agency_mbs",
+     "name": "Agency mortgage bonds"
+    },
+    {
+     "aoci_impact": 0.0,
+     "carry_12m": 31861296.15,
+     "delta_mv": 0.0,
+     "delta_mv_pct": 0.0,
+     "htm_unrecognized": 0.0,
+     "id": "agency_debt",
+     "name": "Agency debt"
+    },
+    {
+     "aoci_impact": 0.0,
+     "carry_12m": 33409264.7,
+     "delta_mv": 0.0,
+     "delta_mv_pct": 0.0,
+     "htm_unrecognized": 0.0,
+     "id": "ig_corporates",
+     "name": "IG corporates (proxy)"
+    }
+   ],
+   "description": "Today's curve with no shock: the starting point for carry and the cost of hedges.",
+   "floor_bound": false,
+   "floored_tenor_years": [],
+   "id": "base",
+   "name": "Base (no shock)",
+   "shock_bp_by_tenor": [
+    {
+     "shock_bp": 0.0,
+     "tenor_years": 0.08333333333
+    },
+    {
+     "shock_bp": 0.0,
+     "tenor_years": 0.25
+    },
+    {
+     "shock_bp": 0.0,
+     "tenor_years": 0.5
+    },
+    {
+     "shock_bp": 0.0,
+     "tenor_years": 1.0
+    },
+    {
+     "shock_bp": 0.0,
+     "tenor_years": 2.0
+    },
+    {
+     "shock_bp": 0.0,
+     "tenor_years": 3.0
+    },
+    {
+     "shock_bp": 0.0,
+     "tenor_years": 5.0
+    },
+    {
+     "shock_bp": 0.0,
+     "tenor_years": 7.0
+    },
+    {
+     "shock_bp": 0.0,
+     "tenor_years": 10.0
+    },
+    {
+     "shock_bp": 0.0,
+     "tenor_years": 20.0
+    },
+    {
+     "shock_bp": 0.0,
+     "tenor_years": 30.0
+    }
+   ],
+   "shocked_curve": [
+    {
+     "discount_factor": 0.9965949672,
+     "par_yield": 4.1,
+     "tenor_years": 0.08333333333,
+     "zero_rate": 4.093011746
+    },
+    {
+     "discount_factor": 0.9892664589,
+     "par_yield": 4.34,
+     "tenor_years": 0.25,
+     "zero_rate": 4.316624431
+    },
+    {
+     "discount_factor": 0.9783778495,
+     "par_yield": 4.42,
+     "tenor_years": 0.5,
+     "zero_rate": 4.371866871
+    },
+    {
+     "discount_factor": 0.9553313182,
+     "par_yield": 4.62,
+     "tenor_years": 1.0,
+     "zero_rate": 4.569706859
+    },
+    {
+     "discount_factor": 0.9088378475,
+     "par_yield": 4.83,
+     "tenor_years": 2.0,
+     "zero_rate": 4.779429318
+    },
+    {
+     "discount_factor": 0.865412946,
+     "par_yield": 4.87,
+     "tenor_years": 3.0,
+     "zero_rate": 4.81828306
+    },
+    {
+     "discount_factor": 0.7835190265,
+     "par_yield": 4.93,
+     "tenor_years": 5.0,
+     "zero_rate": 4.87919867
+    },
+    {
+     "discount_factor": 0.706371299,
+     "par_yield": 5.01,
+     "tenor_years": 7.0,
+     "zero_rate": 4.965918007
+    },
+    {
+     "discount_factor": 0.6010161478,
+     "par_yield": 5.12,
+     "tenor_years": 10.0,
+     "zero_rate": 5.091334766
+    },
+    {
+     "discount_factor": 0.324893974,
+     "par_yield": 5.51,
+     "tenor_years": 20.0,
+     "zero_rate": 5.621281918
+    },
+    {
+     "discount_factor": 0.1944258172,
+     "par_yield": 5.46,
+     "tenor_years": 30.0,
+     "zero_rate": 5.459015304
+    }
+   ],
+   "total": {
+    "aoci_impact": 0.0,
+    "carry_12m": 298293237.0,
+    "delta_mv": 0.0,
+    "delta_mv_pct": 0.0,
+    "htm_unrecognized": 0.0
+   }
+  },
+  {
+   "by_class": [
+    {
+     "aoci_impact": -230829661.9,
+     "carry_12m": 214423259.8,
+     "delta_mv": -230829661.9,
+     "delta_mv_pct": -3.994265579,
+     "htm_unrecognized": 0.0,
+     "id": "AFS",
+     "name": "Available-for-sale"
+    },
+    {
+     "aoci_impact": 0.0,
+     "carry_12m": 83909136.1,
+     "delta_mv": -139772191.7,
+     "delta_mv_pct": -4.870778598,
+     "htm_unrecognized": -139772191.7,
+     "id": "HTM",
+     "name": "Held-to-maturity"
+    }
+   ],
+   "by_sector": [
+    {
+     "aoci_impact": -73984755.1,
+     "carry_12m": 90448628.37,
+     "delta_mv": -82957923.23,
+     "delta_mv_pct": -2.755277553,
+     "htm_unrecognized": -8973168.126,
+     "id": "treasuries",
+     "name": "Treasuries"
+    },
+    {
+     "aoci_impact": -93856906.41,
+     "carry_12m": 142613206.7,
+     "delta_mv": -206433472.8,
+     "delta_mv_pct": -5.699075432,
+     "htm_unrecognized": -112576566.4,
+     "id": "agency_mbs",
+     "name": "Agency mortgage bonds"
+    },
+    {
+     "aoci_impact": -32891136.59,
+     "carry_12m": 31861296.15,
+     "delta_mv": -50059307.98,
+     "delta_mv_pct": -4.980078258,
+     "htm_unrecognized": -17168171.38,
+     "id": "agency_debt",
+     "name": "Agency debt"
+    },
+    {
+     "aoci_impact": -30096863.82,
+     "carry_12m": 33409264.7,
+     "delta_mv": -31151149.58,
+     "delta_mv_pct": -3.083231318,
+     "htm_unrecognized": -1054285.758,
+     "id": "ig_corporates",
+     "name": "IG corporates (proxy)"
+    }
+   ],
+   "description": "Every Treasury par yield rises by 1 percentage point at once.",
+   "floor_bound": false,
+   "floored_tenor_years": [],
+   "id": "parallel_up_100",
+   "name": "+100 bp parallel",
+   "shock_bp_by_tenor": [
+    {
+     "shock_bp": 100.0,
+     "tenor_years": 0.08333333333
+    },
+    {
+     "shock_bp": 100.0,
+     "tenor_years": 0.25
+    },
+    {
+     "shock_bp": 100.0,
+     "tenor_years": 0.5
+    },
+    {
+     "shock_bp": 100.0,
+     "tenor_years": 1.0
+    },
+    {
+     "shock_bp": 100.0,
+     "tenor_years": 2.0
+    },
+    {
+     "shock_bp": 100.0,
+     "tenor_years": 3.0
+    },
+    {
+     "shock_bp": 100.0,
+     "tenor_years": 5.0
+    },
+    {
+     "shock_bp": 100.0,
+     "tenor_years": 7.0
+    },
+    {
+     "shock_bp": 100.0,
+     "tenor_years": 10.0
+    },
+    {
+     "shock_bp": 100.0,
+     "tenor_years": 20.0
+    },
+    {
+     "shock_bp": 100.0,
+     "tenor_years": 30.0
+    }
+   ],
+   "shocked_curve": [
+    {
+     "discount_factor": 0.9957679861,
+     "par_yield": 5.1,
+     "tenor_years": 0.08333333333,
+     "zero_rate": 5.089193109
+    },
+    {
+     "discount_factor": 0.9868258746,
+     "par_yield": 5.34,
+     "tenor_years": 0.25,
+     "zero_rate": 5.304669593
+    },
+    {
+     "discount_factor": 0.9736150326,
+     "par_yield": 5.42,
+     "tenor_years": 0.5,
+     "zero_rate": 5.347859438
+    },
+    {
+     "discount_factor": 0.94605721,
+     "par_yield": 5.62,
+     "tenor_years": 1.0,
+     "zero_rate": 5.545223609
+    },
+    {
+     "discount_factor": 0.8912794481,
+     "par_yield": 5.83,
+     "tenor_years": 2.0,
+     "zero_rate": 5.754863323
+    },
+    {
+     "discount_factor": 0.8404611723,
+     "par_yield": 5.87,
+     "tenor_years": 3.0,
+     "zero_rate": 5.793484106
+    },
+    {
+     "discount_factor": 0.7462230268,
+     "par_yield": 5.93,
+     "tenor_years": 5.0,
+     "zero_rate": 5.854615198
+    },
+    {
+     "discount_factor": 0.6596816921,
+     "par_yield": 6.01,
+     "tenor_years": 7.0,
+     "zero_rate": 5.942826357
+    },
+    {
+     "discount_factor": 0.544887023,
+     "par_yield": 6.12,
+     "tenor_years": 10.0,
+     "zero_rate": 6.07176803
+    },
+    {
+     "discount_factor": 0.2651945932,
+     "par_yield": 6.51,
+     "tenor_years": 20.0,
+     "zero_rate": 6.636457042
+    },
+    {
+     "discount_factor": 0.1446947314,
+     "par_yield": 6.46,
+     "tenor_years": 30.0,
+     "zero_rate": 6.443763523
+    }
+   ],
+   "total": {
+    "aoci_impact": -230829661.9,
+    "carry_12m": 298332395.9,
+    "delta_mv": -370601853.6,
+    "delta_mv_pct": -4.285091613,
+    "htm_unrecognized": -139772191.7
+   }
+  },
+  {
+   "by_class": [
+    {
+     "aoci_impact": 247954539.2,
+     "carry_12m": 213777725.2,
+     "delta_mv": 247954539.2,
+     "delta_mv_pct": 4.290593648,
+     "htm_unrecognized": 0.0,
+     "id": "AFS",
+     "name": "Available-for-sale"
+    },
+    {
+     "aoci_impact": 0.0,
+     "carry_12m": 83908962.06,
+     "delta_mv": 154206790.7,
+     "delta_mv_pct": 5.373795222,
+     "htm_unrecognized": 154206790.7,
+     "id": "HTM",
+     "name": "Held-to-maturity"
+    }
+   ],
+   "by_sector": [
+    {
+     "aoci_impact": 79011864.13,
+     "carry_12m": 90448628.37,
+     "delta_mv": 88304198.63,
+     "delta_mv_pct": 2.932843144,
+     "htm_unrecognized": 9292334.504,
+     "id": "treasuries",
+     "name": "Treasuries"
+    },
+    {
+     "aoci_impact": 102039424.5,
+     "carry_12m": 141967498.0,
+     "delta_mv": 227582173.8,
+     "delta_mv_pct": 6.282934436,
+     "htm_unrecognized": 125542749.3,
+     "id": "agency_mbs",
+     "name": "Agency mortgage bonds"
+    },
+    {
+     "aoci_impact": 35324226.3,
+     "carry_12m": 31861296.15,
+     "delta_mv": 53604592.69,
+     "delta_mv_pct": 5.332775809,
+     "htm_unrecognized": 18280366.39,
+     "id": "agency_debt",
+     "name": "Agency debt"
+    },
+    {
+     "aoci_impact": 31579024.29,
+     "carry_12m": 33409264.7,
+     "delta_mv": 32670364.84,
+     "delta_mv_pct": 3.233597906,
+     "htm_unrecognized": 1091340.543,
+     "id": "ig_corporates",
+     "name": "IG corporates (proxy)"
+    }
+   ],
+   "description": "Every Treasury par yield falls by 1 percentage point at once.",
+   "floor_bound": false,
+   "floored_tenor_years": [],
+   "id": "parallel_down_100",
+   "name": "-100 bp parallel",
+   "shock_bp_by_tenor": [
+    {
+     "shock_bp": -100.0,
+     "tenor_years": 0.08333333333
+    },
+    {
+     "shock_bp": -100.0,
+     "tenor_years": 0.25
+    },
+    {
+     "shock_bp": -100.0,
+     "tenor_years": 0.5
+    },
+    {
+     "shock_bp": -100.0,
+     "tenor_years": 1.0
+    },
+    {
+     "shock_bp": -100.0,
+     "tenor_years": 2.0
+    },
+    {
+     "shock_bp": -100.0,
+     "tenor_years": 3.0
+    },
+    {
+     "shock_bp": -100.0,
+     "tenor_years": 5.0
+    },
+    {
+     "shock_bp": -100.0,
+     "tenor_years": 7.0
+    },
+    {
+     "shock_bp": -100.0,
+     "tenor_years": 10.0
+    },
+    {
+     "shock_bp": -100.0,
+     "tenor_years": 20.0
+    },
+    {
+     "shock_bp": -100.0,
+     "tenor_years": 30.0
+    }
+   ],
+   "shocked_curve": [
+    {
+     "discount_factor": 0.9974233231,
+     "par_yield": 3.1,
+     "tenor_years": 0.08333333333,
+     "zero_rate": 3.096002716
+    },
+    {
+     "discount_factor": 0.9917191451,
+     "par_yield": 3.34,
+     "tenor_years": 0.25,
+     "zero_rate": 3.326132641
+    },
+    {
+     "discount_factor": 0.9831874939,
+     "par_yield": 3.42,
+     "tenor_years": 0.5,
+     "zero_rate": 3.39108813
+    },
+    {
+     "discount_factor": 0.9647424677,
+     "par_yield": 3.62,
+     "tenor_years": 1.0,
+     "zero_rate": 3.589408611
+    },
+    {
+     "discount_factor": 0.9268306588,
+     "par_yield": 3.83,
+     "tenor_years": 2.0,
+     "zero_rate": 3.799220334
+    },
+    {
+     "discount_factor": 0.8912330165,
+     "par_yield": 3.87,
+     "tenor_years": 3.0,
+     "zero_rate": 3.838312109
+    },
+    {
+     "discount_factor": 0.8228746174,
+     "par_yield": 3.93,
+     "tenor_years": 5.0,
+     "zero_rate": 3.899028762
+    },
+    {
+     "discount_factor": 0.7566137695,
+     "par_yield": 4.01,
+     "tenor_years": 7.0,
+     "zero_rate": 3.984319539
+    },
+    {
+     "discount_factor": 0.6632244079,
+     "par_yield": 4.12,
+     "tenor_years": 10.0,
+     "zero_rate": 4.106418726
+    },
+    {
+     "discount_factor": 0.398110532,
+     "par_yield": 4.51,
+     "tenor_years": 20.0,
+     "zero_rate": 4.605127969
+    },
+    {
+     "discount_factor": 0.2616272616,
+     "par_yield": 4.46,
+     "tenor_years": 30.0,
+     "zero_rate": 4.469448179
+    }
+   ],
+   "total": {
+    "aoci_impact": 247954539.2,
+    "carry_12m": 297686687.2,
+    "delta_mv": 402161329.9,
+    "delta_mv_pct": 4.649998712,
+    "htm_unrecognized": 154206790.7
+   }
+  },
+  {
+   "by_class": [
+    {
+     "aoci_impact": -443509293.2,
+     "carry_12m": 214425240.0,
+     "delta_mv": -443509293.2,
+     "delta_mv_pct": -7.674463883,
+     "htm_unrecognized": 0.0,
+     "id": "AFS",
+     "name": "Available-for-sale"
+    },
+    {
+     "aoci_impact": 0.0,
+     "carry_12m": 83909136.52,
+     "delta_mv": -266940113.0,
+     "delta_mv_pct": -9.30232383,
+     "htm_unrecognized": -266940113.0,
+     "id": "HTM",
+     "name": "Held-to-maturity"
+    }
+   ],
+   "by_sector": [
+    {
+     "aoci_impact": -143527543.8,
+     "carry_12m": 90448628.37,
+     "delta_mv": -161168277.7,
+     "delta_mv_pct": -5.35287433,
+     "htm_unrecognized": -17640733.87,
+     "id": "treasuries",
+     "name": "Treasuries"
+    },
+    {
+     "aoci_impact": -177643973.8,
+     "carry_12m": 142615187.3,
+     "delta_mv": -391568145.0,
+     "delta_mv_pct": -10.81014801,
+     "htm_unrecognized": -213924171.2,
+     "id": "agency_mbs",
+     "name": "Agency mortgage bonds"
+    },
+    {
+     "aoci_impact": -63542278.07,
+     "carry_12m": 31861296.15,
+     "delta_mv": -96844439.43,
+     "delta_mv_pct": -9.634429774,
+     "htm_unrecognized": -33302161.36,
+     "id": "agency_debt",
+     "name": "Agency debt"
+    },
+    {
+     "aoci_impact": -58795497.58,
+     "carry_12m": 33409264.7,
+     "delta_mv": -60868544.16,
+     "delta_mv_pct": -6.024554605,
+     "htm_unrecognized": -2073046.581,
+     "id": "ig_corporates",
+     "name": "IG corporates (proxy)"
+    }
+   ],
+   "description": "Every Treasury par yield rises by 2 percentage points at once.",
+   "floor_bound": false,
+   "floored_tenor_years": [],
+   "id": "parallel_up_200",
+   "name": "+200 bp parallel",
+   "shock_bp_by_tenor": [
+    {
+     "shock_bp": 200.0,
+     "tenor_years": 0.08333333333
+    },
+    {
+     "shock_bp": 200.0,
+     "tenor_years": 0.25
+    },
+    {
+     "shock_bp": 200.0,
+     "tenor_years": 0.5
+    },
+    {
+     "shock_bp": 200.0,
+     "tenor_years": 1.0
+    },
+    {
+     "shock_bp": 200.0,
+     "tenor_years": 2.0
+    },
+    {
+     "shock_bp": 200.0,
+     "tenor_years": 3.0
+    },
+    {
+     "shock_bp": 200.0,
+     "tenor_years": 5.0
+    },
+    {
+     "shock_bp": 200.0,
+     "tenor_years": 7.0
+    },
+    {
+     "shock_bp": 200.0,
+     "tenor_years": 10.0
+    },
+    {
+     "shock_bp": 200.0,
+     "tenor_years": 20.0
+    },
+    {
+     "shock_bp": 200.0,
+     "tenor_years": 30.0
+    }
+   ],
+   "shocked_curve": [
+    {
+     "discount_factor": 0.9949423763,
+     "par_yield": 6.1,
+     "tenor_years": 0.08333333333,
+     "zero_rate": 6.084548176
+    },
+    {
+     "discount_factor": 0.9843973028,
+     "par_yield": 6.34,
+     "tenor_years": 0.25,
+     "zero_rate": 6.290280185
+    },
+    {
+     "discount_factor": 0.9688983626,
+     "par_yield": 6.42,
+     "tenor_years": 0.5,
+     "zero_rate": 6.319112318
+    },
+    {
+     "discount_factor": 0.9369174951,
+     "par_yield": 6.62,
+     "tenor_years": 1.0,
+     "zero_rate": 6.51600528
+    },
+    {
+     "discount_factor": 0.8741429367,
+     "par_yield": 6.83,
+     "tenor_years": 2.0,
+     "zero_rate": 6.725568681
+    },
+    {
+     "discount_factor": 0.8163444881,
+     "par_yield": 6.87,
+     "tenor_years": 3.0,
+     "zero_rate": 6.763961546
+    },
+    {
+     "discount_factor": 0.71086962,
+     "par_yield": 6.93,
+     "tenor_years": 5.0,
+     "zero_rate": 6.825324832
+    },
+    {
+     "discount_factor": 0.6162783734,
+     "par_yield": 7.01,
+     "tenor_years": 7.0,
+     "zero_rate": 6.915093039
+    },
+    {
+     "discount_factor": 0.4942183763,
+     "par_yield": 7.12,
+     "tenor_years": 10.0,
+     "zero_rate": 7.047778022
+    },
+    {
+     "discount_factor": 0.2164882616,
+     "par_yield": 7.51,
+     "tenor_years": 20.0,
+     "zero_rate": 7.65109476
+    },
+    {
+     "discount_factor": 0.107846461,
+     "par_yield": 7.46,
+     "tenor_years": 30.0,
+     "zero_rate": 7.423489069
+    }
+   ],
+   "total": {
+    "aoci_impact": -443509293.2,
+    "carry_12m": 298334376.5,
+    "delta_mv": -710449406.2,
+    "delta_mv_pct": -8.214585984,
+    "htm_unrecognized": -266940113.0
+   }
+  },
+  {
+   "by_class": [
+    {
+     "aoci_impact": 494667284.2,
+     "carry_12m": 211287409.1,
+     "delta_mv": 494667284.2,
+     "delta_mv_pct": 8.559699345,
+     "htm_unrecognized": 0.0,
+     "id": "AFS",
+     "name": "Available-for-sale"
+    },
+    {
+     "aoci_impact": 0.0,
+     "carry_12m": 83905634.62,
+     "delta_mv": 325137095.1,
+     "delta_mv_pct": 11.33037112,
+     "htm_unrecognized": 325137095.1,
+     "id": "HTM",
+     "name": "Held-to-maturity"
+    }
+   ],
+   "by_sector": [
+    {
+     "aoci_impact": 163750323.7,
+     "carry_12m": 90448628.37,
+     "delta_mv": 182668424.4,
+     "delta_mv_pct": 6.066957681,
+     "htm_unrecognized": 18918100.7,
+     "id": "treasuries",
+     "name": "Treasuries"
+    },
+    {
+     "aoci_impact": 192893655.9,
+     "carry_12m": 139473854.5,
+     "delta_mv": 459133798.7,
+     "delta_mv_pct": 12.67545479,
+     "htm_unrecognized": 266240142.8,
+     "id": "agency_mbs",
+     "name": "Agency mortgage bonds"
+    },
+    {
+     "aoci_impact": 73293360.61,
+     "carry_12m": 31861296.15,
+     "delta_mv": 111050867.0,
+     "delta_mv_pct": 11.04773579,
+     "htm_unrecognized": 37757506.38,
+     "id": "agency_debt",
+     "name": "Agency debt"
+    },
+    {
+     "aoci_impact": 64729943.9,
+     "carry_12m": 33409264.7,
+     "delta_mv": 66951289.06,
+     "delta_mv_pct": 6.62660332,
+     "htm_unrecognized": 2221345.161,
+     "id": "ig_corporates",
+     "name": "IG corporates (proxy)"
+    }
+   ],
+   "description": "Every Treasury par yield falls by 2 percentage points at once.",
+   "floor_bound": false,
+   "floored_tenor_years": [],
+   "id": "parallel_down_200",
+   "name": "-200 bp parallel",
+   "shock_bp_by_tenor": [
+    {
+     "shock_bp": -200.0,
+     "tenor_years": 0.08333333333
+    },
+    {
+     "shock_bp": -200.0,
+     "tenor_years": 0.25
+    },
+    {
+     "shock_bp": -200.0,
+     "tenor_years": 0.5
+    },
+    {
+     "shock_bp": -200.0,
+     "tenor_years": 1.0
+    },
+    {
+     "shock_bp": -200.0,
+     "tenor_years": 2.0
+    },
+    {
+     "shock_bp": -200.0,
+     "tenor_years": 3.0
+    },
+    {
+     "shock_bp": -200.0,
+     "tenor_years": 5.0
+    },
+    {
+     "shock_bp": -200.0,
+     "tenor_years": 7.0
+    },
+    {
+     "shock_bp": -200.0,
+     "tenor_years": 10.0
+    },
+    {
+     "shock_bp": -200.0,
+     "tenor_years": 20.0
+    },
+    {
+     "shock_bp": -200.0,
+     "tenor_years": 30.0
+    }
+   ],
+   "shocked_curve": [
+    {
+     "discount_factor": 0.9982530571,
+     "par_yield": 2.1,
+     "tenor_years": 0.08333333333,
+     "zero_rate": 2.098164641
+    },
+    {
+     "discount_factor": 0.9941840235,
+     "par_yield": 2.34,
+     "tenor_years": 0.25,
+     "zero_rate": 2.333182077
+    },
+    {
+     "discount_factor": 0.9880446596,
+     "par_yield": 2.42,
+     "tenor_years": 0.5,
+     "zero_rate": 2.405476043
+    },
+    {
+     "discount_factor": 0.9742933718,
+     "par_yield": 2.62,
+     "tenor_years": 1.0,
+     "zero_rate": 2.604281762
+    },
+    {
+     "discount_factor": 0.9452708421,
+     "par_yield": 2.83,
+     "tenor_years": 2.0,
+     "zero_rate": 2.814189359
+    },
+    {
+     "discount_factor": 0.9179560841,
+     "par_yield": 2.87,
+     "tenor_years": 3.0,
+     "zero_rate": 2.853524271
+    },
+    {
+     "discount_factor": 0.864414469,
+     "par_yield": 2.93,
+     "tenor_years": 5.0,
+     "zero_rate": 2.914058314
+    },
+    {
+     "discount_factor": 0.8106987639,
+     "par_yield": 3.01,
+     "tenor_years": 7.0,
+     "zero_rate": 2.997981881
+    },
+    {
+     "discount_factor": 0.7322040596,
+     "par_yield": 3.12,
+     "tenor_years": 10.0,
+     "zero_rate": 3.116960339
+    },
+    {
+     "discount_factor": 0.4879616973,
+     "par_yield": 3.51,
+     "tenor_years": 20.0,
+     "zero_rate": 3.587591827
+    },
+    {
+     "discount_factor": 0.3525505899,
+     "par_yield": 3.46,
+     "tenor_years": 30.0,
+     "zero_rate": 3.475203832
+    }
+   ],
+   "total": {
+    "aoci_impact": 494667284.2,
+    "carry_12m": 295193043.7,
+    "delta_mv": 819804379.2,
+    "delta_mv_pct": 9.479005125,
+    "htm_unrecognized": 325137095.1
+   }
+  },
+  {
+   "by_class": [
+    {
+     "aoci_impact": -138772780.8,
+     "carry_12m": 214420935.9,
+     "delta_mv": -138772780.8,
+     "delta_mv_pct": -2.401317652,
+     "htm_unrecognized": 0.0,
+     "id": "AFS",
+     "name": "Available-for-sale"
+    },
+    {
+     "aoci_impact": 0.0,
+     "carry_12m": 83909135.62,
+     "delta_mv": -94370767.84,
+     "delta_mv_pct": -3.288630669,
+     "htm_unrecognized": -94370767.84,
+     "id": "HTM",
+     "name": "Held-to-maturity"
+    }
+   ],
+   "by_sector": [
+    {
+     "aoci_impact": -35697498.15,
+     "carry_12m": 90448628.37,
+     "delta_mv": -38921461.76,
+     "delta_mv_pct": -1.292696656,
+     "htm_unrecognized": -3223963.616,
+     "id": "treasuries",
+     "name": "Treasuries"
+    },
+    {
+     "aoci_impact": -68763932.74,
+     "carry_12m": 142610882.3,
+     "delta_mv": -149953769.2,
+     "delta_mv_pct": -4.139822045,
+     "htm_unrecognized": -81189836.42,
+     "id": "agency_mbs",
+     "name": "Agency mortgage bonds"
+    },
+    {
+     "aoci_impact": -20435348.7,
+     "carry_12m": 31861296.15,
+     "delta_mv": -30024601.72,
+     "delta_mv_pct": -2.98695432,
+     "htm_unrecognized": -9589253.019,
+     "id": "agency_debt",
+     "name": "Agency debt"
+    },
+    {
+     "aoci_impact": -13876001.26,
+     "carry_12m": 33409264.7,
+     "delta_mv": -14243716.04,
+     "delta_mv_pct": -1.409792961,
+     "htm_unrecognized": -367714.7844,
+     "id": "ig_corporates",
+     "name": "IG corporates (proxy)"
+    }
+   ],
+   "description": "Rates rise, long rates most: +25 bp up to 2 years, +50 at 5, +75 at 10, +100 at 30, straight lines in between.",
+   "floor_bound": false,
+   "floored_tenor_years": [],
+   "id": "bear_steepener",
+   "name": "Bear steepener",
+   "shock_bp_by_tenor": [
+    {
+     "shock_bp": 25.0,
+     "tenor_years": 0.08333333333
+    },
+    {
+     "shock_bp": 25.0,
+     "tenor_years": 0.25
+    },
+    {
+     "shock_bp": 25.0,
+     "tenor_years": 0.5
+    },
+    {
+     "shock_bp": 25.0,
+     "tenor_years": 1.0
+    },
+    {
+     "shock_bp": 25.0,
+     "tenor_years": 2.0
+    },
+    {
+     "shock_bp": 33.33333333,
+     "tenor_years": 3.0
+    },
+    {
+     "shock_bp": 50.0,
+     "tenor_years": 5.0
+    },
+    {
+     "shock_bp": 60.0,
+     "tenor_years": 7.0
+    },
+    {
+     "shock_bp": 75.0,
+     "tenor_years": 10.0
+    },
+    {
+     "shock_bp": 87.5,
+     "tenor_years": 20.0
+    },
+    {
+     "shock_bp": 100.0,
+     "tenor_years": 30.0
+    }
+   ],
+   "shocked_curve": [
+    {
+     "discount_factor": 0.9963880932,
+     "par_yield": 4.35,
+     "tenor_years": 0.08333333333,
+     "zero_rate": 4.342134627
+    },
+    {
+     "discount_factor": 0.9886551818,
+     "par_yield": 4.59,
+     "tenor_years": 0.25,
+     "zero_rate": 4.563864621
+    },
+    {
+     "discount_factor": 0.977182782,
+     "par_yield": 4.67,
+     "tenor_years": 0.5,
+     "zero_rate": 4.616311889
+    },
+    {
+     "discount_factor": 0.9530000481,
+     "par_yield": 4.87,
+     "tenor_years": 1.0,
+     "zero_rate": 4.814032487
+    },
+    {
+     "discount_factor": 0.904408018,
+     "par_yield": 5.08,
+     "tenor_years": 2.0,
+     "zero_rate": 5.023733652
+    },
+    {
+     "discount_factor": 0.8568836891,
+     "par_yield": 5.203333333,
+     "tenor_years": 3.0,
+     "zero_rate": 5.148436276
+    },
+    {
+     "discount_factor": 0.7639265351,
+     "par_yield": 5.43,
+     "tenor_years": 5.0,
+     "zero_rate": 5.385673053
+    },
+    {
+     "discount_factor": 0.6765585007,
+     "par_yield": 5.61,
+     "tenor_years": 7.0,
+     "zero_rate": 5.581947994
+    },
+    {
+     "discount_factor": 0.5550873018,
+     "par_yield": 5.87,
+     "tenor_years": 10.0,
+     "zero_rate": 5.886298771
+    },
+    {
+     "discount_factor": 0.2664874659,
+     "par_yield": 6.385,
+     "tenor_years": 20.0,
+     "zero_rate": 6.612140344
+    },
+    {
+     "discount_factor": 0.1349636506,
+     "par_yield": 6.46,
+     "tenor_years": 30.0,
+     "zero_rate": 6.675832638
+    }
+   ],
+   "total": {
+    "aoci_impact": -138772780.8,
+    "carry_12m": 298330071.5,
+    "delta_mv": -233143548.7,
+    "delta_mv_pct": -2.695727114,
+    "htm_unrecognized": -94370767.84
+   }
+  },
+  {
+   "by_class": [
+    {
+     "aoci_impact": 146165096.8,
+     "carry_12m": 214078624.7,
+     "delta_mv": 146165096.8,
+     "delta_mv_pct": 2.529233938,
+     "htm_unrecognized": 0.0,
+     "id": "AFS",
+     "name": "Available-for-sale"
+    },
+    {
+     "aoci_impact": 0.0,
+     "carry_12m": 83909054.12,
+     "delta_mv": 101691226.5,
+     "delta_mv_pct": 3.543733871,
+     "htm_unrecognized": 101691226.5,
+     "id": "HTM",
+     "name": "Held-to-maturity"
+    }
+   ],
+   "by_sector": [
+    {
+     "aoci_impact": 37925281.13,
+     "carry_12m": 90448628.37,
+     "delta_mv": 41186290.34,
+     "delta_mv_pct": 1.367918299,
+     "htm_unrecognized": 3261009.201,
+     "id": "treasuries",
+     "name": "Treasuries"
+    },
+    {
+     "aoci_impact": 72855534.28,
+     "carry_12m": 142268489.6,
+     "delta_mv": 161025126.8,
+     "delta_mv_pct": 4.445472584,
+     "htm_unrecognized": 88169592.5,
+     "id": "agency_mbs",
+     "name": "Agency mortgage bonds"
+    },
+    {
+     "aoci_impact": 21221073.61,
+     "carry_12m": 31861296.15,
+     "delta_mv": 31109757.75,
+     "delta_mv_pct": 3.094909507,
+     "htm_unrecognized": 9888684.146,
+     "id": "agency_debt",
+     "name": "Agency debt"
+    },
+    {
+     "aoci_impact": 14163207.74,
+     "carry_12m": 33409264.7,
+     "delta_mv": 14535148.43,
+     "delta_mv_pct": 1.438637915,
+     "htm_unrecognized": 371940.6985,
+     "id": "ig_corporates",
+     "name": "IG corporates (proxy)"
+    }
+   ],
+   "description": "Rates fall, long rates most: -25 bp up to 2 years, -50 at 5, -75 at 10, -100 at 30, straight lines in between.",
+   "floor_bound": false,
+   "floored_tenor_years": [],
+   "id": "bull_flattener",
+   "name": "Bull flattener",
+   "shock_bp_by_tenor": [
+    {
+     "shock_bp": -25.0,
+     "tenor_years": 0.08333333333
+    },
+    {
+     "shock_bp": -25.0,
+     "tenor_years": 0.25
+    },
+    {
+     "shock_bp": -25.0,
+     "tenor_years": 0.5
+    },
+    {
+     "shock_bp": -25.0,
+     "tenor_years": 1.0
+    },
+    {
+     "shock_bp": -25.0,
+     "tenor_years": 2.0
+    },
+    {
+     "shock_bp": -33.33333333,
+     "tenor_years": 3.0
+    },
+    {
+     "shock_bp": -50.0,
+     "tenor_years": 5.0
+    },
+    {
+     "shock_bp": -60.0,
+     "tenor_years": 7.0
+    },
+    {
+     "shock_bp": -75.0,
+     "tenor_years": 10.0
+    },
+    {
+     "shock_bp": -87.5,
+     "tenor_years": 20.0
+    },
+    {
+     "shock_bp": -100.0,
+     "tenor_years": 30.0
+    }
+   ],
+   "shocked_curve": [
+    {
+     "discount_factor": 0.9968019272,
+     "par_yield": 3.85,
+     "tenor_years": 0.08333333333,
+     "zero_rate": 3.843837136
+    },
+    {
+     "discount_factor": 0.9898784924,
+     "par_yield": 4.09,
+     "tenor_years": 0.25,
+     "zero_rate": 4.069231328
+    },
+    {
+     "discount_factor": 0.9795758437,
+     "par_yield": 4.17,
+     "tenor_years": 0.5,
+     "zero_rate": 4.12712272
+    },
+    {
+     "discount_factor": 0.9576711531,
+     "par_yield": 4.37,
+     "tenor_years": 1.0,
+     "zero_rate": 4.325082391
+    },
+    {
+     "discount_factor": 0.9132948255,
+     "par_yield": 4.58,
+     "tenor_years": 2.0,
+     "zero_rate": 4.534826551
+    },
+    {
+     "discount_factor": 0.8740254351,
+     "par_yield": 4.536666667,
+     "tenor_years": 3.0,
+     "zero_rate": 4.488193392
+    },
+    {
+     "discount_factor": 0.8035202264,
+     "par_yield": 4.43,
+     "tenor_years": 5.0,
+     "zero_rate": 4.375058425
+    },
+    {
+     "discount_factor": 0.737234369,
+     "par_yield": 4.41,
+     "tenor_years": 7.0,
+     "zero_rate": 4.354991904
+    },
+    {
+     "discount_factor": 0.6497902138,
+     "par_yield": 4.37,
+     "tenor_years": 10.0,
+     "zero_rate": 4.311057162
+    },
+    {
+     "discount_factor": 0.3933274982,
+     "par_yield": 4.635,
+     "tenor_years": 20.0,
+     "zero_rate": 4.665563427
+    },
+    {
+     "discount_factor": 0.2717269494,
+     "par_yield": 4.46,
+     "tenor_years": 30.0,
+     "zero_rate": 4.343191931
+    }
+   ],
+   "total": {
+    "aoci_impact": 146165096.8,
+    "carry_12m": 297987678.9,
+    "delta_mv": 247856323.3,
+    "delta_mv_pct": 2.865843875,
+    "htm_unrecognized": 101691226.5
+   }
+  },
+  {
+   "by_class": [
+    {
+     "aoci_impact": -589322159.1,
+     "carry_12m": 214425308.6,
+     "delta_mv": -589322159.1,
+     "delta_mv_pct": -10.19760283,
+     "htm_unrecognized": 0.0,
+     "id": "AFS",
+     "name": "Available-for-sale"
+    },
+    {
+     "aoci_impact": 0.0,
+     "carry_12m": 83909136.53,
+     "delta_mv": -333818227.1,
+     "delta_mv_pct": -11.63289104,
+     "htm_unrecognized": -333818227.1,
+     "id": "HTM",
+     "name": "Held-to-maturity"
+    }
+   ],
+   "by_sector": [
+    {
+     "aoci_impact": -212418110.7,
+     "carry_12m": 90448628.37,
+     "delta_mv": -240823550.8,
+     "delta_mv_pct": -7.998461123,
+     "htm_unrecognized": -28405440.06,
+     "id": "treasuries",
+     "name": "Treasuries"
+    },
+    {
+     "aoci_impact": -213418870.2,
+     "carry_12m": 142615255.9,
+     "delta_mv": -472323127.3,
+     "delta_mv_pct": -13.03957684,
+     "htm_unrecognized": -258904257.0,
+     "id": "agency_mbs",
+     "name": "Agency mortgage bonds"
+    },
+    {
+     "aoci_impact": -79156545.43,
+     "carry_12m": 31861296.15,
+     "delta_mv": -122372741.7,
+     "delta_mv_pct": -12.17407621,
+     "htm_unrecognized": -43216196.31,
+     "id": "agency_debt",
+     "name": "Agency debt"
+    },
+    {
+     "aoci_impact": -84328632.72,
+     "carry_12m": 33409264.7,
+     "delta_mv": -87620966.39,
+     "delta_mv_pct": -8.672415348,
+     "htm_unrecognized": -3292333.673,
+     "id": "ig_corporates",
+     "name": "IG corporates (proxy)"
+    }
+   ],
+   "description": "Each Treasury par yield moves by its actual change from 31 Dec 2021 to 30 Dec 2022 (FRED), applied to today's curve.",
+   "floor_bound": false,
+   "floored_tenor_years": [],
+   "id": "replay_2022",
+   "name": "2022 replay",
+   "shock_bp_by_tenor": [
+    {
+     "shock_bp": 406.0,
+     "tenor_years": 0.08333333333
+    },
+    {
+     "shock_bp": 436.0,
+     "tenor_years": 0.25
+    },
+    {
+     "shock_bp": 457.0,
+     "tenor_years": 0.5
+    },
+    {
+     "shock_bp": 434.0,
+     "tenor_years": 1.0
+    },
+    {
+     "shock_bp": 368.0,
+     "tenor_years": 2.0
+    },
+    {
+     "shock_bp": 325.0,
+     "tenor_years": 3.0
+    },
+    {
+     "shock_bp": 273.0,
+     "tenor_years": 5.0
+    },
+    {
+     "shock_bp": 252.0,
+     "tenor_years": 7.0
+    },
+    {
+     "shock_bp": 236.0,
+     "tenor_years": 10.0
+    },
+    {
+     "shock_bp": 220.0,
+     "tenor_years": 20.0
+    },
+    {
+     "shock_bp": 207.0,
+     "tenor_years": 30.0
+    }
+   ],
+   "shocked_curve": [
+    {
+     "discount_factor": 0.9932459277,
+     "par_yield": 8.16,
+     "tenor_years": 0.08333333333,
+     "zero_rate": 8.132381135
+    },
+    {
+     "discount_factor": 0.9787129924,
+     "par_yield": 8.7,
+     "tenor_years": 0.25,
+     "zero_rate": 8.606737385
+    },
+    {
+     "discount_factor": 0.9569835877,
+     "par_yield": 8.99,
+     "tenor_years": 0.5,
+     "zero_rate": 8.793807476
+    },
+    {
+     "discount_factor": 0.9160864618,
+     "par_yield": 8.96,
+     "tenor_years": 1.0,
+     "zero_rate": 8.764452817
+    },
+    {
+     "discount_factor": 0.8468332614,
+     "par_yield": 8.51,
+     "tenor_years": 2.0,
+     "zero_rate": 8.312573077
+    },
+    {
+     "discount_factor": 0.7886851372,
+     "par_yield": 8.12,
+     "tenor_years": 3.0,
+     "zero_rate": 7.912936779
+    },
+    {
+     "discount_factor": 0.6896418486,
+     "par_yield": 7.66,
+     "tenor_years": 5.0,
+     "zero_rate": 7.431657522
+    },
+    {
+     "discount_factor": 0.5997009246,
+     "par_yield": 7.53,
+     "tenor_years": 7.0,
+     "zero_rate": 7.304631528
+    },
+    {
+     "discount_factor": 0.4834765014,
+     "par_yield": 7.48,
+     "tenor_years": 10.0,
+     "zero_rate": 7.267525663
+    },
+    {
+     "discount_factor": 0.2153724917,
+     "par_yield": 7.71,
+     "tenor_years": 20.0,
+     "zero_rate": 7.676931152
+    },
+    {
+     "discount_factor": 0.1157269149,
+     "par_yield": 7.53,
+     "tenor_years": 30.0,
+     "zero_rate": 7.188406817
+    }
+   ],
+   "total": {
+    "aoci_impact": -589322159.1,
+    "carry_12m": 298334445.1,
+    "delta_mv": -923140386.2,
+    "delta_mv_pct": -10.67382985,
+    "htm_unrecognized": -333818227.1
+   }
+  }
+ ]
+}

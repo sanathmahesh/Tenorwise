@@ -14,3 +14,19 @@ pre {
   padding: 8px;
   border: 1px solid #8884;
 }
+table {
+  border-collapse: collapse;
+  margin: 8px 0 16px;
+  font-size: 13px;
+}
+th, td {
+  border: 1px solid #8884;
+  padding: 2px 6px;
+  text-align: right;
+}
+th:first-child, td:first-child {
+  text-align: left;
+}
+section {
+  overflow-x: auto;
+}

@@ -1082,3 +1082,104 @@ AOCI net of hedges ($M, pre-tax):
 6. **How sensitive is the hedge cost to the swap spread assumption?**
    Hardly at all. At ±25 bp it moves carry given up by about $0.3M, because
    both legs shift together.
+
+---
+
+## Phase 7. Snapshot, API, placeholder interface
+
+### Concepts
+
+This phase adds no finance, only plumbing. Everything the site shows is
+computed once, when the site is built, from that day's FRED data. The live
+server only recomputes what depends on user input: a custom rate shock.
+
+### How the code implements it
+
+- [scripts/build_snapshot.py](scripts/build_snapshot.py) and
+  [tenorwise/snapshot/build.py](tenorwise/snapshot/build.py) run the whole
+  engine once: curve, portfolio, the stylized mortgage profile, eight
+  scenarios (base + seven presets), four hedge strategies, the
+  strategy-by-scenario grid, the method catalogue and the evidence. It writes
+  eight contract files to `web/public/data/v1/` (served as static files) and
+  the same files plus `inputs.json` to `data/snapshot/v1/` (read by the API).
+  - Live FRED is the default and needs `FRED_API_KEY`. Any FRED failure or
+    stale data fails the build.
+  - `--fixture` builds offline from the pinned data.
+  - `--pin` rewrites `data/fixtures/snapshot_v1/`, the pinned snapshot that
+    tests and evals use.
+- [tenorwise/snapshot/models.py](tenorwise/snapshot/models.py): the contract
+  as pydantic models. Unknown fields are rejected, so a typo fails a test.
+- [tenorwise/snapshot/convert.py](tenorwise/snapshot/convert.py): the only
+  place units change: $ millions to US dollars, decimals to percent. The
+  build and the API both use it.
+- [tenorwise/snapshot/serialize.py](tenorwise/snapshot/serialize.py): sorted
+  keys, every float rounded to 10 significant figures, no negative zero, so
+  two builds from the same data are byte-identical.
+- [tenorwise/api/scenario.py](tenorwise/api/scenario.py): `POST /api/scenario`
+  reads `inputs.json`, rebuilds the market and runs the custom shock. It uses
+  the same engine and converter, so its answer exactly equals the engine's
+  (tested).
+- [tenorwise/api/openapi.py](tenorwise/api/openapi.py) and
+  [docs/api/openapi.json](docs/api/openapi.json): one OpenAPI document for the
+  API and the snapshot files. `npm run gen:types --prefix web` generates
+  [web/src/api/schema.d.ts](web/src/api/schema.d.ts) from it, so the frontend
+  is type-checked against the contract.
+- [web/src/](web/src/): placeholder pages (Curve, Portfolio, Mortgage bonds
+  (stylized), Scenarios with a custom-shift form, Hedging), each showing the
+  market data date, with the approved FRED footer.
+
+### Results
+
+- **Fast.** The full snapshot builds in under a second from the pinned
+  fixtures.
+- **Reproducible.** Two builds from the same fixture are byte-identical, and
+  match the committed pinned snapshot.
+- **Safe.** The built web bundle contains no key, secret variable name or
+  key-like string. The scan was checked by planting fake keys, which it
+  caught.
+- **Runs locally.** The page, the eight files, health, and a custom +150 bp
+  scenario through the dev proxy all work.
+
+### Why this design, and what was rejected
+
+- **Static snapshot, small function.** The pages are static files, so the
+  site works even if the Python function is cold or failing. Rejected:
+  computing every page on request, which is slower, costs more and has more
+  ways to fail.
+- **`inputs.json` holds full-precision engine inputs**, including the sized
+  hedge notionals. Recomputing from the rounded public files would make the
+  API drift from the snapshot by rounding.
+- **One OpenAPI document for routes and files.** FastAPI only describes route
+  models, so the snapshot models are merged in. The frontend gets types for
+  everything it reads from one generator.
+- **The type generator runs through `npx` with its own pinned TypeScript 5.**
+  `openapi-typescript` 7.13.0 declares TypeScript 5 as a peer, while the app
+  uses TypeScript 6. Rejected: forcing the install with `--legacy-peer-deps`.
+
+### What would break it
+
+- Renaming a contract field without regenerating the OpenAPI document and
+  types: the drift test fails.
+- Deploying without `FRED_API_KEY` set on Vercel: the build fails by design,
+  and the previous deployment stays live.
+- A browser cached on an old snapshot: the data date on every page shows
+  which day's data it is.
+
+### Interview questions
+
+1. **Why precompute everything at build time?**
+   The inputs change once a day and every visitor sees the same numbers.
+   Static files are fast and cheap, and still work if the Python function
+   fails. Only custom scenarios need computing on request.
+2. **How do you know the API and the static pages agree?**
+   Both use the same engine and the same converter. A test checks the API's
+   custom-scenario answer equals the engine's exactly, and that two builds
+   from the same data are byte-identical.
+3. **How do you stop the frontend drifting from the backend?**
+   The contract is a set of pydantic models. They are exported as one
+   OpenAPI document and turned into TypeScript types, and a test fails if the
+   committed document is out of date.
+4. **How do you know no key ends up in the browser bundle?**
+   The frontend reads no environment variables. A test builds the bundle and
+   scans it for secret names, configured secret values and key-like patterns,
+   and I checked the scan catches planted fake keys.

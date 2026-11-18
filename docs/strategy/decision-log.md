@@ -323,3 +323,51 @@ decision, newest at the bottom. Changes to PLAN.md are recorded here too.
 - **Phase:** 6
 - **Decision:** `ql.VanillaSwap` with a semiannual fixed leg, a quarterly floating leg on a 3-month index projected off the same curve, 30/360 throughout, no calendar, zero fixing days, and the spread via `ZeroSpreadedTermStructure`. The floating leg is then worth exactly 1 − DF(T), as in Tenorwise. Tolerances: 1e-10 for rate and value.
 - **Measured:** par rate within 1.6e-16 and values within 1.3e-15 on shocked curves (−200 to +200 bp) at spreads of 0 and 25 bp. Added to `docs/evidence/quantlib_report.json`.
+
+## D-050. Contract additions (no field renamed or removed)
+
+- **Phase:** 7
+- **Decision:** PLAN.md section 8's field names are kept exactly. Added fields, each marked "added" in `tenorwise/snapshot/models.py`:
+  - `data_date` in every file;
+  - `id` and `name` on every sector and class row;
+  - `stylized` and `proxy_for` on positions;
+  - `stylized`, `stylized_note`, `pool`, `mortgage_rate`, `prepayment_model`, `comparison_treasury_bond` and `profile[].eff_convexity` in `mbs.json`;
+  - `floor_bound` and `floored_tenor_years` on scenarios;
+  - `base_market_value` in `scenarios.json`;
+  - `swap_spread_bp`, `hedged_book`, `afs_dv01` and `strategies[].dv01_after` in `hedges.json`;
+  - `quantlib_report_generated_at` in `evidence.json`.
+
+  `scenarios.json` also gets a "base" (no shock) entry, and `hedges.json` its grid rows, so today's carry and hedge cost can be shown. Element shapes the plan left open: `shock_bp_by_tenor[]` is `{tenor_years, shock_bp}`; `fred_series[]` is `{id, title, use, observation_dates}`; `assumptions[]` is parsed from ASSUMPTIONS.md as `{id, text, where, effect, phase}`; `weight` is a percent of amortized cost.
+- **Why:** ground rules and the plan require the stylized labels, the floor flag and the swap spread to be visible. The rest makes rows identifiable and the data date available everywhere. Reported to the owner, who is designing against the contract.
+
+## D-051. Function-only `inputs.json` with full-precision engine inputs
+
+- **Phase:** 7
+- **Decision:** the build writes `inputs.json` to the function folder only, never to the web folder. It holds the par yields, the mortgage spread, the swap spread and the sized hedge swaps at full precision. `POST /api/scenario` rebuilds the market from it, so its answer equals the engine's exactly (tested).
+- **Alternative rejected:** rebuilding from the rounded public files. The answer would drift from the engine by rounding.
+
+## D-052. Deterministic serialization: 10 significant figures
+
+- **Phase:** 7
+- **Decision:** sorted keys, indent 1, every float rounded to 10 significant figures, negative zero normalized. `inputs.json` keeps full precision (still sorted and stable).
+
+## D-053. Pinned fixture snapshot
+
+- **Phase:** 7
+- **Decision:** `data/fixtures/snapshot_v1/` is built from the pinned fixtures with `build_time` = the Treasury fixture's fetch time and `git_sha` = "fixture". Tests and evals use it. A test fails if a fresh fixture build differs from it by a single byte.
+
+## D-054. One OpenAPI document; type generator run through npx with its own TypeScript 5
+
+- **Phase:** 7
+- **Decision:** `build_openapi()` merges the snapshot models into FastAPI's OpenAPI document (`docs/api/openapi.json`). `npm run gen:types` runs `npx -p typescript@5.9.3 -p openapi-typescript@7.13.0` to write `web/src/api/schema.d.ts`.
+- **Why:** `openapi-typescript` 7.13.0, the latest release, declares a peer dependency on TypeScript ^5, while the app uses TypeScript 6.0.3 from the Vite template. Rejected: `--legacy-peer-deps`, which would silence the conflict inside the project.
+
+## D-055. `/api/deploy-check` removed
+
+- **Phase:** 7
+- **Decision:** removed as planned in D-008. The import-isolation test now exercises `/api/health` and `/api/scenario` against the pinned snapshot. Phase 0's `tests/unit/test_build_snapshot.py` is superseded by `tests/unit/test_snapshot.py`.
+
+## D-056. The next deploy needs `FRED_API_KEY` on Vercel
+
+- **Phase:** 7
+- **Decision:** `scripts/vercel_build.sh` runs the live snapshot build, which fails without `FRED_API_KEY` (by design: a failed build leaves the previous deployment live). Setting the variable on Vercel is an outward-facing action, so it will be done only after asking, at the next deploy.

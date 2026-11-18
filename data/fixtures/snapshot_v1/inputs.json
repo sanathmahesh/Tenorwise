@@ -1,0 +1,91 @@
+{
+ "data_date": "2026-11-16",
+ "mortgage": {
+  "date": "2026-11-16",
+  "mortgage_rate": 0.07263,
+  "spread": 0.021429999999999998,
+  "ten_year_yield": 0.0512
+ },
+ "par_tenor_months": [
+  1,
+  3,
+  6,
+  12,
+  24,
+  36,
+  60,
+  84,
+  120,
+  240,
+  360
+ ],
+ "par_yields": [
+  0.040999999999999995,
+  0.0434,
+  0.044199999999999996,
+  0.0462,
+  0.0483,
+  0.0487,
+  0.0493,
+  0.0501,
+  0.0512,
+  0.055099999999999996,
+  0.0546
+ ],
+ "strategies": [
+  {
+   "id": "unhedged",
+   "name": "Unhedged",
+   "swaps": []
+  },
+  {
+   "id": "dv01_50",
+   "name": "50% DV01 hedge",
+   "swaps": [
+    {
+     "fixed_rate": 0.04930000000000002,
+     "notional_musd": 2743.237694551217,
+     "swap_spread": 0.0,
+     "tenor_months": 60
+    }
+   ]
+  },
+  {
+   "id": "dv01_full",
+   "name": "Full DV01 hedge",
+   "swaps": [
+    {
+     "fixed_rate": 0.04930000000000002,
+     "notional_musd": 5486.475389102434,
+     "swap_spread": 0.0,
+     "tenor_months": 60
+    }
+   ]
+  },
+  {
+   "id": "key_rate",
+   "name": "Key-rate-matched hedge",
+   "swaps": [
+    {
+     "fixed_rate": 0.04830000000000008,
+     "notional_musd": 2540.962200522802,
+     "swap_spread": 0.0,
+     "tenor_months": 24
+    },
+    {
+     "fixed_rate": 0.04930000000000002,
+     "notional_musd": 1893.0874647887874,
+     "swap_spread": 0.0,
+     "tenor_months": 60
+    },
+    {
+     "fixed_rate": 0.05120000000000002,
+     "notional_musd": 1409.4129967000301,
+     "swap_spread": 0.0,
+     "tenor_months": 120
+    }
+   ]
+  }
+ ],
+ "swap_spread": 0.0
+}
