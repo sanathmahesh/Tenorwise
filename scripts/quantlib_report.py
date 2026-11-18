@@ -20,11 +20,20 @@ import QuantLib as ql  # noqa: E402
 from tenorwise.curve.bootstrap import bootstrap  # noqa: E402
 from tenorwise.curve.fixture import PINNED_FIXTURE, fixture_par_curve  # noqa: E402
 from tests.benchmark.quantlib_bonds import TOLERANCES, bond_differences  # noqa: E402
+from tenorwise.curve.shocks import apply_shock, parallel_shock  # noqa: E402
+from tenorwise.instruments.swap import PayFixedSwap, par_swap_rate  # noqa: E402
+from tests.benchmark.quantlib_bonds import ql_curve_handle  # noqa: E402
 from tests.benchmark.quantlib_curve import quantlib_zero_rates  # noqa: E402
+from tests.benchmark.quantlib_swaps import TOLERANCES as SWAP_TOLERANCES  # noqa: E402
+from tests.benchmark.quantlib_swaps import quantlib_swap  # noqa: E402
+
 from tests.grids import BOND_GRID, COUPONS, MATURITY_MONTHS, SPREADS  # noqa: E402
 
 OUT = REPO_ROOT / "docs" / "evidence" / "quantlib_report.json"
 CURVE_TOLERANCE = 1e-10  # same as tests/benchmark/test_curve_quantlib.py
+SWAP_TENORS = (24, 60, 120)
+SWAP_SPREADS = (0.0, 0.0025)
+SWAP_SHOCKS_BP = (-200.0, -25.0, 50.0, 200.0)
 
 
 def main() -> int:
@@ -54,6 +63,26 @@ def main() -> int:
                 "tolerance": tolerance,
             }
         )
+
+    rate_diffs, value_diffs = [], []
+    handle = ql_curve_handle(curve)
+    for months in SWAP_TENORS:
+        for spread in SWAP_SPREADS:
+            ours = par_swap_rate(curve, months, spread)
+            theirs, _ = quantlib_swap(handle, months, ours, spread)
+            rate_diffs.append(abs(ours - theirs))
+            swap = PayFixedSwap.at_par(curve, months, notional=1.0, swap_spread=spread)
+            for bp in SWAP_SHOCKS_BP:
+                shocked = apply_shock(par, parallel_shock(bp)).curve
+                _, ql_value = quantlib_swap(ql_curve_handle(shocked), months, swap.fixed_rate, spread)
+                value_diffs.append(abs(swap.value(shocked) - ql_value))
+    for name, diffs, desc in (
+        ("swap_par_rate", rate_diffs, "Pay-fixed swap par rate (2/5/10y, spread 0 and 25 bp) vs QuantLib VanillaSwap"),
+        ("swap_value", value_diffs, "Par swap revalued on shocked curves (-200 to +200 bp) vs QuantLib VanillaSwap"),
+    ):
+        tolerance, unit = SWAP_TOLERANCES[name]
+        measures.append({"measure": name, "description": desc, "instruments": len(diffs),
+                         "max_abs_diff": max(diffs), "unit": unit, "tolerance": tolerance})
 
     report = {
         "generated_at": datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ"),

@@ -529,7 +529,7 @@ For each phase: write the listed tests first, implement, run the whole suite, up
   - the 50% hedge leaves half the AFS DV01 and the full hedge leaves about none;
   - the full DV01 hedge is near flat for +/-10 bp parallel shifts but leaves a residual loss in the bear steepener;
   - the key-rate hedge zeroes the 2y and 5y buckets and the 10y-plus-30y total, and its steepener residual is smaller than the full DV01 hedge's;
-  - at +/-200 bp the full hedge's residual has the sign implied by the AFS book's convexity;
+  - at +200 bp the full hedge's residual has the sign implied by the hedged book's convexity; at -200 bp it falls short of that convexity prediction because near-the-money mortgage pools prepay (reported); and with mortgage pools excluded from the AFS book, the residual at +/-200 bp has the sign implied by the AFS book's convexity on both sides (reworded 2026-11-17, decision log D-046);
   - loss avoided and carry given up reconcile to hedged minus unhedged;
   - the swap-spread sensitivity test.
 - I can run: the strategy-by-scenario matrix.
@@ -627,7 +627,7 @@ Update this table at the end of each phase.
 | 2. Bond analytics | Done | 2026-11-17 | d2bc167 |
 | 3. Agency mortgage bonds | Done | 2026-11-17 | 5b9f2ec |
 | 4. Portfolio | Done | 2026-11-17 | c786a5a, 257343a |
-| 5. Scenarios | Done; awaiting go-ahead | 2026-11-17 | fda2fdf |
+| 5. Scenarios | Done | 2026-11-17 | fda2fdf |
 | 6. Hedging | Not started | | |
 | 7. Snapshot, API, placeholder interface | Not started | | |
 | 8. AI analyst and verification | Not started | | |

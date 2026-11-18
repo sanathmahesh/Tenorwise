@@ -112,3 +112,25 @@ What Tenorwise cannot tell you, and why.
 - **The 2022 replay applies 2022's moves to today's curve.** Starting from
   5% rather than near zero, the same basis-point moves may not be plausible.
 
+## Hedging
+
+- **Leftover 10s-30s risk.** The key-rate hedge zeroes the 2-year and
+  5-year buckets and the 10-year plus 30-year *total*. It leaves −$301k per
+  bp at 10 years against +$301k at 30 years, so a move in the gap between 10-
+  and 30-year rates is unhedged.
+- **Static hedges.** Hedges are never rebalanced. In a −200 bp rally the
+  mortgage pools prepay, the AFS book's duration shortens, and the full DV01
+  hedge loses $13.1M where convexity alone predicts a $15.8M gain.
+- **Idealised hedge accounting.** Swaps are assumed perfectly effective.
+  Real hedge accounting has ineffectiveness and strict designation and
+  documentation rules.
+- **HTM is not hedged.** Under current US GAAP (ASC 815-20-25-43) HTM
+  interest-rate risk cannot be a hedged risk. FASB proposed changing this on
+  17 June 2026 (comments closed 17 August 2026). Whether it has since become
+  final is not confirmed here.
+- **No real swap curve.** Swaps are priced on the Treasury curve plus a
+  fixed spread (0 by default). There is no SOFR curve, no swap-spread risk,
+  and no collateral, margin, counterparty or transaction costs.
+- **Carry given up assumes the floating rate stays fixed** for 12 months at
+  the scenario's 3-month rate.
+

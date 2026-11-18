@@ -290,3 +290,36 @@ decision, newest at the bottom. Changes to PLAN.md are recorded here too.
 
 - **Phase:** 5
 - **Decision:** `data/fixtures/fred_treasury_par_replay_2022.json` stores the 11 series' raw responses for 24 Dec 2021 to 3 Jan 2022 and 23 Dec 2022 to 3 Jan 2023. The shock uses only the exact plan dates, and all 11 series have values on both. Measured shock: +406, +436, +457, +434, +368, +325, +273, +252, +236, +220, +207 bp (1M to 30Y). H.15 data, no copyright notice.
+
+## D-045. ASC 815 check: HTM interest-rate risk cannot be the hedged risk (current GAAP)
+
+- **Phase:** 6, checked 2026-11-17 before any hedging code, as PLAN.md section 4 requires
+- **Primary source:** FASB, *Accounting Standards Update No. 2017-12, Derivatives and Hedging (Topic 815)*, which reproduces Codification paragraph 815-20-25-43 (https://storage.fasb.org/ASU%202017-12.pdf, retrieved 2026-11-17, SHA-256 f2a20d94…8a2f). "Besides those hedged items and transactions that fail to meet the specified eligibility criteria, none of the following shall be designated as a hedged item or transaction in the respective hedges: … c. With respect to fair value hedges only: … 2. For a held-to-maturity debt security, the risk of changes in its fair value attributable to interest rate risk … d. With respect to cash flow hedges only: … 2. If variable cash flows of the forecasted transaction relate to a debt security that is classified as held-to-maturity under Topic 320, the risk of changes in its cash flows attributable to interest rate risk."
+- **Still current as of June 2026:** KPMG, "FASB proposes targeted improvements to hedge accounting" (https://kpmg.com/us/en/frv/reference-library/2026/fasb-proposes-targeted-improvements-to-hedge-accounting.html, read 2026-11-17). It says FASB's proposed ASU of 17 June 2026 "would permit an entity to hedge the interest rate risk of HTM debt securities in both fair value and cash flow hedges", with comments due 17 August 2026.
+- **Not confirmed:** whether that proposal has become final since August 2026. Searches found no final ASU, but fasb.org returned HTTP 403 to automated requests. The owner was asked to check.
+- **Decision:** PLAN.md section 7's design stands. Hedges are sized against the AFS book only, because AFS losses reach AOCI and HTM interest-rate risk cannot currently be designated as a hedged risk. If the proposal becomes final, HTM hedging could be added as a separate, owner-approved change. LIMITATIONS.md records the pending proposal.
+
+## D-046. Plan change: the ±200 bp full-hedge residual test
+
+- **Date:** 2026-11-17, approved by the owner (option A)
+- **Finding:** measured at ±25 bp, the AFS book's dollar convexity is +203,943 and the 5-year swap's is −124,762. The fully hedged book is therefore positively convex, predicting a residual of +15.8 at ±200 bp. At +200 bp the residual is +14.3, as predicted. At −200 bp it is −13.1: in a large rally the near-the-money AFS pools prepay, so the AFS book's duration shortens while the swap's does not, and the static hedge becomes too large. With mortgage pools removed from AFS, the residual is positive on both sides (+4.0, +2.6), which confirms the cause.
+- **Change:** PLAN.md Phase 6 replaces "at ±200 bp the full hedge's residual has the sign implied by the AFS book's convexity" with three tests: (1) at +200 bp the residual has the sign of the hedged book's convexity; (2) at −200 bp it falls short of that convexity prediction because of prepayments, which is reported; (3) a control in which, with mortgage pools excluded from AFS, the residual at ±200 bp has the sign of the AFS book's convexity on both sides.
+- **Alternative rejected:** (B) rebalancing hedges after large moves, a scope change because PLAN.md says hedges are never rebalanced.
+
+## D-047. Hedging grid definitions
+
+- **Phase:** 6
+- **Decision:** `securities_delta_mv` is the whole portfolio's change in value (AFS + HTM). `net_delta_mv` adds the swap gain or loss. `aoci_net` is the AFS change plus the swap gain or loss. `loss_avoided` is the swap gain or loss. `carry_given_up` is minus the swaps' 12-month carry, with the floating rate taken from the scenario's curve. `net_carry` is the securities' carry plus the swap carry. A "No shock" row is shown in the CLI to give today's carry cost.
+- **Why:** the plan's fields, with the one choice it leaves open (securities = whole book, not just AFS) made explicit. AOCI is the AFS-only view.
+
+## D-048. Swap risk computed per $1M and scaled linearly
+
+- **Phase:** 6
+- **Decision:** each hedge tenor's DV01 and key-rate DV01s come from a $1M par swap through the same bump engine as the bonds, then scale with notional, because swap value is linear in notional. The key-rate system is solved with `numpy.linalg.solve`.
+- **Measured:** bump-and-reprice swap DV01 matches the annuity formula within 1.2e-8 (2y), 5.0e-8 (5y) and 1.6e-7 (10y) relative, against a tolerance of 1e-6 fixed in advance.
+
+## D-049. QuantLib swap benchmark
+
+- **Phase:** 6
+- **Decision:** `ql.VanillaSwap` with a semiannual fixed leg, a quarterly floating leg on a 3-month index projected off the same curve, 30/360 throughout, no calendar, zero fixing days, and the spread via `ZeroSpreadedTermStructure`. The floating leg is then worth exactly 1 − DF(T), as in Tenorwise. Tolerances: 1e-10 for rate and value.
+- **Measured:** par rate within 1.6e-16 and values within 1.3e-15 on shocked curves (−200 to +200 bp) at spreads of 0 and 25 bp. Added to `docs/evidence/quantlib_report.json`.

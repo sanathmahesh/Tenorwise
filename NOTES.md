@@ -935,3 +935,150 @@ Base market value $8,648.6M; base 12-month carry $298.3M.
 6. **Is ±1 bp consistent with DV01?**
    Yes, within 0.045%, because scenarios and DV01 use the same shock
    mechanism and full repricing.
+
+---
+
+## Phase 6. Hedging
+
+### Finance concepts, in plain English
+
+- **Interest rate swap.** Two parties exchange interest payments on a
+  notional amount that never changes hands. In a **pay-fixed swap** the bank
+  pays a fixed rate and receives a floating rate that resets every 3 months.
+  If rates rise, the floating payments it receives rise while its fixed
+  payments don't, so the swap gains value. That gain offsets losses on
+  fixed-rate bonds, which is why banks use swaps to hedge.
+- **Par swap rate.** The fixed rate that makes a new swap worth exactly zero.
+  With the swap curve equal to the Treasury curve, it equals the Treasury par
+  yield for that maturity, because the swap's fixed leg is just a par bond.
+- **DV01 hedge.** Choose a swap notional so the swap's DV01 cancels the
+  bonds' DV01. The hedged book then barely moves for small parallel shifts.
+- **Key-rate hedge.** Match the DV01 bucket by bucket (2, 5 and 10+30
+  years) with three swaps, so changes in the curve's *shape* are also
+  covered.
+- **Hedge accounting (fair-value hedge).** Under US GAAP (ASC 815) a bank
+  can designate a swap as hedging an AFS security's interest-rate risk, so
+  the swap's gain or loss offsets the bond's in the accounts. Tenorwise
+  assumes the hedge is perfectly effective: AOCI net of hedges = AFS change
+  + swap gain or loss. **HTM securities cannot be hedged this way** for
+  interest-rate risk (ASC 815-20-25-43, confirmed from FASB's ASU 2017-12),
+  which is why hedges are sized against AFS only.
+- **Loss avoided and carry given up.** The hedge's benefit is the swap's
+  gain in a bad scenario. Its cost is carry: the bank pays the 5-year fixed
+  rate (4.93%) and receives the 3-month rate (4.34%), so it gives up about
+  0.6% a year on the notional while rates stay put.
+- **Rebalancing.** A hedge sized today goes stale as the book's sensitivity
+  changes. Mortgage pools are the classic example: in a rally they prepay,
+  their duration shortens, and a fixed hedge becomes too big.
+
+### How the code implements it
+
+- [tenorwise/instruments/swap.py](tenorwise/instruments/swap.py): `PayFixedSwap`,
+  with the par rate, value, annuity and carry formulas exactly as in PLAN.md
+  section 7. The swap curve is the Treasury zero curve plus a flat spread
+  (default 0).
+- [tenorwise/hedging/strategies.py](tenorwise/hedging/strategies.py): the four
+  strategies. A $1M swap's risk comes from the same bump engine, then scales
+  linearly. The key-rate hedge solves a 3×3 linear system (`numpy.linalg.solve`)
+  with rows for the 2y, 5y and 10y+30y buckets.
+- [tenorwise/hedging/grid.py](tenorwise/hedging/grid.py): each strategy in
+  each scenario. It reports securities change, swap P&L, net change, AOCI net
+  of hedges, loss avoided, carry given up and net carry.
+- [tenorwise/analytics/risk.py](tenorwise/analytics/risk.py): `dollar_convexity`
+  (the second difference of value, not divided by value), which adds across
+  bonds and swaps.
+- `uv run python -m tenorwise.hedging [--swap-spread-bp N]` prints the
+  strategies and the strategy-by-scenario matrix.
+
+### Results on the pinned data (2026-11-16), computed by the engine
+
+AFS book: market value $5,779.0M, DV01 $2.41M per bp.
+
+| Strategy | Swaps | Carry given up today |
+|---|---|---|
+| 50% DV01 | 5y $2,743M @ 4.930% | $16.2M |
+| Full DV01 | 5y $5,486M @ 4.930% | $32.4M |
+| Key-rate | 2y $2,541M @ 4.830%; 5y $1,893M @ 4.930%; 10y $1,409M @ 5.120% | $34.6M |
+
+(Carry given up is per year; the unhedged book's carry is $298.3M.)
+
+AOCI net of hedges ($M, pre-tax):
+
+| Scenario | Unhedged | 50% | Full DV01 | Key-rate |
+|---|---|---|---|---|
+| +100 bp | −230.8 | −113.4 | +4.0 | +2.4 |
+| −100 bp | +248.0 | +124.3 | +0.7 | −1.1 |
+| +200 bp | −443.5 | −214.6 | +14.3 | +8.3 |
+| −200 bp | +494.7 | +240.8 | −13.1 | −20.8 |
+| Bear steepener | −138.8 | −79.1 | −19.5 | −5.5 |
+| Bull flattener | +146.2 | +85.3 | +24.5 | +7.4 |
+| 2022 replay | −589.3 | −285.9 | +17.5 | +18.1 |
+
+- **What the full DV01 hedge does.** It removes almost all of the parallel
+  risk, but leaves the bear steepener at −19.5. The key-rate hedge cuts that
+  to −5.5.
+- **The key-rate hedge leaves the long end mismatched.** Key-rate DV01 after
+  hedging is −301 / +301 $k per bp at 10 and 30 years. The 10-year swap
+  stands in for the 30-year bucket, so moves between those two maturities
+  are unhedged.
+- **The −200 bp residual is a loss of 13.1.** That is where the static hedge
+  is caught out by mortgage prepayments: the AFS book's duration shortens and
+  the swap is too big (D-046). Without the mortgage pools the residual is
+  +4.0 / +2.6.
+- **Verification against independent references.** QuantLib agrees within
+  1.6e-16 on par rates and 1.3e-15 on values. Swap DV01 by bump-and-reprice
+  matches the annuity formula within 1.6e-7.
+- **The swap spread barely matters for carry.** Carry given up is $32.0M,
+  $32.4M and $32.7M at −25, 0 and +25 bp: the fixed and floating legs move
+  together.
+
+### Why this design, and what was rejected
+
+- **Hedge only AFS.** AFS losses reach equity through AOCI, and current GAAP
+  forbids designating HTM interest-rate risk as hedged (D-045). FASB proposed
+  allowing it in June 2026; its status since August is unconfirmed.
+- **Size once, never rebalance**, as the plan specifies. It makes the
+  trade-off visible: the −200 bp residual shows exactly why real desks
+  rebalance mortgage hedges.
+- **Single-curve swaps on the Treasury curve.** No free SOFR swap curve is
+  available. The spread is a parameter, and the sensitivity test shows carry
+  barely depends on it.
+- **The 10-year swap as a proxy for the 30-year bucket**, as the plan
+  specifies. The leftover 10s-30s risk is listed in LIMITATIONS.md rather
+  than hidden.
+
+### What would break it
+
+- Large rallies with a static hedge: mortgage prepayments make it too big.
+- A twist between 10 and 30 years against the key-rate hedge (the leftover
+  ±$301k per bp).
+- A real SOFR–Treasury spread that moves in a scenario. Tenorwise holds it
+  fixed.
+
+### Interview questions
+
+1. **How does a pay-fixed swap hedge a bond portfolio?**
+   The bank pays fixed and receives floating. When rates rise, the bonds lose
+   value but the swap gains, because the bank is still paying the old fixed
+   rate while receiving a higher floating rate. Sized by DV01, the two
+   roughly cancel.
+2. **Why hedge only the AFS book?**
+   AFS losses go through AOCI into equity, so they're the ones that hit
+   capital ratios. And under ASC 815-20-25-43 the interest-rate risk of HTM
+   securities can't be designated as a hedged risk, though FASB proposed
+   changing that in 2026.
+3. **What does the hedge cost?**
+   Carry. Today the bank would pay 4.93% fixed and receive 4.34% floating,
+   giving up about $32M a year on the $5.5B full hedge, against $298M of
+   carry on the book.
+4. **Why isn't the full DV01 hedge enough?**
+   It only matches total sensitivity. In a bear steepener long rates rise
+   more than the 5-year swap's, so the book still loses $19.5M. Matching
+   each key-rate bucket cuts that to $5.5M.
+5. **Why does the fully hedged book lose money if rates fall 200 bp?**
+   The mortgage pools prepay in a big rally, so the AFS book's duration
+   shortens while the swap's doesn't. The hedge is now too big. Real desks
+   rebalance for this; Tenorwise deliberately doesn't, to show the effect.
+6. **How sensitive is the hedge cost to the swap spread assumption?**
+   Hardly at all. At ±25 bp it moves carry given up by about $0.3M, because
+   both legs shift together.

@@ -41,6 +41,7 @@ __all__ = [
     "RiskCurves",
     "RiskMeasures",
     "build_risk_curves",
+    "dollar_convexity",
     "risk_measures",
 ]
 
@@ -105,3 +106,18 @@ def risk_measures(price: Callable[[ZeroCurve], float], curves: RiskCurves) -> Ri
         key_rate_dv01=kr_dv01,
         key_rate_duration={b: v / (p0 * BP) for b, v in kr_dv01.items()},
     )
+
+
+def dollar_convexity(price: Callable[[ZeroCurve], float], curves: RiskCurves) -> float:
+    """Second difference of value over +/-25 bp parallel bumps, per (decimal rate)^2.
+
+    Unlike effective convexity it is not divided by value, so it adds across
+    positions and works for instruments worth zero (a swap at inception).
+    A value change of about 0.5 * dollar_convexity * dy^2 comes on top of the
+    duration effect.
+    """
+    h = EFFECTIVE_BUMP_BP * BP
+    up = price(curves.parallel[EFFECTIVE_BUMP_BP])
+    down = price(curves.parallel[-EFFECTIVE_BUMP_BP])
+    return (up + down - 2.0 * price(curves.base)) / (h * h)
+

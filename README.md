@@ -3,7 +3,7 @@
 An interest-rate risk and hedging tool for a bank-style bond portfolio, with an
 AI analyst whose every number is checked against the calculation engine.
 
-**Status:** Phase 5 (scenarios) done. The build plan and progress log are in
+**Status:** Phase 6 (hedging) done. The build plan and progress log are in
 [PLAN.md](PLAN.md). There is no live link yet.
 
 ## Run locally
@@ -53,6 +53,13 @@ Seven-scenario table (change in value, AOCI impact, HTM change, 12-month carry):
 
 ```bash
 uv run python -m tenorwise.scenarios --by-sector
+```
+
+Hedging strategies and the strategy-by-scenario matrix (AOCI net of hedges, loss avoided, carry given up):
+
+```bash
+uv run python -m tenorwise.hedging
+uv run python -m tenorwise.hedging --swap-spread-bp 25
 ```
 
 Tests:

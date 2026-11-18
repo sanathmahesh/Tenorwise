@@ -35,7 +35,7 @@
   },
   "data_date": "2026-11-16",
   "fixture": "data/fixtures/fred_treasury_par_2026-11-17.json",
-  "generated_at": "2026-11-18T02:44:45Z",
+  "generated_at": "2026-11-18T04:07:27Z",
   "generated_by": "scripts/quantlib_report.py",
   "quantlib": [
     {
@@ -101,6 +101,22 @@
       "measure": "convexity",
       "tolerance": 1e-06,
       "unit": "years squared"
+    },
+    {
+      "description": "Pay-fixed swap par rate (2/5/10y, spread 0 and 25 bp) vs QuantLib VanillaSwap",
+      "instruments": 6,
+      "max_abs_diff": 1.5959455978986625e-16,
+      "measure": "swap_par_rate",
+      "tolerance": 1e-10,
+      "unit": "decimal rate"
+    },
+    {
+      "description": "Par swap revalued on shocked curves (-200 to +200 bp) vs QuantLib VanillaSwap",
+      "instruments": 24,
+      "max_abs_diff": 1.3322676295501878e-15,
+      "measure": "swap_value",
+      "tolerance": 1e-10,
+      "unit": "value per unit notional"
     }
   ],
   "quantlib_version": "1.44"
