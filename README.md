@@ -3,7 +3,7 @@
 An interest-rate risk and hedging tool for a bank-style bond portfolio, with an
 AI analyst whose every number is checked against the calculation engine.
 
-**Status:** Phase 9 (evals) done; results in [docs/evidence/evals/report.md](docs/evidence/evals/report.md). The build plan and progress log are in
+**Status:** Phase 10 (strategy artifacts and About page) drafted; waiting for the owner's effort timings and review of the opportunity map. Eval results: [docs/evidence/evals/report.md](docs/evidence/evals/report.md). The build plan and progress log are in
 [PLAN.md](PLAN.md). There is no live link yet.
 
 ## Run locally
@@ -98,10 +98,11 @@ RATE_LIMIT_BACKEND=memory AI_LIMIT_PER_IP_PER_DAY=10 AI_LIMIT_GLOBAL_PER_DAY=100
   uv run --env-file .env uvicorn api.index:app --port 8000
 ```
 
-Tests (the live LLM test is skipped unless `TENORWISE_LIVE=1`):
+Tests (the live LLM test is skipped unless `TENORWISE_LIVE=1`; this also runs the web build and the About page tests):
 
 ```bash
 uv run pytest
+npm test --prefix web    # the About page tests alone (vitest)
 ```
 
 Agreement with QuantLib (writes docs/evidence/quantlib_report.json):
@@ -131,7 +132,7 @@ build) and packages `api/index.py` as the Python function.
 
 - [NOTES.md](NOTES.md): the finance and the design, phase by phase
 - [ASSUMPTIONS.md](ASSUMPTIONS.md) and [LIMITATIONS.md](LIMITATIONS.md)
-- [docs/strategy/decision-log.md](docs/strategy/decision-log.md)
+- [docs/strategy/](docs/strategy/): opportunity map, effort sheet and timings, model memo, risks and controls, rollout plan (proposal), decision log; all rendered on the About page
 - [docs/provider-probe.md](docs/provider-probe.md)
 - [docs/evidence/evals/](docs/evidence/evals/): eval raw results, summary and report
 

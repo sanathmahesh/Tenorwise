@@ -15,24 +15,30 @@
    "accuracy_min": 0.9722222222222222,
    "block_rate": 0.018518518518518517,
    "block_rate_before_repair": 0.24074074074074073,
+   "blocked": 2,
    "complete": true,
    "cost_is_upper_bound": false,
    "cost_per_question_usd": 0.00021135638888888887,
    "cost_total_usd": 0.022826489999999998,
    "error_rate": 0.0,
+   "errors": 0,
    "id": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
    "latency_p50_ms": 12643.5,
    "latency_p95_ms": 25282.95,
    "mean_llm_calls": 2.3703703703703702,
+   "passes": 106,
    "prices_read_on": [
     "2026-11-18"
    ],
    "questions_run": 108,
+   "repairs": 26,
    "runs": 3,
    "served_tiers": [
     "asap"
    ],
+   "verified_but_wrong": 0,
    "verified_but_wrong_rate": 0.0,
+   "verified_but_wrong_upper_95": 0.027866001245290168,
    "verified_runs": 106
   },
   {
@@ -49,24 +55,30 @@
    "accuracy_min": 1.0,
    "block_rate": 0.0,
    "block_rate_before_repair": 0.05555555555555555,
+   "blocked": 0,
    "complete": true,
    "cost_is_upper_bound": false,
    "cost_per_question_usd": 0.006906118518518521,
    "cost_total_usd": 0.7458608000000002,
    "error_rate": 0.0,
+   "errors": 0,
    "id": "moonshotai/Kimi-K3.1-Pro",
    "latency_p50_ms": 10046.5,
    "latency_p95_ms": 18093.65,
    "mean_llm_calls": 2.1574074074074074,
+   "passes": 108,
    "prices_read_on": [
     "2026-11-18"
    ],
    "questions_run": 108,
+   "repairs": 6,
    "runs": 3,
    "served_tiers": [
     "asap"
    ],
+   "verified_but_wrong": 0,
    "verified_but_wrong_rate": 0.0,
+   "verified_but_wrong_upper_95": 0.027357088699751154,
    "verified_runs": 108
   },
   {
@@ -83,24 +95,30 @@
    "accuracy_min": 0.9444444444444444,
    "block_rate": 0.027777777777777776,
    "block_rate_before_repair": 0.17592592592592593,
+   "blocked": 3,
    "complete": true,
    "cost_is_upper_bound": false,
    "cost_per_question_usd": 0.002472947962962963,
    "cost_total_usd": 0.26707838,
    "error_rate": 0.0,
+   "errors": 0,
    "id": "zai-org/GLM-5.3",
    "latency_p50_ms": 4687.0,
    "latency_p95_ms": 9048.949999999995,
    "mean_llm_calls": 2.25,
+   "passes": 105,
    "prices_read_on": [
     "2026-11-18"
    ],
    "questions_run": 108,
+   "repairs": 19,
    "runs": 3,
    "served_tiers": [
     "asap"
    ],
+   "verified_but_wrong": 0,
    "verified_but_wrong_rate": 0.0,
+   "verified_but_wrong_upper_95": 0.028127624003676396,
    "verified_runs": 105
   }
  ],
@@ -870,5 +888,6 @@
   "deepseek-ai_DeepSeek-V4.1-Flash-1017_20261118T051638Z.jsonl",
   "moonshotai_Kimi-K3.1-Pro_20261118T055103Z.jsonl",
   "zai-org_GLM-5.3_20261118T054133Z.jsonl"
- ]
+ ],
+ "upper_bound_confidence": 0.95
 }

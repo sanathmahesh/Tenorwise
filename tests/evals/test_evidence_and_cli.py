@@ -122,3 +122,16 @@ def test_eval_models_have_list_prices(model):
 
     prices = json.loads(PRICES_FILE.read_text())["usd_per_million_tokens"]
     assert {"asap", "balanced", "flex"} <= set(prices[model])
+
+
+# ------------------------------------------------------------------ summary counts and the zero-failure bound
+
+
+def test_summary_carries_counts_and_an_exact_upper_bound_on_verified_but_wrong(tmp_path):
+    from tenorwise.evals.report import summarize
+
+    path = run_eval("oracle/fake", oracle_provider, repeats=1, out_dir=tmp_path)
+    m = summarize([path])["models"][0]
+    assert (m["passes"], m["blocked"], m["repairs"], m["errors"], m["verified_runs"], m["verified_but_wrong"]) == (36, 0, 0, 0, 36, 0)
+    # zero wrong in n verified answers: the rate p with (1 - p)^n = 0.05 (one-sided 95%)
+    assert m["verified_but_wrong_upper_95"] == pytest.approx(1 - 0.05 ** (1 / 36), rel=1e-9)

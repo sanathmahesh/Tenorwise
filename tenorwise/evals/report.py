@@ -29,6 +29,7 @@ from pathlib import Path
 from typing import Any
 
 import numpy as np
+from scipy.stats import beta
 
 from tenorwise.evals.questions import BY_ID, CATEGORIES, CATEGORY_NAMES
 from tenorwise.evals.runner import EVALS_DIR, RAW_DIR
@@ -49,6 +50,19 @@ def load_rows(paths: Iterable[Path]) -> list[dict[str, Any]]:
 
 def _share(n: int, d: int) -> float:
     return n / d if d else 0.0
+
+
+def upper_95(failures: int, trials: int) -> float | None:
+    """One-sided 95% upper bound on a failure rate (exact, Clopper-Pearson).
+
+    With zero failures it is the rate p at which seeing none in n trials has a
+    5% chance: (1 - p)^n = 0.05. Close to the "rule of three", 3 / n.
+    """
+    if trials == 0:
+        return None
+    if failures >= trials:
+        return 1.0
+    return float(beta.ppf(0.95, failures + 1, trials - failures))
 
 
 def _majority(outcomes: list[str]) -> str:
@@ -84,6 +98,12 @@ def _model_summary(model: str, rows: list[dict[str, Any]]) -> dict[str, Any]:
         "error_rate": _share(sum(r["status"] == "error" for r in rows), len(rows)),
         "verified_but_wrong_rate": _share(sum(r["outcome"] == "fail" for r in verified), len(verified)),
         "verified_runs": len(verified),
+        "verified_but_wrong": sum(r["outcome"] == "fail" for r in verified),
+        "verified_but_wrong_upper_95": upper_95(sum(r["outcome"] == "fail" for r in verified), len(verified)),
+        "passes": sum(r["outcome"] == "pass" for r in rows),
+        "blocked": sum(r["status"] == "blocked" for r in rows),
+        "repairs": sum(r["repair_used"] for r in rows),
+        "errors": sum(r["status"] == "error" for r in rows),
         "latency_p50_ms": float(np.percentile(latencies, 50)),
         "latency_p95_ms": float(np.percentile(latencies, 95)),
         "cost_per_question_usd": None if any(c is None for c in costs) else float(np.mean(costs)),
@@ -118,6 +138,7 @@ def summarize(paths: Iterable[Path]) -> dict[str, Any]:
     ]
     return {
         "source_files": sorted(Path(p).name for p in paths),
+        "upper_bound_confidence": 0.95,
         "latency_note": LATENCY_NOTE,
         "models": models,
         "questions": questions,
@@ -148,14 +169,15 @@ def render_markdown(summary: dict[str, Any]) -> str:
         "## By model",
         "",
         "| Model | Repeats | Accuracy, mean (range) | Blocked before repair | Blocked after repair | "
-        "Verified but wrong | Errors | Latency p50 / p95 | Cost per question | Mean model calls |",
+        "Verified but wrong (95% upper bound) | Errors | Latency p50 / p95 | Cost per question | Mean model calls |",
         "|---|---|---|---|---|---|---|---|---|---|",
     ]
     for m in summary["models"]:
         rng = f"{_pct(m['accuracy'])} ({_pct(m['accuracy_min'])} to {_pct(m['accuracy_max'])})"
         out.append(
             f"| `{m['id']}` | {m['runs']}{'' if m['complete'] else ' (incomplete)'} | {rng} | "
-            f"{_pct(m['block_rate_before_repair'])} | {_pct(m['block_rate'])} | {_pct(m['verified_but_wrong_rate'])} | "
+            f"{_pct(m['block_rate_before_repair'])} | {_pct(m['block_rate'])} | "
+            f"{_pct(m['verified_but_wrong_rate'])} ({_pct(m['verified_but_wrong_upper_95'])}) | "
             f"{_pct(m['error_rate'])} | {m['latency_p50_ms'] / 1000:.1f} s / {m['latency_p95_ms'] / 1000:.1f} s | "
             f"{_usd(m['cost_per_question_usd'], m['cost_is_upper_bound'])} | {m['mean_llm_calls']:.1f} |"
         )
@@ -168,7 +190,9 @@ def render_markdown(summary: dict[str, Any]) -> str:
         + ". Not read from an invoice. \"Upper bound\" means the provider did not report cached tokens, "
         "so all prompt tokens were priced as uncached.",
         "",
-        "Verified but wrong: of the answers that passed verification, the share graded wrong.",
+        "Verified but wrong: of the answers that passed verification, the share graded wrong. "
+        "Upper bound: the one-sided 95% upper bound on that rate (exact binomial); with none observed it is "
+        "the rate p at which seeing none in n verified answers has a 5% chance, (1 - p)^n = 0.05.",
         "",
         "## Accuracy by group",
         "",

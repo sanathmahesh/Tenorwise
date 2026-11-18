@@ -367,10 +367,10 @@ decision, newest at the bottom. Changes to PLAN.md are recorded here too.
 - **Phase:** 7
 - **Decision:** removed as planned in D-008. The import-isolation test now exercises `/api/health` and `/api/scenario` against the pinned snapshot. Phase 0's `tests/unit/test_build_snapshot.py` is superseded by `tests/unit/test_snapshot.py`.
 
-## D-056. The next deploy needs `FRED_API_KEY` on Vercel
+## D-056. The next deploy needs the FRED API key on Vercel
 
 - **Phase:** 7
-- **Decision:** `scripts/vercel_build.sh` runs the live snapshot build, which fails without `FRED_API_KEY` (by design: a failed build leaves the previous deployment live). Setting the variable on Vercel is an outward-facing action, so it will be done only after asking, at the next deploy.
+- **Decision:** `scripts/vercel_build.sh` runs the live snapshot build, which fails without the FRED API key environment variable (named in `.env.example`) (by design: a failed build leaves the previous deployment live). Setting the variable on Vercel is an outward-facing action, so it will be done only after asking, at the next deploy.
 
 ## D-057. Verifier details within the plan's rule
 
@@ -500,3 +500,45 @@ decision, newest at the bottom. Changes to PLAN.md are recorded here too.
   - **Failures:** all 5 were blocks of an untagged number that is not a context number. There were no errors and no verified-but-wrong answers.
 - **Spend:** $1.04 measured, against the $4.80 estimate (D-068). The estimate's no-cache and 500-tokens-per-call assumptions were conservative.
 - **Rate-limit caps (D-060):** the measured mean cost per question on GLM-5.3 is $0.0025, far below the $0.07 per-request worst case the caps were sized on. The caps are unchanged; changing them is the owner's call.
+
+## D-070. The About page renders the strategy files themselves
+
+- **Phase:** 10
+- **Decision:** the About page imports the six files in `docs/strategy/` as raw text at build time (Vite `?raw`) and renders them with `react-markdown` 10.1.0 and `remark-gfm` 4.0.1.
+  - The dev server may read only `docs/strategy/` outside `web/`; a request for any other repository file returns 403.
+  - Page tests use vitest 5.1.0 and render to static HTML in Node; `pytest` runs them.
+  - All three packages were released more than two weeks before adoption.
+- **Alternatives rejected:**
+  - copying the text into components, which drifts;
+  - jsdom with Testing Library, whose newest jsdom release was five days old.
+
+## D-071. Strategy numbers are checked with the analyst's own rule
+
+- **Phase:** 10
+- **Decision:** a test extracts every number from the model memo and the risk table with `tenorwise/agent/numbers.py` and checks each one with the verifier's rule (correctly rounded and within 0.5%) against the eval summary and the QuantLib report.
+  - Removed before checking: code spans, links, written dates of sources, and document identifiers such as SR 26-2 and section numbers.
+  - The rule exposed that some of `report.md`'s one-decimal figures (5.6% for 5.5556%) are more than 0.5% from the value. The memo prints those with more digits. The rule was not loosened.
+- **Also added to the eval summary:**
+  - counts: passes, blocked, repairs, errors, verified-but-wrong;
+  - the exact one-sided 95% upper bound on the verified-but-wrong rate (Clopper-Pearson; with zero failures, (1 - p)^n = 0.05), with its confidence level recorded.
+
+## D-072. Strategy documents do not name secret variables
+
+- **Phase:** 10
+- **Decision:** the decision log is rendered into the public web bundle, and the bundle scan (Phase 7) forbids secret variable names there. Two mentions in D-056 were reworded to "the FRED API key environment variable". The scan was not relaxed.
+
+## D-073. Build-time picomatch advisory accepted
+
+- **Phase:** 10
+- **Decision:** `npm audit` reports GHSA-fc5q-39xc-vjpf, a regular-expression denial of service in picomatch.
+  - It reaches the project through Vite, through `tinyglobby` and `fdir`, and now also vitest.
+  - It was already present before Phase 10: 5 findings in the committed lockfile, 6 after adding vitest.
+  - picomatch 4.0.7 is the latest release, and `npm audit fix --force` would downgrade Vite. It is left as is.
+- **Why:** it runs only at build and test time on the project's own glob patterns; none of it ships in the site. To be revisited when a fixed release exists.
+
+## D-074. Model recommendation, not yet acted on
+
+- **Phase:** 10
+- **Decision:** the model memo recommends `moonshotai/Kimi-K3.1-Pro`, which had the best accuracy, the fewest repairs and no blocks. The trade-off is slower answers and a higher cost per question than `zai-org/GLM-5.3`.
+  - The deployed model stays GLM-5.3 until the owner decides.
+  - A test pins the kill switch the rollout plan relies on: a global daily cap of zero refuses AI requests and leaves the engine working.

@@ -1400,9 +1400,11 @@ Most questions reuse concepts from earlier phases. Three are new:
     - No answer that passed verification was wrong, and no run ended in an
       error.
   - **Zero observed is not zero.** No model gave a verified-but-wrong answer
-    in about 106 verified answers. The "rule of three" puts the 95% upper
-    bound for this question set at roughly 2.8% to 2.9% per model (3 divided
-    by the number of verified answers).
+    in 105 to 108 verified answers. The one-sided 95% upper bound for this
+    question set is 2.7% to 2.8% per model.
+    - Method: the rate p at which seeing none in n answers has a 5% chance,
+      (1 - p)^n = 0.05. It is computed in `report.py` and close to the "rule
+      of three", 3/n.
   - **The repair step matters.** It turned DeepSeek's 24.1% first-attempt
     failures into 1.9% blocked. Most repairs were on derived figures and
     declines.
@@ -1472,3 +1474,147 @@ Most questions reuse concepts from earlier phases. Three are new:
    - A refusal to run on stale prices.
    - A hard budget per model.
    - Every result saved as it arrives.
+
+## Phase 10. Strategy artifacts and About page
+
+### Model risk management, in plain English
+
+Banks use many models, and a wrong model can cost money or misstate the
+accounts. US supervisors' guidance on managing that risk is SR 26-2 (April
+2026, replacing SR 11-7). Its vocabulary, as used in
+[docs/strategy/risk-controls.md](docs/strategy/risk-controls.md):
+
+- **Model:** "a complex quantitative method, system, or approach that applies
+  statistical, economic, or financial theories to process input data into
+  quantitative estimates". Tenorwise's pricing engine is one. Simple
+  arithmetic and deterministic rule-based software are not models, so the
+  number verifier and the rate limiter are not.
+- **Model materiality:** how much a model matters. It combines the model's
+  purpose (managing financial risk counts as higher risk) and its exposure
+  (for example, the size of the portfolio it values).
+- **Conceptual soundness:** is the design right? It covers documented
+  choices, assumptions and testing. Benchmarking against another model, here
+  QuantLib, is one accepted way to assess it.
+- **Outcomes analysis:** comparing the model's outputs with what actually
+  happened. Tenorwise has none yet.
+- **Ongoing model monitoring:** checking that the model keeps working as
+  markets and data change.
+- **Effective challenge:** critical review by experts who are independent of
+  the builders and have the standing to force changes. Tenorwise has had none:
+  the builder and the owner are not independent.
+- **Model inventory:** the bank's register of its models, with their purpose,
+  owner, limitations and validation status.
+- **Footnote 3:** generative and agentic AI are outside the guidance. Banks
+  must still govern them, so the analyst's controls are described as
+  governance practices, with risk names from NIST AI 600-1 (for example
+  "confabulation": confidently stated false content).
+
+### What was built
+
+- **[docs/strategy/opportunity-map.md](docs/strategy/opportunity-map.md):**
+  10 workflows across the investment and lending teams.
+  - Each is scored 1 to 5 on value, feasibility and risk, with a stated
+    rubric and a reason for every score.
+  - It ends with why rate-risk analysis was chosen.
+  - It says the scores are reasoned judgments from public sources, not
+    measurements. The sources are SR 26-2, NIST AI 600-1, CFPB Circular
+    2022-03 and BNY's 10-Q, all read for this phase.
+- **[docs/strategy/effort.md](docs/strategy/effort.md)** and the empty
+  [effort-timings.csv](docs/strategy/effort-timings.csv):
+  - five tasks, each done by hand and with Tenorwise;
+  - rules for timing, a 60-minute cap, and alternating order to spread the
+    learning effect;
+  - the operator is stated as one non-expert.
+- **[docs/strategy/model-memo.md](docs/strategy/model-memo.md):** the eval
+  results and a recommendation (Kimi-K3.1-Pro, with its trade-off against
+  GLM-5.3).
+- **[docs/strategy/risk-controls.md](docs/strategy/risk-controls.md):**
+  - every failure mode with its control and named evidence;
+  - the engine is described in SR 26-2's terms, and the analyst in governance
+    terms (footnote 3);
+  - a draft model inventory entry;
+  - an explicit statement that nothing is validated or compliant.
+- **[docs/strategy/rollout-plan.md](docs/strategy/rollout-plan.md):** pilot
+  group, human review, logging and rollback triggers, marked as an unexecuted
+  proposal.
+- **[web/src/pages/AboutPage.tsx](web/src/pages/AboutPage.tsx):** renders all
+  six files, the decision log included.
+  - The files are imported as raw text at build time, so the page and the
+    repository cannot drift apart.
+  - The timings table computes minutes from the CSV, and says "Timings not
+    yet recorded" while the CSV is empty.
+
+### Results
+
+- **Traceability:** every number in the model memo and in the risk table
+  traces to the eval results or the QuantLib report. The test uses the
+  analyst's own number parser and verification rule.
+- **Precision:** the trace check showed that some one-decimal figures in
+  `report.md` fail the analyst's own rule. For example, Kimi's 6 repairs in
+  108 runs is 5.5556%, and "5.6%" is 0.8% away from it, more than the 0.5%
+  allowed. The memo therefore prints such figures with more digits (5.56%).
+  The rule was not loosened.
+- **Zero-failure bound:** the summary now carries the exact one-sided 95%
+  upper bound on the verified-but-wrong rate: 2.74% to 2.81% by model.
+- **Not yet recorded:** the effort timings. They wait for the owner.
+
+### Why this design, and what was rejected
+
+- **One source of truth for the documents.** The About page imports the same
+  Markdown files, so it cannot drift from the repository. Rejected: copying
+  the text into components.
+- **A test, not a promise, for the memo's numbers.** The plan asks that every
+  memo number trace to an eval file. Reusing the verifier means the project
+  holds its own documents to the same rule as its AI.
+- **The recommendation is not acted on.** Switching the deployed model
+  (`LLM_MODEL`) is the owner's decision.
+- **The opportunity map avoids invented figures.** Its scores are judgments
+  backed by cited sources. It quotes no market sizes or time savings, because
+  none were measured.
+- **Static rendering for the page tests.** The tests render to HTML in Node.
+  Rejected: a browser test environment (jsdom), whose newest release was too
+  recent to adopt.
+
+### What would break it
+
+- **A new number in the memo or the risk table with no eval source.** The test
+  fails until the number is traced or removed.
+- **A strategy document that names a secret variable.** The web bundle scan
+  fails, because these files ship in the public bundle. Two mentions in the
+  decision log were reworded for this reason.
+- **Timings entered in the wrong format.** The page lists malformed rows
+  instead of using them.
+
+### Interview questions
+
+1. **Is Tenorwise's engine a "model" under SR 26-2, and is the AI analyst?**
+   The engine is: it applies financial theory to input data to produce
+   estimates. The analyst is not covered: footnote 3 puts generative and
+   agentic AI outside the guidance, so it is governed by the bank's own
+   practices, here described with NIST AI 600-1's risk names.
+2. **What is effective challenge, and has Tenorwise had it?**
+   Critical review by independent experts with the standing to force change.
+   Tenorwise has not had it. A QuantLib benchmark is evidence for a
+   challenger, not a challenge.
+3. **Why did you pick this use case over, say, credit memos?**
+   It is the most feasible: public data, and every number checkable against
+   a deterministic engine, so the main generative-AI risk can be controlled
+   and measured. Credit memos have high value but need internal borrower
+   data.
+4. **Why recommend the more expensive and slower model?**
+   - It had the best accuracy and the fewest repairs, and it was never
+     blocked.
+   - The analyst is interactive and low-volume, so a few tenths of a cent per
+     question matter less than a failed answer.
+   - If speed matters more, GLM is the documented alternative.
+5. **What would make you roll the analyst back in a pilot?**
+   - Any number that does not trace to the engine.
+   - A verified-but-wrong answer leaving the team.
+   - A weekly wrong-answer rate above the eval's upper bound.
+   - A jump in blocks, a provider change, or the budget being exceeded.
+
+   The kill switch is a global daily cap of zero, which is tested.
+6. **How do you know the numbers in your strategy documents are right?**
+   A test re-reads every number in the memo and the risk table with the
+   analyst's own number parser and checks it against the eval and benchmark
+   files.

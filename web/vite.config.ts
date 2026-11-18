@@ -1,5 +1,6 @@
+import { fileURLToPath } from 'node:url'
 import react from '@vitejs/plugin-react'
-import { defineConfig } from 'vite'
+import { defineConfig, searchForWorkspaceRoot } from 'vite'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -9,5 +10,7 @@ export default defineConfig({
   server: {
     // Local development: forward /api to the FastAPI app (uvicorn on :8000).
     proxy: { '/api': 'http://127.0.0.1:8000' },
+    // The About page imports docs/strategy/ as raw text; allow only that folder outside web/.
+    fs: { allow: [searchForWorkspaceRoot(process.cwd()), fileURLToPath(new URL('../docs/strategy', import.meta.url))] },
   },
 })

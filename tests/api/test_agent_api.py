@@ -114,3 +114,13 @@ def test_commentary_endpoint(setup):
     r = TestClient(app).post("/api/agent/commentary", json={}, headers={"x-forwarded-for": "203.0.113.5"})
     assert r.status_code == 200
     assert r.json()["notice"] == "Draft, requires human review"
+
+
+def test_a_global_cap_of_zero_turns_the_ai_endpoints_off_and_leaves_the_rest_working(setup):
+    """The rollout plan's kill switch: AI_LIMIT_GLOBAL_PER_DAY=0."""
+    setup["global"] = 0
+    client = TestClient(app)
+    r = ask(client, "192.0.2.1")
+    assert r.status_code == 429
+    assert setup["provider"].calls == []  # the model was never called
+    assert client.post("/api/scenario", json={"parallel_bp": 100}).status_code == 200

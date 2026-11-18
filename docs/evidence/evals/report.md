@@ -6,17 +6,17 @@ Grading is deterministic: an answer is correct if its status matches and every g
 
 ## By model
 
-| Model | Repeats | Accuracy, mean (range) | Blocked before repair | Blocked after repair | Verified but wrong | Errors | Latency p50 / p95 | Cost per question | Mean model calls |
+| Model | Repeats | Accuracy, mean (range) | Blocked before repair | Blocked after repair | Verified but wrong (95% upper bound) | Errors | Latency p50 / p95 | Cost per question | Mean model calls |
 |---|---|---|---|---|---|---|---|---|---|
-| `deepseek-ai/DeepSeek-V4.1-Flash-1017` | 3 | 98.1% (97.2% to 100.0%) | 24.1% | 1.9% | 0.0% | 0.0% | 12.6 s / 25.3 s | $0.0002 | 2.4 |
-| `moonshotai/Kimi-K3.1-Pro` | 3 | 100.0% (100.0% to 100.0%) | 5.6% | 0.0% | 0.0% | 0.0% | 10.0 s / 18.1 s | $0.0069 | 2.2 |
-| `zai-org/GLM-5.3` | 3 | 97.2% (94.4% to 100.0%) | 17.6% | 2.8% | 0.0% | 0.0% | 4.7 s / 9.0 s | $0.0025 | 2.2 |
+| `deepseek-ai/DeepSeek-V4.1-Flash-1017` | 3 | 98.1% (97.2% to 100.0%) | 24.1% | 1.9% | 0.0% (2.8%) | 0.0% | 12.6 s / 25.3 s | $0.0002 | 2.4 |
+| `moonshotai/Kimi-K3.1-Pro` | 3 | 100.0% (100.0% to 100.0%) | 5.6% | 0.0% | 0.0% (2.7%) | 0.0% | 10.0 s / 18.1 s | $0.0069 | 2.2 |
+| `zai-org/GLM-5.3` | 3 | 97.2% (94.4% to 100.0%) | 17.6% | 2.8% | 0.0% (2.8%) | 0.0% | 4.7 s / 9.0 s | $0.0025 | 2.2 |
 
 Latency: Wall-clock per question on the eval machine (one network location, sequential runs), not the deployed app.
 
 Cost: token usage at Sail's list prices for the served tier, prices read on 2026-11-18. Not read from an invoice. "Upper bound" means the provider did not report cached tokens, so all prompt tokens were priced as uncached.
 
-Verified but wrong: of the answers that passed verification, the share graded wrong.
+Verified but wrong: of the answers that passed verification, the share graded wrong. Upper bound: the one-sided 95% upper bound on that rate (exact binomial); with none observed it is the rate p at which seeing none in n verified answers has a 5% chance, (1 - p)^n = 0.05.
 
 ## Accuracy by group
 

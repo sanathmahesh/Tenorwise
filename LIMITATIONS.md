@@ -192,9 +192,28 @@ What Tenorwise cannot tell you, and why.
 - **The per-question result is the majority over repeats.** It hides
   variation; the report shows the counts.
 - **No verified-but-wrong answer was observed (2026-11-18 runs). That does not
-  mean the rate is zero.** With about 106 verified answers per model, the 95%
-  upper bound is roughly 2.8% to 2.9% per model (rule of three), and only for
-  this question set.
+  mean the rate is zero.** With 105 to 108 verified answers per model, the
+  one-sided 95% upper bound is 2.7% to 2.8% per model, and only for this
+  question set (computed in `report.py`).
 - **First-attempt failure reasons are not recorded.** The raw results keep
   only the final checks. For a run that was repaired and then passed, the
   reason the first attempt failed is not saved.
+
+## Strategy artifacts
+
+- **The opportunity map's scores are reasoned judgments from public sources,
+  not measurements or practitioner interviews.** Practitioners might score
+  them differently.
+- **The effort comparison has no data yet.** When it does, it will describe
+  one non-expert operator, not a team of professionals.
+- **The model recommendation rests on 36 questions and 3 repeats** on the
+  pinned snapshot. Commentary drafting was not part of the eval.
+- **The risk and control table is not a validation.** The engine has had no
+  outcomes analysis and no effective challenge. Nothing claims compliance with
+  SR 26-2.
+- **The rollout plan is a proposal and has not been executed.** Its thresholds
+  are starting points, not measured values.
+- **Build-time dependency advisory.** picomatch, used by Vite and vitest at
+  build time only, has a published denial-of-service advisory
+  (GHSA-fc5q-39xc-vjpf) with no fixed release. It processes only the
+  project's own file patterns and does not ship in the site.
