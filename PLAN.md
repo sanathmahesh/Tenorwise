@@ -625,8 +625,8 @@ Update this table at the end of each phase.
 | 0. Foundations, probe, skeleton deploy | Done | 2026-11-17 | e94ac6b, 63453bf |
 | 1. Yield curve | Done | 2026-11-17 | c3bbfc4 |
 | 2. Bond analytics | Done | 2026-11-17 | d2bc167 |
-| 3. Agency mortgage bonds | Done; awaiting go-ahead | 2026-11-17 | 5b9f2ec |
-| 4. Portfolio | Not started | | |
+| 3. Agency mortgage bonds | Done | 2026-11-17 | 5b9f2ec |
+| 4. Portfolio | Done; awaiting go-ahead | 2026-11-17 | c786a5a, 257343a |
 | 5. Scenarios | Not started | | |
 | 6. Hedging | Not started | | |
 | 7. Snapshot, API, placeholder interface | Not started | | |
