@@ -78,3 +78,22 @@ What Tenorwise cannot tell you, and why.
   pools, adjustable-rate mortgages, multifamily, or structured mortgage
   securities.
 
+## Portfolio
+
+- **Not BNY's portfolio.** The mix follows BNY's 10-Q, but the 38 positions
+  are design choices, and 27.2% of BNY's securities (non-US government bonds
+  and CLOs) are left out.
+- **Reported losses are not comparable to BNY's.** BNY applies fair-value
+  hedge accounting to about $61B of AFS securities, which shrinks its
+  reported AFS losses. Its real holdings also differ from stylized pools. On
+  16 Nov 2026 the model book shows −13.5% unrealized against −4.0% for BNY's
+  whole portfolio at 30 Sept 2026. That is a difference in construction, not
+  a measurement of BNY.
+- **One yield per bucket.** Every position in a BNY line and maturity bucket
+  gets that bucket's average yield, so the spread of yields inside a bucket
+  is lost.
+- **The IG proxy is not covered bonds.** It ignores currency, structure and
+  amortization.
+- **No credit, tax or funding.** Spreads never move, AOCI is pre-tax, and
+  carry (Phase 5) ignores funding cost.
+

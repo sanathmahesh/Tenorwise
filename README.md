@@ -3,7 +3,7 @@
 An interest-rate risk and hedging tool for a bank-style bond portfolio, with an
 AI analyst whose every number is checked against the calculation engine.
 
-**Status:** Phase 3 (agency mortgage bonds, stylized) done. The build plan and progress log are in
+**Status:** Phase 4 (portfolio) done. The build plan and progress log are in
 [PLAN.md](PLAN.md). There is no live link yet.
 
 ## Run locally
@@ -41,6 +41,12 @@ Stylized mortgage-bond profile across rate shifts (price, duration, average life
 ```bash
 uv run python -m tenorwise.analytics.mbs_profile
 uv run python -m tenorwise.analytics.mbs_profile --wac 6.5 --age 60 --remaining 300
+```
+
+Model portfolio summary by sector and class (add `--positions` for all 38):
+
+```bash
+uv run python -m tenorwise.portfolio
 ```
 
 Tests:
@@ -84,6 +90,8 @@ build) and packages `api/index.py` as the Python function.
 US Treasury par yields come from FRED (series DGS1MO to DGS30, Federal Reserve
 H.15 release). The mortgage rate is the Optimal Blue Mortgage Market Indices
 (OBMMI™) 30-Year Fixed Rate Conforming Mortgage Index (OBMMIC30YF), via FRED.
+The portfolio mix follows BNY's Form 10-Q for the quarter ended 30 September
+2026 (Note 2); the positions are design choices, not BNY's holdings.
 
 This product uses the FRED® API but is not endorsed or certified by the
 Federal Reserve Bank of St. Louis. See the

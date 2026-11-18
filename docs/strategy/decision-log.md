@@ -234,3 +234,39 @@ decision, newest at the bottom. Changes to PLAN.md are recorded here too.
 
 - **Phase:** 3
 - **Decision:** the `cpr` field in profiles (and later `mbs.json`) is the CPR in month 1 of the projection. For a seasoned pool (36 months or more) it equals the long-run CPR, because the ramp is complete.
+
+## D-036. Position list approved: sizes and book yields from BNY's filing
+
+- **Date:** 2026-11-17, approved by the owner
+- **Decision:** 38 positions in `data/portfolio/positions.json`. Each is sized as a share of a specific BNY line and maturity bucket (10-Q, printed page 55), scaled so total amortized cost is $10,000M. Each bond's book yield is BNY's disclosed yield for that line and bucket. Bonds are assumed bought at par (coupon = book yield) with whole half-year maturities, so there is no accrued interest. Mortgage pools are bought at par (book yield = bond-equivalent yield of the net coupon). Two pool shares per class are solved so the line's average book yield equals BNY's disclosed figure (3.97% AFS, 2.69% HTM).
+- **Design choices, not data:** splits within a bucket, maturities (including those for lines BNY reports without maturity buckets), pool vintages, WACs and ages, and the fixed pool shares.
+- **Book-yield averages kept as computed (owner chose not to nudge):** AFS 3.51% against BNY's 3.57%, HTM 2.45% against 2.58%. The gap comes mainly from the lines the plan excludes, CLOs at 4.87% and 5.01%.
+
+## D-037. Sector spreads
+
+- **Date:** 2026-11-17, approved by the owner
+- **Decision:** Treasuries 0 bp. Agency mortgage bonds: recalibrated on every build so the stylized current-coupon pool prices at par (162.1 bp on 16 Nov 2026). Agency debt 25 bp and IG corporates proxy 100 bp, both illustrative, because no non-copyrighted public source was found.
+- **Known effect:** in static valuation the agency-mortgage spread absorbs the cost of the prepayment option, which is largest for current-coupon pools. Applied to low-coupon pools it overstates their discount (LIMITATIONS.md).
+
+## D-038. Weight basis
+
+- **Date:** 2026-11-17, approved by the owner
+- **Decision:** as in PLAN.md's table, BNY weights combine AFS at fair value with HTM at amortized cost. Tenorwise applies them as the model book's amortized cost.
+
+## D-039. BNY's unrealized losses are a sanity check, not a calibration target
+
+- **Date:** 2026-11-17, approved by the owner
+- **Finding:** on the 16 Nov 2026 curve the model book shows −13.5% unrealized (HTM mortgage bonds −23.9% against BNY's −12.0%; AFS Treasuries −5.1% against −0.8%).
+- **Explanations, checked where possible:** (1) not the date: Treasury yields were *higher* on BNY's reporting date of 30 Sep 2026 (10-year 5.29% against 5.12%); (2) BNY applies fair-value hedge accounting to about $61B of AFS par, which moves amortized cost with rates and shrinks reported AFS losses; (3) BNY's actual holdings differ, for example 15-year pools and premium purchases; (4) stylized low-coupon pools are long, with an average life of about 8.7 years at the 6% CPR floor, and the single mortgage spread over-discounts them. Even at a 0 bp spread a 2.5% pool prices at 83.1, against 88.0 for BNY's HTM agency mortgage bonds.
+- **Decision:** document the comparison; do not calibrate to it.
+
+## D-040. Plan fact correction: BNY's maturity and yield table is on printed page 55
+
+- **Phase:** 4
+- **Finding:** PLAN.md section 4 places the 3.57% and 2.58% yields in "the same note" as the page 52 table. They are in Note 2, but on printed page 55. The figures themselves match. The source file cites page 55.
+
+## D-041. Portfolio aggregation conventions
+
+- **Phase:** 4
+- **Decision:** amounts are in $ millions and DV01 is in $ millions per bp internally. Values, amortized cost, unrealized, DV01 and key-rate DV01s are sums. Duration and convexity are market-value-weighted. `weight` is the share of amortized cost, the basis of the BNY mapping. The contract's `convexity` field is *effective* convexity, so mortgage pools can show negative values. `mod_duration` is yield-based for every position; for mortgage pools it uses the base-scenario projected cash flows at the pool's own yield.
+- **Alternative rejected:** yield-based convexity in the contract. For a mortgage pool it is always positive and hides the prepayment effect.

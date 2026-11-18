@@ -672,3 +672,133 @@ comparison is a 5.12% Treasury bullet of 7.5 years.
    The extra yield over Treasuries at which this stylized pool prices at
    par. It is a calibration choice that makes the pool current-coupon, not a
    market OAS.
+
+---
+
+## Phase 4. Portfolio
+
+### Finance concepts, in plain English
+
+- **A bank's securities portfolio.** Besides lending, banks invest deposits
+  in high-quality bonds: Treasuries, agency mortgage bonds, agency debt. They
+  earn interest and can be sold or pledged for cash. BNY's portfolio is about
+  $152 billion (10-Q, 30 Sept 2026).
+- **AFS and HTM.** Each security is classified when bought:
+  - *Available-for-sale (AFS)* securities might be sold. They are carried at
+    market value, and their unrealized gains and losses go to **AOCI**
+    (accumulated other comprehensive income), a part of shareholders' equity.
+    A rate rise therefore reduces a bank's reported equity through its AFS
+    book.
+  - *Held-to-maturity (HTM)* securities are to be held until they mature.
+    They are carried at amortized cost, and price moves do not touch equity,
+    though the losses are still economically real and are disclosed.
+- **Book yield.** The yield the bank locked in when it bought a security.
+- **Amortized cost.** The security's remaining cash flows discounted at its
+  book yield: what it is worth "at purchase terms". A bond bought at par
+  stays at par.
+- **Unrealized gain or loss.** Market value minus amortized cost. A bond
+  bought at 2% when market yields are now 5% shows a large unrealized loss.
+- **Why it matters.** When rates rose sharply in 2022, banks that had bought
+  long, low-yield bonds in 2020–21 built up large unrealized losses. Those
+  losses showed up in equity through AOCI (AFS) or sat off-balance-sheet
+  (HTM). Measuring and hedging that exposure is what Tenorwise is for.
+
+### How the code implements it
+
+- [tenorwise/portfolio/sources.py](tenorwise/portfolio/sources.py) and
+  [data/sources/bny_10q_3q26_investment_securities.json](data/sources/bny_10q_3q26_investment_securities.json):
+  BNY's Note 2 table (page 52) and maturity and yield table (page 55),
+  transcribed with citation and PDF SHA-256, and mapped into four sectors.
+  Excluded: non-US government (needs foreign curves) and CLOs (floating
+  rate), which are 27.2% of BNY's securities.
+- [data/portfolio/positions.json](data/portfolio/positions.json): the 38
+  approved positions (D-036). Each cites the BNY line and maturity bucket it
+  is sized from.
+- [tenorwise/portfolio/positions.py](tenorwise/portfolio/positions.py): turns
+  the spec into instruments in $ millions. It solves the two mortgage-pool
+  shares per class, sizes each position to its share of $10,000M, and
+  computes amortized cost from the book yield.
+- [tenorwise/portfolio/valuation.py](tenorwise/portfolio/valuation.py):
+  `build_market_context` builds the 12 bumped curves once and calibrates the
+  agency-mortgage spread. `value_portfolio` reprices every position, then
+  aggregates by sector and class: sums for values and DV01s, market-value
+  weights for duration and convexity, and amortized-cost share for `weight`.
+- `uv run python -m tenorwise.portfolio [--positions]` prints the summary.
+
+### Results on the pinned data (2026-11-16), computed by the engine
+
+| | Amortized cost | Market value | Unrealized | Eff. duration | DV01 ($k/bp) |
+|---|---|---|---|---|---|
+| Portfolio | 10,000.0 | 8,648.6 | −1,351.4 | 4.48 | 3,876 |
+| Treasuries | 3,184.3 | 3,010.9 | −173.5 | 2.84 | 855 |
+| Agency mortgage (stylized) | 4,579.8 | 3,622.2 | −957.6 | 6.03 | 2,184 |
+| Agency debt | 1,133.3 | 1,005.2 | −128.1 | 5.15 | 518 |
+| IG corporates (proxy) | 1,102.5 | 1,010.3 | −92.2 | 3.16 | 319 |
+| AFS | 6,410.0 | 5,779.0 | −631.0 | 4.17 | 2,409 |
+| HTM | 3,590.0 | 2,869.6 | −720.4 | 5.11 | 1,467 |
+
+(Amounts in $ millions.)
+
+- **Book yields:** AFS averages 3.510% against BNY's 3.57%; HTM averages
+  2.451% against 2.58%.
+- **The mortgage sector's convexity is positive today (+67).** Every pool in
+  the book has a WAC below today's 7.26% mortgage rate. The low-coupon
+  2020–22 pools are far below it, so prepayments are near their floor and the
+  pools behave like plain bonds. Negative convexity will show up in rally
+  scenarios (Phase 5), when refinancing becomes worthwhile.
+- **The AFS book's DV01 is $2.41M per bp.** That is the exposure the Phase 6
+  hedges are sized against.
+
+### Why this design, and what was rejected
+
+- **Sizes and book yields come from the filing, not from judgment.** Every
+  position points to a BNY line and maturity bucket; only the splits,
+  maturities within buckets and pool vintages are design choices.
+- **Bought at par.** Amortized cost then equals face, and the book yield is
+  simply the coupon, which is easy to explain and to test. Rejected: random
+  purchase prices with premium amortization histories, which would be
+  invented detail.
+- **The BNY comparison is a sanity check, not a target** (D-039). BNY's
+  reported AFS losses are shrunk by fair-value hedge accounting on about
+  $61B of par, and its real holdings differ from the stylized pools.
+  Calibrating to its unrealized losses would bake those differences in.
+
+### What would break it
+
+- A new BNY filing with a different mix: re-transcribe and rerun the tests.
+  The transcription tests catch typing errors through the filing's own
+  arithmetic.
+- Changing a pool's fixed share so that the solved shares fall outside
+  0–100%. `load_positions` raises an error rather than producing an
+  impossible pool.
+
+### Interview questions
+
+1. **What's the difference between AFS and HTM, and why does a bank care?**
+   AFS is marked to market and its unrealized losses reduce equity through
+   AOCI. HTM is carried at amortized cost, so losses don't hit reported
+   equity. But HTM cannot be sold without consequences, and the losses are
+   still economically real.
+2. **What are amortized cost and unrealized loss?**
+   Amortized cost is the bond's value at the yield it was bought at.
+   Unrealized loss is how far today's market value is below that, because
+   rates have risen since purchase.
+3. **How did you build a portfolio that resembles BNY's?**
+   I transcribed Note 2 of its 10-Q and mapped each line into four sectors.
+   I sized each position from a specific line and maturity bucket and used
+   BNY's disclosed yields as book yields. The tests check the transcription
+   against the filing's own totals.
+4. **Your model shows larger losses than BNY reports. Why?**
+   BNY hedges about $61B of AFS securities with swaps under fair-value hedge
+   accounting, which offsets much of the reported AFS loss, and its actual
+   holdings differ from the stylized pools. Rates were actually higher on
+   BNY's reporting date, so it isn't timing.
+5. **Why is the mortgage book positively convex today?**
+   The pools were mostly made when mortgage rates were 3–4%. Today's rate is
+   7.26%, so nobody refinances. Prepayments sit at their floor and the pools
+   behave like ordinary bonds. Convexity turns negative only if rates fall
+   far enough for refinancing to pay.
+6. **Why is the IG corporates sleeve called a proxy?**
+   BNY holds almost no corporate bonds. That sleeve stands in for its other
+   fixed-rate credit holdings, mostly foreign covered bonds, modelled as US
+   dollar bullets with a 100 bp spread.

@@ -1,0 +1,59 @@
+{
+  "status": "approved by the owner on 2026-11-17 (decision log D-036 to D-039)",
+  "description": "Model book of about $10,000M amortized cost mirroring BNY's investment-securities mix (10-Q, 30 Sept 2026). Every position is a design choice, not a holding. Each position's size is its share of a BNY line and maturity bucket (data/sources/bny_10q_3q26_investment_securities.json, page 55), scaled so total amortized cost is $10,000M. Book yields are BNY's disclosed yield for that line and bucket, except agency mortgage pools, where pool shares are solved so the line's average book yield equals BNY's disclosed figure.",
+  "total_amortized_cost_musd": 10000,
+  "conventions": {
+    "bonds": "Bought at par: coupon = book yield, semiannual, remaining maturity a whole number of half-years (no accrued interest).",
+    "mbs": "Stylized pass-through bought at par: book yield = bond-equivalent (semiannual) yield of the net coupon, so amortized cost = current balance.",
+    "split": "share of the named BNY line-bucket amount assigned to this position"
+  },
+  "sector_spreads_bp": {
+    "treasuries": {"value": 0, "basis": "Treasury curve itself"},
+    "agency_mbs": {"value": "calibrated", "basis": "Calibrated each build: the discount spread at which the stylized current-coupon pool (WAC = today's mortgage rate, 36 months old, 324 months left) prices at par. 162.1 bp on 2026-11-16."},
+    "agency_debt": {"value": 25, "basis": "Illustrative design choice; no non-copyrighted public source used."},
+    "ig_corporates": {"value": 100, "basis": "Illustrative design choice; no non-copyrighted public source used."}
+  },
+  "positions": [
+    {"id": "UST-A1", "sector": "treasuries", "class": "AFS", "kind": "bond", "maturity_months": 6,   "book_yield_pct": 2.83, "bny": ["available_for_sale", "US Treasury", 0], "split": 1.0},
+    {"id": "UST-A2", "sector": "treasuries", "class": "AFS", "kind": "bond", "maturity_months": 18,  "book_yield_pct": 3.44, "bny": ["available_for_sale", "US Treasury", 1], "split": 0.25},
+    {"id": "UST-A3", "sector": "treasuries", "class": "AFS", "kind": "bond", "maturity_months": 30,  "book_yield_pct": 3.44, "bny": ["available_for_sale", "US Treasury", 1], "split": 0.25},
+    {"id": "UST-A4", "sector": "treasuries", "class": "AFS", "kind": "bond", "maturity_months": 42,  "book_yield_pct": 3.44, "bny": ["available_for_sale", "US Treasury", 1], "split": 0.25},
+    {"id": "UST-A5", "sector": "treasuries", "class": "AFS", "kind": "bond", "maturity_months": 54,  "book_yield_pct": 3.44, "bny": ["available_for_sale", "US Treasury", 1], "split": 0.25},
+    {"id": "UST-A6", "sector": "treasuries", "class": "AFS", "kind": "bond", "maturity_months": 90,  "book_yield_pct": 4.55, "bny": ["available_for_sale", "US Treasury", 2], "split": 1.0},
+    {"id": "UST-A7", "sector": "treasuries", "class": "AFS", "kind": "bond", "maturity_months": 240, "book_yield_pct": 2.94, "bny": ["available_for_sale", "US Treasury", 3], "split": 1.0},
+    {"id": "UST-H1", "sector": "treasuries", "class": "HTM", "kind": "bond", "maturity_months": 6,   "book_yield_pct": 1.36, "bny": ["held_to_maturity", "US Treasury", 0], "split": 1.0},
+    {"id": "UST-H2", "sector": "treasuries", "class": "HTM", "kind": "bond", "maturity_months": 24,  "book_yield_pct": 1.19, "bny": ["held_to_maturity", "US Treasury", 1], "split": 0.5},
+    {"id": "UST-H3", "sector": "treasuries", "class": "HTM", "kind": "bond", "maturity_months": 48,  "book_yield_pct": 1.19, "bny": ["held_to_maturity", "US Treasury", 1], "split": 0.5},
+
+    {"id": "MBS-A1", "sector": "agency_mbs", "class": "AFS", "kind": "mbs", "vintage": 2021, "wac_pct": 3.00, "age_months": 60, "remaining_months": 300, "bny": ["available_for_sale", "Agency RMBS", null], "split": "solved"},
+    {"id": "MBS-A2", "sector": "agency_mbs", "class": "AFS", "kind": "mbs", "vintage": 2022, "wac_pct": 4.50, "age_months": 46, "remaining_months": 314, "bny": ["available_for_sale", "Agency RMBS", null], "split": "solved"},
+    {"id": "MBS-A3", "sector": "agency_mbs", "class": "AFS", "kind": "mbs", "vintage": 2023, "wac_pct": 6.50, "age_months": 36, "remaining_months": 324, "bny": ["available_for_sale", "Agency RMBS", null], "split": 0.15},
+    {"id": "MBS-A4", "sector": "agency_mbs", "class": "AFS", "kind": "mbs", "vintage": 2025, "wac_pct": 7.00, "age_months": 14, "remaining_months": 346, "bny": ["available_for_sale", "Agency RMBS", null], "split": 0.10},
+    {"id": "MBS-H1", "sector": "agency_mbs", "class": "HTM", "kind": "mbs", "vintage": 2020, "wac_pct": 2.50, "age_months": 70, "remaining_months": 290, "bny": ["held_to_maturity", "Agency RMBS", null], "split": "solved"},
+    {"id": "MBS-H2", "sector": "agency_mbs", "class": "HTM", "kind": "mbs", "vintage": 2021, "wac_pct": 3.00, "age_months": 62, "remaining_months": 298, "bny": ["held_to_maturity", "Agency RMBS", null], "split": "solved"},
+    {"id": "MBS-H3", "sector": "agency_mbs", "class": "HTM", "kind": "mbs", "vintage": 2021, "wac_pct": 3.50, "age_months": 58, "remaining_months": 302, "bny": ["held_to_maturity", "Agency RMBS", null], "split": 0.25},
+    {"id": "MBS-H4", "sector": "agency_mbs", "class": "HTM", "kind": "mbs", "vintage": 2022, "wac_pct": 4.00, "age_months": 50, "remaining_months": 310, "bny": ["held_to_maturity", "Agency RMBS", null], "split": 0.15},
+
+    {"id": "AGY-A1",  "sector": "agency_debt", "class": "AFS", "kind": "bond", "maturity_months": 6,   "book_yield_pct": 2.75, "bny": ["available_for_sale", "US government agencies", 0], "split": 1.0},
+    {"id": "AGY-A2",  "sector": "agency_debt", "class": "AFS", "kind": "bond", "maturity_months": 36,  "book_yield_pct": 3.45, "bny": ["available_for_sale", "US government agencies", 1], "split": 1.0},
+    {"id": "AGY-A3",  "sector": "agency_debt", "class": "AFS", "kind": "bond", "maturity_months": 84,  "book_yield_pct": 2.86, "bny": ["available_for_sale", "US government agencies", 2], "split": 1.0},
+    {"id": "ACM-A1",  "sector": "agency_debt", "class": "AFS", "kind": "bond", "maturity_months": 60,  "book_yield_pct": 3.21, "bny": ["available_for_sale", "Agency commercial MBS", null], "split": 0.5},
+    {"id": "ACM-A2",  "sector": "agency_debt", "class": "AFS", "kind": "bond", "maturity_months": 108, "book_yield_pct": 3.21, "bny": ["available_for_sale", "Agency commercial MBS", null], "split": 0.5},
+    {"id": "AGY-H1",  "sector": "agency_debt", "class": "HTM", "kind": "bond", "maturity_months": 6,   "book_yield_pct": 1.50, "bny": ["held_to_maturity", "US government agencies", 0], "split": 1.0},
+    {"id": "AGY-H2",  "sector": "agency_debt", "class": "HTM", "kind": "bond", "maturity_months": 36,  "book_yield_pct": 1.57, "bny": ["held_to_maturity", "US government agencies", 1], "split": 1.0},
+    {"id": "AGY-H3",  "sector": "agency_debt", "class": "HTM", "kind": "bond", "maturity_months": 84,  "book_yield_pct": 1.86, "bny": ["held_to_maturity", "US government agencies", 2], "split": 1.0},
+    {"id": "AGY-H4",  "sector": "agency_debt", "class": "HTM", "kind": "bond", "maturity_months": 132, "book_yield_pct": 2.22, "bny": ["held_to_maturity", "US government agencies", 3], "split": 1.0},
+    {"id": "ACM-H1",  "sector": "agency_debt", "class": "HTM", "kind": "bond", "maturity_months": 84,  "book_yield_pct": 2.88, "bny": ["held_to_maturity", "Agency commercial MBS", null], "split": 1.0},
+
+    {"id": "IGC-A1", "sector": "ig_corporates", "class": "AFS", "kind": "bond", "maturity_months": 6,  "book_yield_pct": 3.55, "proxy_for": "Foreign covered bonds", "bny": ["available_for_sale", "Foreign covered bonds", 0], "split": 1.0},
+    {"id": "IGC-A2", "sector": "ig_corporates", "class": "AFS", "kind": "bond", "maturity_months": 24, "book_yield_pct": 3.34, "proxy_for": "Foreign covered bonds", "bny": ["available_for_sale", "Foreign covered bonds", 1], "split": 0.5},
+    {"id": "IGC-A3", "sector": "ig_corporates", "class": "AFS", "kind": "bond", "maturity_months": 48, "book_yield_pct": 3.34, "proxy_for": "Foreign covered bonds", "bny": ["available_for_sale", "Foreign covered bonds", 1], "split": 0.5},
+    {"id": "IGC-A4", "sector": "ig_corporates", "class": "AFS", "kind": "bond", "maturity_months": 84, "book_yield_pct": 3.38, "proxy_for": "Foreign covered bonds", "bny": ["available_for_sale", "Foreign covered bonds", 2], "split": 1.0},
+    {"id": "IGC-A5", "sector": "ig_corporates", "class": "AFS", "kind": "bond", "maturity_months": 72, "book_yield_pct": 2.74, "proxy_for": "Non-agency commercial MBS", "bny": ["available_for_sale", "Non-agency commercial MBS", null], "split": 1.0},
+    {"id": "IGC-A6", "sector": "ig_corporates", "class": "AFS", "kind": "bond", "maturity_months": 60, "book_yield_pct": 3.59, "proxy_for": "Non-agency RMBS", "bny": ["available_for_sale", "Non-agency RMBS", null], "split": 1.0},
+    {"id": "IGC-A7", "sector": "ig_corporates", "class": "AFS", "kind": "bond", "maturity_months": 24, "book_yield_pct": 2.66, "proxy_for": "Other ABS", "bny": ["available_for_sale", "Other ABS", null], "split": 1.0},
+    {"id": "IGC-H1", "sector": "ig_corporates", "class": "HTM", "kind": "bond", "maturity_months": 6,  "book_yield_pct": 2.56, "proxy_for": "Foreign covered bonds", "bny": ["held_to_maturity", "Foreign covered bonds", 0], "split": 1.0},
+    {"id": "IGC-H2", "sector": "ig_corporates", "class": "HTM", "kind": "bond", "maturity_months": 36, "book_yield_pct": 2.60, "proxy_for": "Foreign covered bonds", "bny": ["held_to_maturity", "Foreign covered bonds", 1], "split": 1.0},
+    {"id": "IGC-H3", "sector": "ig_corporates", "class": "HTM", "kind": "bond", "maturity_months": 84, "book_yield_pct": 4.80, "proxy_for": "Other debt securities", "bny": ["held_to_maturity", "Other debt securities", null], "split": 1.0}
+  ]
+}
