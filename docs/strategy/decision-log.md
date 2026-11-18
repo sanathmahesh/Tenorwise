@@ -371,3 +371,49 @@ decision, newest at the bottom. Changes to PLAN.md are recorded here too.
 
 - **Phase:** 7
 - **Decision:** `scripts/vercel_build.sh` runs the live snapshot build, which fails without `FRED_API_KEY` (by design: a failed build leaves the previous deployment live). Setting the variable on Vercel is an outward-facing action, so it will be done only after asking, at the next deploy.
+
+## D-057. Verifier details within the plan's rule
+
+- **Phase:** 8
+- **Decision:** the rule and the 0.5% tolerance are exactly as in PLAN.md section 9. Details the plan leaves open:
+  - % and bp convert (1 bp = 0.01%).
+  - Money printed without "per bp" is accepted for a DV01 value. Money printed "per bp" is rejected for a plain dollar value.
+  - Parentheses mean negative only for money, so "(as of 2026)" stays positive.
+  - A dash between numbers is a range separator and the unit carries back ("2–5 years").
+  - ISO dates must be context dates.
+  - Markdown emphasis and list markers are removed before extraction.
+  - Correct rounding accepts half-up or half-even.
+  - Context numbers: tenors (1, 3, 6, 12 months; 1–30 years), shock sizes ±1/25/50/75/100/200/300 bp, hedge ratios 50%/100%, the data date, the replay dates and BNY's filing dates, plus every tool argument and every shock in a scenario the model looked up.
+
+## D-058. Blocked responses withhold the failed tokens too
+
+- **Phase:** 8
+- **Decision:** in a `blocked` or `error` response, failed checks keep their tag and reason, but the token is replaced by "(withheld)". The reason quotes only the correct, verified display string.
+- **Why:** "unverified text is never returned" (PLAN.md section 9). A failed token is unverified text. The test asserts the wrong figure appears nowhere in the response.
+
+## D-059. Tool results carry display strings and IDs, never bare numbers
+
+- **Phase:** 8
+- **Decision:** every figure reaches the model as `{id, label, display}`. A test walks every tool result and fails on any JSON number. Large position lists show the main fields; filters show all fields.
+
+## D-060. Rate limiting: per-IP first, Upstash REST, in-memory dev store refused on Vercel
+
+- **Phase:** 8
+- **Decision:** the per-IP count is checked first, and a request it rejects does not consume the global cap. Keys are `tw:ai:<UTC day>:ip:<sha256(salt:ip)[:32]>` and `tw:ai:<UTC day>:global`, expiring after two days. Missing configuration or an unreachable store means 503.
+- **Local development:** `RATE_LIMIT_BACKEND=memory` uses an in-process counter. It is refused when `VERCEL` is set, so it cannot run in production.
+- **Cap values:** proposed to the owner, not yet set.
+
+## D-061. Agent response additions
+
+- **Phase:** 8
+- **Decision:** the plan's fields are unchanged. Added: `notice` ("Draft, requires human review" on every commentary), `error`, `request_id`, `verification_rule` (the stated tolerance text, shown in the interface) and `usage.cost_is_upper_bound`. `values` includes the cited values and, for `derive` results, their inputs, so the provenance chain resolves.
+
+## D-062. Dated LLM price list
+
+- **Phase:** 8
+- **Decision:** `data/llm/prices.json` holds Sail's list prices per model and tier as read on 2026-11-17. Cost per request is computed from reported token usage. Phase 9 re-reads the pricing page on the day the evals run, as PLAN.md requires.
+
+## D-063. No real model has been called yet in Phase 8
+
+- **Phase:** 8
+- **Decision:** everything is tested with a scripted provider and, end to end, a local mock server. The live smoke test exists and is skipped by default. Running it waits for the owner's approval of the spend.

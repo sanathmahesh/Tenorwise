@@ -1,6 +1,160 @@
 {
  "components": {
   "schemas": {
+   "AgentResponse": {
+    "additionalProperties": false,
+    "properties": {
+     "answer_md": {
+      "title": "Answer Md",
+      "type": "string"
+     },
+     "checks": {
+      "items": {
+       "$ref": "#/components/schemas/CheckOut"
+      },
+      "title": "Checks",
+      "type": "array"
+     },
+     "data_date": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Data Date"
+     },
+     "error": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "description": "added: why status is error",
+      "title": "Error"
+     },
+     "fallback": {
+      "anyOf": [
+       {
+        "items": {
+         "$ref": "#/components/schemas/FallbackRow"
+        },
+        "type": "array"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Fallback"
+     },
+     "notice": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "description": "added: 'Draft, requires human review' on commentary",
+      "title": "Notice"
+     },
+     "request_id": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "description": "added",
+      "title": "Request Id"
+     },
+     "sections": {
+      "items": {
+       "$ref": "#/components/schemas/SectionOut"
+      },
+      "title": "Sections",
+      "type": "array"
+     },
+     "status": {
+      "enum": [
+       "answered",
+       "cannot_answer",
+       "blocked",
+       "error"
+      ],
+      "title": "Status",
+      "type": "string"
+     },
+     "trace": {
+      "items": {
+       "$ref": "#/components/schemas/TraceOut"
+      },
+      "title": "Trace",
+      "type": "array"
+     },
+     "usage": {
+      "$ref": "#/components/schemas/UsageOut"
+     },
+     "values": {
+      "additionalProperties": {
+       "$ref": "#/components/schemas/ValueOut"
+      },
+      "title": "Values",
+      "type": "object"
+     },
+     "verification_rule": {
+      "description": "added: the stated tolerance, for display",
+      "title": "Verification Rule",
+      "type": "string"
+     }
+    },
+    "required": [
+     "status",
+     "answer_md",
+     "sections",
+     "values",
+     "checks",
+     "trace",
+     "usage",
+     "fallback",
+     "data_date",
+     "verification_rule"
+    ],
+    "title": "AgentResponse",
+    "type": "object"
+   },
+   "AskRequest": {
+    "additionalProperties": false,
+    "properties": {
+     "history": {
+      "items": {
+       "$ref": "#/components/schemas/HistoryTurn"
+      },
+      "maxItems": 10,
+      "title": "History",
+      "type": "array"
+     },
+     "question": {
+      "maxLength": 1000,
+      "minLength": 1,
+      "title": "Question",
+      "type": "string"
+     }
+    },
+    "required": [
+     "question"
+    ],
+    "title": "AskRequest",
+    "type": "object"
+   },
    "AssumptionItem": {
     "additionalProperties": false,
     "properties": {
@@ -33,6 +187,48 @@
      "phase"
     ],
     "title": "AssumptionItem",
+    "type": "object"
+   },
+   "CheckOut": {
+    "additionalProperties": false,
+    "properties": {
+     "passed": {
+      "title": "Passed",
+      "type": "boolean"
+     },
+     "reason": {
+      "title": "Reason",
+      "type": "string"
+     },
+     "tag": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Tag"
+     },
+     "token": {
+      "title": "Token",
+      "type": "string"
+     }
+    },
+    "required": [
+     "token",
+     "tag",
+     "passed",
+     "reason"
+    ],
+    "title": "CheckOut",
+    "type": "object"
+   },
+   "CommentaryRequest": {
+    "additionalProperties": false,
+    "properties": {},
+    "title": "CommentaryRequest",
     "type": "object"
    },
    "Curve": {
@@ -216,6 +412,30 @@
      "results"
     ],
     "title": "EvidenceQuestion",
+    "type": "object"
+   },
+   "FallbackRow": {
+    "additionalProperties": false,
+    "properties": {
+     "display": {
+      "title": "Display",
+      "type": "string"
+     },
+     "label": {
+      "title": "Label",
+      "type": "string"
+     },
+     "tool": {
+      "title": "Tool",
+      "type": "string"
+     }
+    },
+    "required": [
+     "tool",
+     "label",
+     "display"
+    ],
+    "title": "FallbackRow",
     "type": "object"
    },
    "FredSeries": {
@@ -492,6 +712,30 @@
      "grid"
     ],
     "title": "Hedges",
+    "type": "object"
+   },
+   "HistoryTurn": {
+    "additionalProperties": false,
+    "properties": {
+     "content": {
+      "maxLength": 4000,
+      "title": "Content",
+      "type": "string"
+     },
+     "role": {
+      "enum": [
+       "user",
+       "assistant"
+      ],
+      "title": "Role",
+      "type": "string"
+     }
+    },
+    "required": [
+     "role",
+     "content"
+    ],
+    "title": "HistoryTurn",
     "type": "object"
    },
    "KeyRateDV01": {
@@ -1403,6 +1647,25 @@
     "title": "Scenarios",
     "type": "object"
    },
+   "SectionOut": {
+    "additionalProperties": false,
+    "properties": {
+     "body_md": {
+      "title": "Body Md",
+      "type": "string"
+     },
+     "heading": {
+      "title": "Heading",
+      "type": "string"
+     }
+    },
+    "required": [
+     "heading",
+     "body_md"
+    ],
+    "title": "SectionOut",
+    "type": "object"
+   },
    "ShockPoint": {
     "additionalProperties": false,
     "properties": {
@@ -1509,6 +1772,31 @@
     "title": "SwapRow",
     "type": "object"
    },
+   "TraceOut": {
+    "additionalProperties": false,
+    "properties": {
+     "args": {
+      "additionalProperties": true,
+      "title": "Args",
+      "type": "object"
+     },
+     "ms": {
+      "title": "Ms",
+      "type": "integer"
+     },
+     "tool": {
+      "title": "Tool",
+      "type": "string"
+     }
+    },
+    "required": [
+     "tool",
+     "args",
+     "ms"
+    ],
+    "title": "TraceOut",
+    "type": "object"
+   },
    "TreasuryBond": {
     "additionalProperties": false,
     "properties": {
@@ -1526,6 +1814,70 @@
      "maturity_years"
     ],
     "title": "TreasuryBond",
+    "type": "object"
+   },
+   "UsageOut": {
+    "additionalProperties": false,
+    "properties": {
+     "completion_tokens": {
+      "title": "Completion Tokens",
+      "type": "integer"
+     },
+     "cost_is_upper_bound": {
+      "description": "added: cached tokens were not reported",
+      "title": "Cost Is Upper Bound",
+      "type": "boolean"
+     },
+     "cost_usd": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Cost Usd"
+     },
+     "latency_ms": {
+      "title": "Latency Ms",
+      "type": "integer"
+     },
+     "llm_calls": {
+      "title": "Llm Calls",
+      "type": "integer"
+     },
+     "model": {
+      "title": "Model",
+      "type": "string"
+     },
+     "prompt_tokens": {
+      "title": "Prompt Tokens",
+      "type": "integer"
+     },
+     "served_tier": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Served Tier"
+     }
+    },
+    "required": [
+     "model",
+     "served_tier",
+     "llm_calls",
+     "prompt_tokens",
+     "completion_tokens",
+     "cost_usd",
+     "latency_ms",
+     "cost_is_upper_bound"
+    ],
+    "title": "UsageOut",
     "type": "object"
    },
    "ValidationError": {
@@ -1567,6 +1919,59 @@
     ],
     "title": "ValidationError",
     "type": "object"
+   },
+   "ValueOut": {
+    "additionalProperties": false,
+    "properties": {
+     "args": {
+      "additionalProperties": true,
+      "title": "Args",
+      "type": "object"
+     },
+     "display": {
+      "title": "Display",
+      "type": "string"
+     },
+     "inputs": {
+      "items": {
+       "type": "string"
+      },
+      "title": "Inputs",
+      "type": "array"
+     },
+     "label": {
+      "title": "Label",
+      "type": "string"
+     },
+     "method": {
+      "title": "Method",
+      "type": "string"
+     },
+     "tool": {
+      "title": "Tool",
+      "type": "string"
+     },
+     "unit": {
+      "title": "Unit",
+      "type": "string"
+     },
+     "value": {
+      "title": "Value",
+      "type": "number"
+     }
+    },
+    "required": [
+     "value",
+     "unit",
+     "display",
+     "label",
+     "tool",
+     "args",
+     "method",
+     "inputs"
+    ],
+    "title": "ValueOut",
+    "type": "object"
    }
   }
  },
@@ -1576,6 +1981,103 @@
  },
  "openapi": "3.1.0",
  "paths": {
+  "/api/agent/ask": {
+   "post": {
+    "description": "Answer a plain-English question; every number is verified against the engine.",
+    "operationId": "agent_ask_api_agent_ask_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/AskRequest"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/AgentResponse"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     },
+     "429": {
+      "description": "Daily limit reached"
+     },
+     "503": {
+      "description": "AI temporarily unavailable"
+     }
+    },
+    "summary": "Agent Ask"
+   }
+  },
+  "/api/agent/commentary": {
+   "post": {
+    "description": "Draft a one-page portfolio commentary (Draft, requires human review).",
+    "operationId": "agent_commentary_api_agent_commentary_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "anyOf": [
+         {
+          "$ref": "#/components/schemas/CommentaryRequest"
+         },
+         {
+          "type": "null"
+         }
+        ],
+        "title": "Body"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/AgentResponse"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      },
+      "description": "Validation Error"
+     },
+     "429": {
+      "description": "Daily limit reached"
+     },
+     "503": {
+      "description": "AI temporarily unavailable"
+     }
+    },
+    "summary": "Agent Commentary"
+   }
+  },
   "/api/health": {
    "get": {
     "operationId": "health_api_health_get",

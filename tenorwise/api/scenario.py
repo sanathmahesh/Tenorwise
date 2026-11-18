@@ -55,7 +55,12 @@ def run_custom(req: ScenarioRequest) -> Any | None:
     raw = read_json("inputs.json")
     if raw is None:
         return None
-    inputs = InputsFile.model_validate(raw)
+    return custom_from_inputs(req, raw)
+
+
+def custom_from_inputs(req: ScenarioRequest, raw_inputs: dict) -> Any:
+    """The custom scenario on the build's inputs; shared by the API and the agent's tools."""
+    inputs = InputsFile.model_validate(raw_inputs)
     par = ParCurve(
         data_date=date.fromisoformat(inputs.data_date),
         tenor_months=tuple(inputs.par_tenor_months),

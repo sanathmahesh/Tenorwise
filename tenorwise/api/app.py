@@ -9,6 +9,7 @@ import os
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 
+from tenorwise.api.agent_routes import router as agent_router
 from tenorwise.api.scenario import run_custom
 from tenorwise.snapshot.models import HealthResponse, ScenarioRequest, ScenarioResponse
 from tenorwise.snapshot.store import read_json
@@ -21,6 +22,7 @@ app = FastAPI(
     redoc_url=None,
     separate_input_output_schemas=False,
 )
+app.include_router(agent_router)
 
 
 @app.get("/api/health", response_model=HealthResponse)

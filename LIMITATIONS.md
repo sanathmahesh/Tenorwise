@@ -146,3 +146,24 @@ What Tenorwise cannot tell you, and why.
 - **Placeholder interface.** Phase 7's pages are plain tables. The designed
   interface arrives in Phase 11.
 
+## AI analyst and verification
+
+- **Verification proves each number came from the engine and was copied
+  correctly, not that the sentence around it is right.** A correct figure can
+  be attached to the wrong claim, for example the portfolio's DV01 described as
+  the AFS book's. Phase 9 measures how often answers pass verification but are
+  wrong.
+- **Numbers written as words** ("two hundred") are not detected by the
+  verifier. The system prompt asks for display strings.
+- **Context numbers can be stated untagged:** tenors, shock sizes, hedge
+  ratios, the 12-month horizon and dates. A model could misuse one, for
+  example "100" in the wrong sense, without failing verification.
+- **The analyst explains the engine; it adds no judgment.** It cannot
+  forecast, give investment advice, or answer about securities outside the
+  model book. It is asked to decline those, and Phase 9 tests that it does.
+- **Rate limits are per IP.** Someone with many IP addresses can use more than
+  the per-IP cap. The global daily cap bounds the total cost regardless.
+- **Cost figures are computed, not billed.** They come from token usage at
+  list prices read on 2026-11-17. They are an upper bound if the provider
+  does not report cached tokens.
+

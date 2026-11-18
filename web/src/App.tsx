@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import type { Meta } from './api/types'
 import { useJson } from './api/useJson'
+import { AnalystPage } from './pages/AnalystPage'
 import { CurvePage } from './pages/CurvePage'
 import { HedgingPage } from './pages/HedgingPage'
 import { MbsPage } from './pages/MbsPage'
@@ -14,6 +15,7 @@ const PAGES = {
   'Mortgage bonds (stylized)': MbsPage,
   Scenarios: ScenariosPage,
   Hedging: HedgingPage,
+  Analyst: AnalystPage,
 } as const
 type PageName = keyof typeof PAGES
 

@@ -20,4 +20,8 @@ See [LIMITATIONS.md](LIMITATIONS.md).
 
 ## Verification tolerance
 
+Every number in an answer is checked against the engine before it is shown. A tagged number must equal the cited value's display string, or be that value correctly rounded to the printed precision and within 0.5% of it; an explicit sign must match. An untagged number must be a context number (a tool argument, tenor, shock size, hedge ratio, horizon or date). One failure blocks the answer.
+
+Implemented in `tenorwise/agent/verifier.py`; the same text is returned with every AI answer (`verification_rule`) and shown in the interface. Verification proves each number came from the engine and was copied correctly, not that the sentence around it is right.
+
 ## Human review procedure

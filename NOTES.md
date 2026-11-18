@@ -1183,3 +1183,119 @@ server only recomputes what depends on user input: a custom rate shock.
    The frontend reads no environment variables. A test builds the bundle and
    scans it for secret names, configured secret values and key-like patterns,
    and I checked the scan catches planted fake keys.
+
+---
+
+## Phase 8. AI analyst and verification
+
+### Why this matters in a bank (plain English)
+
+A bank cannot put a figure in front of an investment committee unless it knows
+where the figure came from. A language model is fluent but can state wrong
+numbers confidently. So the analyst is built so the model never produces a
+number. The engine produces every number; the model only chooses which ones to
+cite and writes the sentences around them. Code then checks every number in the
+text before anything is shown, and links each one to the calculation behind it.
+
+### How the code implements it
+
+- [tenorwise/agent/ledger.py](tenorwise/agent/ledger.py) and
+  [units.py](tenorwise/agent/units.py): every figure a tool returns gets an ID
+  (v1, v2, …), a unit, a canonical display string ("-$412.3M") and its
+  provenance (tool, arguments, method ID, input IDs). Tool arguments and fixed
+  descriptors (tenors, shock sizes, hedge ratios, the 12-month horizon, dates)
+  are context numbers.
+- [tenorwise/agent/tools.py](tenorwise/agent/tools.py): eight read-only tools
+  over the snapshot (custom shocks reuse the API's engine path), plus `derive`
+  for sums, differences, ratios and percent changes of value IDs. Results carry
+  no bare numbers, only `{id, label, display}`. Bad arguments return
+  `{"error": …}` to the model.
+- [tenorwise/agent/numbers.py](tenorwise/agent/numbers.py) and
+  [verifier.py](tenorwise/agent/verifier.py): extract every number (signs,
+  parentheses, $, separators, K/M/B and words, %, bp, years, months, ranges,
+  ISO dates) and apply the stated rule. A tagged number must match the display,
+  or be the cited value rounded to the printed precision and within 0.5%, with
+  a matching explicit sign. An untagged number must be a context number.
+- [tenorwise/agent/loop.py](tenorwise/agent/loop.py): at most 6 model calls.
+  The answer arrives as a `submit_answer` / `submit_commentary` tool call. A
+  verification failure goes back once for repair; a second failure returns
+  `blocked` with no prose and a table of the raw tool results.
+- [tenorwise/agent/provider.py](tenorwise/agent/provider.py): the
+  OpenAI-compatible client. It sends `max_completion_tokens`, retries only
+  refused-before-inference errors, records tier and tokens, and computes cost
+  from the dated list prices in [data/llm/prices.json](data/llm/prices.json).
+- [tenorwise/api/agent_routes.py](tenorwise/api/agent_routes.py) and
+  [ratelimit.py](tenorwise/api/ratelimit.py): `POST /api/agent/ask` and
+  `/api/agent/commentary`, with per-IP and global daily caps in Redis keyed by
+  a salted IP hash. They refuse if Redis is unreachable and log metadata only.
+- [web/src/pages/AnalystPage.tsx](web/src/pages/AnalystPage.tsx): placeholder
+  chat; every number is a link that opens its provenance.
+- `uv run --env-file .env python -m tenorwise.agent ask "…"` runs it locally.
+
+### Results
+
+- **Verifier.** The case table (43 cases) and a property test (1,000 random
+  values across all units: canonical displays pass, last-digit perturbations
+  fail) all pass.
+- **Loop.** Tested with a scripted model: repair once, then blocked with no
+  prose; call cap; timeout; declining; old tags from conversation history
+  failing.
+- **No-cost end-to-end run.** With a mock model behind the real HTTP stack,
+  the dev proxy, the rate limiter and the verifier, a question was answered
+  with both cited numbers verified and linked. The 4th request from one IP got
+  a 429, and the log line held metadata only.
+- **Not yet run:** any call to a real model. That waits for the owner's
+  approval.
+
+### Why this design, and what was rejected
+
+- **The final answer is a tool call.** Tool calling is the only structured
+  output the design relies on; Phase 0's probe confirmed all three models
+  support it on the low-latency tier.
+- **Display strings, not raw numbers, in tool results.** The model copies text
+  it was given, so the easiest thing for it to do is the right thing.
+  Rejected: giving the model raw floats and letting it format them, which
+  invites rounding and unit mistakes.
+- **One repair, then blocked with no prose.** A wrong number is never shown.
+  The fallback table still gives the user the real figures. Even the failed
+  token is withheld from the response (D-058).
+- **Unit tolerance is fixed, not tuned.** If the verifier blocks too many good
+  answers, the fix is the prompt or the tool output, never the 0.5%.
+
+### What would break it
+
+- A correct number cited for the wrong concept, for example the portfolio DV01
+  described as the AFS DV01. The verifier checks the number against its tag,
+  not the meaning of the sentence. Phase 9 measures how often this happens
+  (the "verified but wrong" rate).
+- Numbers the verifier cannot parse, such as words ("two hundred"). They pass
+  unchecked, so the prompt asks for display strings.
+- A model that never calls a tool. The answer then hits the call cap and
+  returns `error`.
+
+### Interview questions
+
+1. **How do you stop the model inventing numbers?**
+   It never produces them. Tools return figures as tagged display strings, any
+   arithmetic goes through a `derive` tool, and code checks every number in the
+   answer against the request's ledger before anything is shown.
+2. **What exactly does verification prove?**
+   That every number came from the engine and was copied correctly, within a
+   stated rounding rule. It does not prove the sentence around the number is
+   right; Phase 9 measures that gap.
+3. **What happens when verification fails?**
+   The failed checks go back to the model once. If the repair also fails, the
+   user gets status "blocked" with no prose, just a table of the raw engine
+   results. Unverified text is never returned, and a test enforces that.
+4. **Why make the final answer a tool call?**
+   It is the one structured-output mechanism every candidate model supports on
+   the low-latency tier. It also forces the model through the same validated
+   path as every other action.
+5. **How do you control cost and abuse on a public demo?**
+   A firewall rule per IP for bursts, daily per-IP and global caps in Redis
+   keyed by a salted IP hash, at most 6 model calls per request, and a
+   question length cap. If Redis is unreachable, the AI endpoints refuse
+   rather than run unmetered.
+6. **How would you know if the model or provider changed behaviour?**
+   Every request logs model, tier, tokens, latency and verification outcome.
+   The eval suite in Phase 9 reruns 36 graded questions per model.

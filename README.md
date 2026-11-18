@@ -3,7 +3,7 @@
 An interest-rate risk and hedging tool for a bank-style bond portfolio, with an
 AI analyst whose every number is checked against the calculation engine.
 
-**Status:** Phase 7 (snapshot, API, placeholder interface) done. The build plan and progress log are in
+**Status:** Phase 8 (AI analyst and verification) done. The build plan and progress log are in
 [PLAN.md](PLAN.md). There is no live link yet.
 
 ## Run locally
@@ -70,7 +70,22 @@ uv run python scripts/export_openapi.py && npm run gen:types --prefix web
 uv run python scripts/build_snapshot.py --pin   # refresh the pinned fixture snapshot
 ```
 
-Tests:
+AI analyst (calls the configured model; paid):
+
+```bash
+uv run --env-file .env python -m tenorwise.agent ask "What would a repeat of 2022 do to AOCI?"
+uv run --env-file .env python -m tenorwise.agent commentary
+```
+
+The HTTP endpoints need daily caps and a rate-limit store. For local development,
+start the API with the in-process store (never used on Vercel):
+
+```bash
+RATE_LIMIT_BACKEND=memory AI_LIMIT_PER_IP_PER_DAY=10 AI_LIMIT_GLOBAL_PER_DAY=100 IP_HASH_SALT=local-dev \
+  uv run --env-file .env uvicorn api.index:app --port 8000
+```
+
+Tests (the live LLM test is skipped unless `TENORWISE_LIVE=1`):
 
 ```bash
 uv run pytest

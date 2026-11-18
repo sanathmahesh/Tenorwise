@@ -4,6 +4,46 @@
  */
 
 export interface paths {
+    "/api/agent/ask": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Agent Ask
+         * @description Answer a plain-English question; every number is verified against the engine.
+         */
+        post: operations["agent_ask_api_agent_ask_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/agent/commentary": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Agent Commentary
+         * @description Draft a one-page portfolio commentary (Draft, requires human review).
+         */
+        post: operations["agent_commentary_api_agent_commentary_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/health": {
         parameters: {
             query?: never;
@@ -45,6 +85,58 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        /** AgentResponse */
+        AgentResponse: {
+            /** Answer Md */
+            answer_md: string;
+            /** Checks */
+            checks: components["schemas"]["CheckOut"][];
+            /** Data Date */
+            data_date: string | null;
+            /**
+             * Error
+             * @description added: why status is error
+             */
+            error?: string | null;
+            /** Fallback */
+            fallback: components["schemas"]["FallbackRow"][] | null;
+            /**
+             * Notice
+             * @description added: 'Draft, requires human review' on commentary
+             */
+            notice?: string | null;
+            /**
+             * Request Id
+             * @description added
+             */
+            request_id?: string | null;
+            /** Sections */
+            sections: components["schemas"]["SectionOut"][];
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "answered" | "cannot_answer" | "blocked" | "error";
+            /** Trace */
+            trace: components["schemas"]["TraceOut"][];
+            usage: components["schemas"]["UsageOut"];
+            /** Values */
+            values: {
+                [key: string]: components["schemas"]["ValueOut"];
+            };
+            /**
+             * Verification Rule
+             * @description added: the stated tolerance, for display
+             */
+            verification_rule: string;
+        };
+        /** AskRequest */
+        AskRequest: {
+            /** History */
+            history?: components["schemas"]["HistoryTurn"][];
+            /** Question */
+            question: string;
+        };
         /** AssumptionItem */
         AssumptionItem: {
             /** Effect */
@@ -58,6 +150,19 @@ export interface components {
             /** Where */
             where: string;
         };
+        /** CheckOut */
+        CheckOut: {
+            /** Passed */
+            passed: boolean;
+            /** Reason */
+            reason: string;
+            /** Tag */
+            tag: string | null;
+            /** Token */
+            token: string;
+        };
+        /** CommentaryRequest */
+        CommentaryRequest: Record<string, never>;
         /** Curve */
         Curve: {
             /** Data Date */
@@ -129,6 +234,15 @@ export interface components {
             };
             /** Text */
             text: string;
+        };
+        /** FallbackRow */
+        FallbackRow: {
+            /** Display */
+            display: string;
+            /** Label */
+            label: string;
+            /** Tool */
+            tool: string;
         };
         /** FredSeries */
         FredSeries: {
@@ -241,6 +355,16 @@ export interface components {
              * @description added: swap curve = Treasury zero curve + this spread
              */
             swap_spread_bp: number;
+        };
+        /** HistoryTurn */
+        HistoryTurn: {
+            /** Content */
+            content: string;
+            /**
+             * Role
+             * @enum {string}
+             */
+            role: "user" | "assistant";
         };
         /**
          * KeyRateDV01
@@ -603,6 +727,13 @@ export interface components {
             /** Scenarios */
             scenarios: components["schemas"]["ScenarioEntry"][];
         };
+        /** SectionOut */
+        SectionOut: {
+            /** Body Md */
+            body_md: string;
+            /** Heading */
+            heading: string;
+        };
         /** ShockPoint */
         ShockPoint: {
             /** Shock Bp */
@@ -649,12 +780,45 @@ export interface components {
             /** Tenor Years */
             tenor_years: number;
         };
+        /** TraceOut */
+        TraceOut: {
+            /** Args */
+            args: {
+                [key: string]: unknown;
+            };
+            /** Ms */
+            ms: number;
+            /** Tool */
+            tool: string;
+        };
         /** TreasuryBond */
         TreasuryBond: {
             /** Coupon */
             coupon: number;
             /** Maturity Years */
             maturity_years: number;
+        };
+        /** UsageOut */
+        UsageOut: {
+            /** Completion Tokens */
+            completion_tokens: number;
+            /**
+             * Cost Is Upper Bound
+             * @description added: cached tokens were not reported
+             */
+            cost_is_upper_bound: boolean;
+            /** Cost Usd */
+            cost_usd: number | null;
+            /** Latency Ms */
+            latency_ms: number;
+            /** Llm Calls */
+            llm_calls: number;
+            /** Model */
+            model: string;
+            /** Prompt Tokens */
+            prompt_tokens: number;
+            /** Served Tier */
+            served_tier: string | null;
         };
         /** ValidationError */
         ValidationError: {
@@ -669,6 +833,27 @@ export interface components {
             /** Error Type */
             type: string;
         };
+        /** ValueOut */
+        ValueOut: {
+            /** Args */
+            args: {
+                [key: string]: unknown;
+            };
+            /** Display */
+            display: string;
+            /** Inputs */
+            inputs: string[];
+            /** Label */
+            label: string;
+            /** Method */
+            method: string;
+            /** Tool */
+            tool: string;
+            /** Unit */
+            unit: string;
+            /** Value */
+            value: number;
+        };
     };
     responses: never;
     parameters: never;
@@ -678,6 +863,100 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
+    agent_ask_api_agent_ask_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AskRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AgentResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+            /** @description Daily limit reached */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description AI temporarily unavailable */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    agent_commentary_api_agent_commentary_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["CommentaryRequest"] | null;
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AgentResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+            /** @description Daily limit reached */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description AI temporarily unavailable */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
     health_api_health_get: {
         parameters: {
             query?: never;
